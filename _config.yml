@@ -1,5 +1,5 @@
-title: Hacker theme
-description: Hacker is a theme for GitHub Pages.
-show_downloads: true
+title: 'CARIC: Cooperative Aerial Robots Inspection Challenge'
+description: A Multi-UAV Benchmark for Aerial Robot Inspection Schemes
+show_downloads: false
 google_analytics:
 theme: jekyll-theme-hacker
