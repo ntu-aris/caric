@@ -148,7 +148,7 @@ CARIC is intended for investigating cooperative control schemes, hence perceptio
 
 ## UAV control interface
 
-Whatever control strategy is developed, the control signal should be eventually converted to standard multi-rotor command. Specifically the UAVs are controlled using the standard ROS message `trajectory_msgs/MultiDOFJointTrajectory`. The controller subscribes to the command trajectory topic `/firefly/command/trajectory`. Below are sample codes used to publish a trajectory command in `traj_gennav_node.cpp`:
+Whatever control strategy is developed, the control signal should be eventually converted to standard multi-rotor command. Specifically the UAVs are controlled using the standard ROS message `trajectory_msgs/MultiDOFJointTrajectory`. The controller subscribes to the command trajectory topic `/robot_name/command/trajectory`. Below are sample codes used to publish a trajectory command in `traj_gennav_node.cpp`, given 3d target states in the global(world) frame `target_pos`, `target_vel`, `target_acc` and a target yaw `target_yaw`:
 
 ```cpp
 trajectory_msgs::MultiDOFJointTrajectory trajset_msg;
@@ -157,23 +157,23 @@ trajectory_msgs::MultiDOFJointTrajectoryPoint trajpt_msg;
 geometry_msgs::Transform transform_msg;
 geometry_msgs::Twist accel_msg, vel_msg;
 
-transform_msg.translation.x = _pos_reprojected(0);
-transform_msg.translation.y = _pos_reprojected(1);
-transform_msg.translation.z = _pos_reprojected(2);
+transform_msg.translation.x = target_pos(0);
+transform_msg.translation.y = target_pos(1);
+transform_msg.translation.z = target_pos(2);
 transform_msg.rotation.x = 0;
 transform_msg.rotation.y = 0;
-transform_msg.rotation.z = sinf(_yaw*0.5);
-transform_msg.rotation.w = cosf(_yaw*0.5);
+transform_msg.rotation.z = sinf(target_yaw*0.5);
+transform_msg.rotation.w = cosf(target_yaw*0.5);
 
 trajpt_msg.transforms.push_back(transform_msg);
 
-vel_msg.linear.x = _vel(0);
-vel_msg.linear.y = _vel(1);
-vel_msg.linear.z = _vel(2);
+vel_msg.linear.x = target_vel(0);
+vel_msg.linear.y = target_vel(1);
+vel_msg.linear.z = target_vel(2);
 
-accel_msg.linear.x = _acc(0);
-accel_msg.linear.x = _acc(1);
-accel_msg.linear.x = _acc(2);
+accel_msg.linear.x = target_acc(0);
+accel_msg.linear.x = target_acc(1);
+accel_msg.linear.x = target_acc(2);
 
 trajpt_msg.velocities.push_back(vel_msg);
 trajpt_msg.accelerations.push_back(accel_msg);
@@ -182,7 +182,13 @@ trajset_msg.points.push_back(trajpt_msg);
 trajset_msg.header.stamp = ros::Time::now();
 trajectory_pub.publish(trajset_msg); 
 ```
-Note that the controller is triggered once when the trajectory command is published (you need to continuously publish trajectory command to generate drone movements).
+There are multiple ways you can control the robots:
+
+Full-state control: consider you have computed the future trajectory of a robot with timestamped target position, velocity, acceleration and yaw. You may publish the target states at the desired timestamp using the above example code.
+
+Position-based control: you may also send non-zero target positions and yaw with zero velocity and acceleration, the robot will reach the target and hover there. Note that if the target position is far from the robot's target position, aggresive movement of the robot is expected.
+
+Velocity/acceleration-based control: when setting target positions to zeros and setting non-zero velocities or accelerations, the robot will try to move with the desired velocity/acceleration. The actual velocity/acceleration may not follow the desired states exactly due to the realistic low level controller. Hence, the users are suggested to take into account the state feedback when generating the control inputs.
 
 ## Communication between the drones
 
