@@ -148,7 +148,7 @@ CARIC is intended for investigating cooperative control schemes, hence perceptio
 
 ## UAV control interface
 
-Whatever control strategy is developed, the control signal should be eventually converted to standard multi-rotor command. Specifically the UAVs are controlled using the standard ROS message `trajectory_msgs/MultiDOFJointTrajectory`. The controller subscribes to the command trajectory topic `/robot_name/command/trajectory`. Below are sample codes used to publish a trajectory command in `traj_gennav_node.cpp`, given 3d target states in the global(world) frame `target_pos`, `target_vel`, `target_acc` and a target yaw `target_yaw`:
+Whatever control strategy is developed, the control signal should be eventually converted to standard multi-rotor command. Specifically the UAVs are controlled using the standard ROS message `trajectory_msgs/MultiDOFJointTrajectory`. The controller subscribes to the command trajectory topic `/[node_id]/command/trajectory`. Below are sample codes used to publish a trajectory command in `traj_gennav_node.cpp`, given 3d target states in the global(world) frame `target_pos`, `target_vel`, `target_acc` and a target yaw `target_yaw`:
 
 ```cpp
 trajectory_msgs::MultiDOFJointTrajectory trajset_msg;
@@ -184,12 +184,17 @@ trajectory_pub.publish(trajset_msg);
 ```
 There are multiple ways you can control the robots:
 
-Full-state control: consider you have computed the future trajectory of a robot with timestamped target position, velocity, acceleration and yaw. You may publish the target states at the desired timestamp using the above example code.
+`Full-state control`: consider you have computed the future trajectory of a robot with timestamped target position, velocity, acceleration and yaw. You may publish the target states at the desired timestamp using the above example code.
 
-Position-based control: you may also send non-zero target positions and yaw with zero velocity and acceleration, the robot will reach the target and hover there. Note that if the target position is far from the robot's target position, aggresive movement of the robot is expected.
+`Position-based control`: you may also send non-zero target positions and yaw with zero velocity and acceleration, the robot will reach the target and hover there. Note that if the target position is far from the robot's target position, aggresive movement of the robot is expected.
 
-Velocity/acceleration-based control: when setting target positions to zeros and setting non-zero velocities or accelerations, the robot will try to move with the desired velocity/acceleration. The actual velocity/acceleration may not follow the desired states exactly due to the realistic low level controller. Hence, the users are suggested to take into account the state feedback when generating the control inputs.
+`Velocity/acceleration-based control`: when setting target positions to zeros and setting non-zero velocities or accelerations, the robot will try to move with the desired velocity/acceleration. The actual velocity/acceleration may not follow the desired states exactly due to the realistic low level controller. Hence, the users are suggested to take into account the state feedback when generating the control inputs.
 
+### Camera Trigger
+Two camera trigger modes are allowed. If the parameter `manual_trigger` is set to false, the robot will automatically trigger camera capture at a fixed time interval defined by the parameter `camera_trigger_interval`. If the parameter `manual_trigger` is set to true, the user may send camera trigger command using the ,
+`Automatic trigger`: 
+
+`Manual trigger`:
 ## Communication between the drones
 
 Each robot is given a unique ID in a so-called ppcom network, for e.g. gcs, firefly1, firely2. These IDs can be specified in the [description file](https://github.com/ntu-aris/rotors_simulator/blob/a976102c9465bd2a04afcabb18014f5c019b3f4f/rotors_description/ppcom_network/caric_ppcom_network.txt).
