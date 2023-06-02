@@ -180,7 +180,7 @@ trajpt_msg.accelerations.push_back(accel_msg);
 trajset_msg.points.push_back(trajpt_msg);
 
 trajset_msg.header.stamp = ros::Time::now();
-trajectory_pub.publish(trajset_msg); 
+trajectory_pub.publish(trajset_msg); //trajectory_pub has to be defined as a ros::Publisher
 ```
 There are multiple ways you can control the robots:
 
@@ -189,12 +189,37 @@ There are multiple ways you can control the robots:
 `Position-based control`: you may also send non-zero target positions and yaw with zero velocity and acceleration, the robot will reach the target and hover there. Note that if the target position is far from the robot's target position, aggresive movement of the robot is expected.
 
 `Velocity/acceleration-based control`: when setting target positions to zeros and setting non-zero velocities or accelerations, the robot will try to move with the desired velocity/acceleration. The actual velocity/acceleration may not follow the desired states exactly due to the realistic low level controller. Hence, the users are suggested to take into account the state feedback when generating the control inputs.
+### Camera Gimbal Control
+The camera is assummed to be installed on a camera stabilizer (gimbal) located at [`CamPositionX`, `CamPositionY`, `CamPositionZ`] in the body frame of the drone. To be realistic, we allow the users to control the camera pitch and yaw angle while keeping the camera roll at zero. The camera control interface is the topic `/[node_id]/command/gimbal` of type `geometry_msgs/Twist`. An example is shown below:
+```cpp
+  geometry_msgs::Twist gimbal_msg;
+  gimbal_msg.linear.x = -1.0; //setting linear.x to -1.0 enables velocity control mode.
+  gimbal_msg.linear.y = 0.0;  //if linear.x set to 1.0, linear,y and linear.z are the 
+  gimbal_msg.linear.z = 0.0;  //target pitch and yaw angle, respectively.
+  gimbal_msg.angular.x = 0.0; 
+  gimbal_msg.angular.y = target_pitch_rate; //in velocity control mode, this is the target pitch velocity
+  gimbal_msg.angular.z = target_yaw_rate; //in velocity control mode, this is the target yaw velocity
+  gimbal_cmd_pub_.publish(gimbal_msg);
+```
+As explained in the comments in the sample code, the interface allows angle-based or rate-based control. When `gimbal_msg.linear.x` is set to 1.0, the fields `gimbal_msg.linear.y` and `gimbal_msg.linear.z` indicates the command pitch and yaw angle, respectively. The pitch and yaw angles are controlled independently: given a target pitch/yaw angle, the gimbal will move with the maximum pitch/yaw rate defined by the parameter `gimbal_rate_max` until reaching the target. In velocity control mode, the gimbal pitch/yaw rates can be set to any value in the range [-`gimbal_rate_max`,+`gimbal_rate_max`]. The gimbal pitch and yaw only operate in the ranges [-`gimbal_pitch_max`,+`gimbal_pitch_max`] and [-`gimbal_yaw_max`,+`gimbal_yaw_max`], respectively.
 
+Here, the gimbal roll, pitch and yaw angles are defined as the euler angles (Z-Y-Z sequence) describing the camera orientation with respect to a virtual frame centered at the gimbal. The virtual frame has its X-axis always parallel to the X-axis of the drone body frame, and its X-Y plane always parallel to the X-Y plane in the world frame (due to roll being stabilized). Therefore, the euler angle of the camera with respect to the world frame can be obtained as
+```cpp
+  camera_Yaw_in_world_frame = drone_yaw_in_world_frame + gimbal_yaw;
+  camera_Pitch_in_world_frame = gimbal_pitch;
+  camera_roll_in_world_frame = 0.0;
+```
 ### Camera Trigger
-Two camera trigger modes are allowed. If the parameter `manual_trigger` is set to false, the robot will automatically trigger camera capture at a fixed time interval defined by the parameter `camera_trigger_interval`. If the parameter `manual_trigger` is set to true, the user may send camera trigger command using the ,
-`Automatic trigger`: 
+Two camera trigger modes are allowed. If the parameter `manual_trigger` is set to false, the robot will automatically trigger camera capture at a fixed time interval defined by the parameter `trigger_interval`. If the parameter `manual_trigger` is set to true, the user may send camera trigger command by publishing to a topic `/[node_id]/command/camera_trigger` of type `rotors_comm/BoolStamped`:
 
-`Manual trigger`:
+```cpp
+rotors_comm::BoolStamped msg;
+msg.header.stamp = ros::Time::now();
+msg.data = true;
+trigger_pub.publish(msg);  //trigger_pub has to be defined as a ros::Publisher
+```
+Note that in manual trigger mode, the time stamps of two consecutive trigger commands should still be separated by an interval larger than the parameter `trigger_interval`, otherwise, the second trigger command will be ignored. The benefit of using manual trigger is that the users may send the trigger command at the exact time that results in the best capture quality.
+
 ## Communication between the drones
 
 Each robot is given a unique ID in a so-called ppcom network, for e.g. gcs, firefly1, firely2. These IDs can be specified in the [description file](https://github.com/ntu-aris/rotors_simulator/blob/a976102c9465bd2a04afcabb18014f5c019b3f4f/rotors_description/ppcom_network/caric_ppcom_network.txt).
@@ -228,3 +253,7 @@ print(f"Response {response}") # Error will be appended to the response.
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen></iframe>
 </div>
+
+## Judging Criteria
+The final judging criteria is the total number of interest points that have been fully captured and communitated back to the ground station.
+For a point to be fully captured, it has to satisfy the following criteria:
