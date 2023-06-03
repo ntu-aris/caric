@@ -134,9 +134,26 @@ Inspired by our previous projects, we include the following scenarios in the sof
 Each scenario has a specialized environment, obstacles, and UAV team configuration setup.
 
 ## The image capture quality metric
-The metric is based on capture quality of interest points on the object surface, with the motion blur, angle, and distance taken into account.
-(to be elaborated)
+The metric is based on capture quality of interest points on the object surface, with the line of sight, motion blur, and resolution taken into account.
+The final judging criteria is the total number of interest points that have been fully captured and communitated back to the ground station.
+For a point to be fully captured, it has to satisfy the following criteria:
 
+* Line of sight and fielf of view: the interest point has to fall in the field of view of the camera, and the camera has direct line of sight to the interest point (not obstructed by any other objects). The camera horizontal and vertical fields of view are defined by the parameters `HorizFOV` and `VertFOV` in the file `caric_ppcom_network.txt`. Note that the camera orientation can be controlled as described in the section [Camera Gimbal Control](#camera-gimbal-control).
+
+* Image resolution: the resolution of the image at the interest point has to be higher than a given standard, i.e. for a resolution requirement given in mm/pixel, the computed values have to be smaller than that (smaller mm/pixel means higher resolution). 
+
+* Motion blur: motion blur is resulted from moving object during the camera exposure duration defined by the parameter `ExposureTime`. The motion blur metric, defined as the number of pixels that an interest point moves across during the exposure, is computed as: 
+$$
+\text{horizontal\_blur} = \dfrac{|u_1-u_0|}{\text{pixel\_width}},\\
+u_0 = \text{focal\_length}*\dfrac{x_0}{z_0},\\
+u_1 = \text{focal\_length}*\dfrac{x_1}{z_1},\\
+[x_1,y_1,z_1]^\top = [x_0,y_0,z_0]^\top + \mathbf{v}*\text{exposure\_time}.
+$$
+Here, $[x_0,y_0,z_0]^\top$ is the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ is the updated position considering the velocity of the interest point in the camera frame $\mathbf{v}$ obtained at the time of the capture. The vertical blur can be computed similarly by replacing $x_0$ and $x_1$ with $y_0$ and $y_1$ in the above computation of $u_0$ and $u_1$. For an interest point to be considered captured, the movement of the interest point has to be smaller than 1 pixel (so that the image is sharp), i.e.,
+$$
+\text{horizontal\_blur} < 1,\\
+\text{vertical\_blur} < 1.\\
+$$
 ## How the points are counted
 Only interest points that have been reported to GCS will be counted.
 
@@ -190,7 +207,7 @@ There are multiple ways you can control the robots:
 
 `Velocity/acceleration-based control`: when setting target positions to zeros and setting non-zero velocities or accelerations, the robot will try to move with the desired velocity/acceleration. The actual velocity/acceleration may not follow the desired states exactly due to the realistic low level controller. Hence, the users are suggested to take into account the state feedback when generating the control inputs.
 ### Camera Gimbal Control
-The camera is assummed to be installed on a camera stabilizer (gimbal) located at [`CamPositionX`, `CamPositionY`, `CamPositionZ`] in the body frame of the drone. To be realistic, we allow the users to control the camera pitch and yaw angle while keeping the camera roll at zero. The camera control interface is the topic `/[node_id]/command/gimbal` of type `geometry_msgs/Twist`. An example is shown below:
+The camera is assummed to be installed on a camera stabilizer (gimbal) located at [`CamPositionX`, `CamPositionY`, `CamPositionZ`] in the body frame of the drone. To be realistic, we allow the users to control the gimbal pitch and yaw angle while keeping the gimbal roll at zero. The gimbal control interface is the topic `/[node_id]/command/gimbal` of type `geometry_msgs/Twist`. An example is shown below:
 ```cpp
   geometry_msgs::Twist gimbal_msg;
   gimbal_msg.linear.x = -1.0; //setting linear.x to -1.0 enables velocity control mode.
@@ -203,7 +220,7 @@ The camera is assummed to be installed on a camera stabilizer (gimbal) located a
 ```
 As explained in the comments in the sample code, the interface allows angle-based or rate-based control. When `gimbal_msg.linear.x` is set to 1.0, the fields `gimbal_msg.linear.y` and `gimbal_msg.linear.z` indicates the command pitch and yaw angle, respectively. The pitch and yaw angles are controlled independently: given a target pitch/yaw angle, the gimbal will move with the maximum pitch/yaw rate defined by the parameter `gimbal_rate_max` until reaching the target. In velocity control mode, the gimbal pitch/yaw rates can be set to any value in the range [-`gimbal_rate_max`,+`gimbal_rate_max`]. The gimbal pitch and yaw only operate in the ranges [-`gimbal_pitch_max`,+`gimbal_pitch_max`] and [-`gimbal_yaw_max`,+`gimbal_yaw_max`], respectively.
 
-Here, the gimbal roll, pitch and yaw angles are defined as the euler angles (Z-Y-Z sequence) describing the camera orientation with respect to a virtual frame centered at the gimbal. The virtual frame has its X-axis always parallel to the X-axis of the drone body frame, and its X-Y plane always parallel to the X-Y plane in the world frame (due to roll being stabilized). Therefore, the euler angle of the camera with respect to the world frame can be obtained as
+Here, the gimbal roll, pitch and yaw angles are defined as the euler angles (Z-Y-X rotation sequence) describing the gimbal orientation with respect to a virtual frame, whose X-axis is always parallel to the X-axis of the drone body frame, and X-Y plane is always parallel to the X-Y plane in the world frame (due to roll being stabilized). If we define the camera frame with its X-axis perpendicular to the image plane, and Z-axis pointing upward in the image plane, then, the euler angle of the camera with respect to the world frame can be obtained as
 ```cpp
   camera_Yaw_in_world_frame = drone_yaw_in_world_frame + gimbal_yaw;
   camera_Pitch_in_world_frame = gimbal_pitch;
@@ -257,6 +274,3 @@ print(f"Response {response}") # Error will be appended to the response.
           allowfullscreen></iframe>
 </div>
 
-## Judging Criteria
-The final judging criteria is the total number of interest points that have been fully captured and communitated back to the ground station.
-For a point to be fully captured, it has to satisfy the following criteria:
