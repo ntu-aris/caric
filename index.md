@@ -141,9 +141,11 @@ The metric is based on capture quality of interest points on the object surface,
 The final judging criteria is the total number of interest points that have been fully captured and communitated back to the ground station.
 For a point to be fully captured, it has to satisfy the following criteria:
 
-* Line of sight and fielf of view: the interest point has to fall in the field of view of the camera, and the camera has direct line of sight to the interest point (not obstructed by any other objects). The camera horizontal and vertical fields of view are defined by the parameters `HorizFOV` and `VertFOV` in the file `caric_ppcom_network.txt`. Note that the camera orientation can be controlled as described in the section [Camera Gimbal Control](#camera-gimbal-control).
+### Line of sight and fielf of view 
+The interest point has to fall in the field of view of the camera, and the camera has direct line of sight to the interest point (not obstructed by any other objects). The camera horizontal and vertical fields of view are defined by the parameters `HorizFOV` and `VertFOV` in the file `caric_ppcom_network.txt`. Note that the camera orientation can be controlled as described in the section [Camera Gimbal Control](#camera-gimbal-control).
 
-* Motion blur: motion blur is resulted from moving object during the camera exposure duration defined by the parameter `ExposureTime`. The motion blur metric, defined as the number of pixels that an interest point moves across during the exposure, is computed as: 
+### Motion blur
+Motion blur is resulted from moving object during the camera exposure duration defined by the parameter `ExposureTime`. The motion blur metric, defined as the number of pixels that an interest point moves across during the exposure, is computed as: 
 
 $$
 \text{horizontal_blur} = \dfrac{|u_1-u_0|}{\text{pixel_width}},\\
@@ -167,7 +169,8 @@ $$
 \text{vertical_blur} < 1.\\
 $$
 
-* Image resolution: the resolution of the image is expressed in mm/pixel, representing the size of the real-world object captured in one pixel of the image. To achieve a satisfactory resolution, the computed horizontal and vertical resolution have to be smaller than a desired mm/pixel value. Given the position of an interest point in the camera frame and its normal (perpendicular to its surface), the horizontal and vertical resolution can be obtained by displacing the interest point by $\pm 0.5$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $|u_1-u_2|$ .
+### Image resolution
+The resolution of the image is expressed in mm/pixel, representing the size of the real-world object captured in one pixel of the image. To achieve a satisfactory resolution, the computed horizontal and vertical resolution have to be smaller than a desired mm/pixel value. Given the position of an interest point in the camera frame and its normal (perpendicular to its surface), the horizontal and vertical resolution can be obtained by displacing the interest point by $\pm 0.5$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $\left|u_1-u_2\right|$.
 
 <!-- <p align="center"> -->
 <div style="text-align:center">
@@ -176,8 +179,9 @@ $$
 </div>
 <!-- </p> -->
 
-The horizontal resolution is computed as $\text{horizontal_resolution}=\frac{pixel_width}{|u_1-u_2|}$. Similarly, $\text{vertical_resolution}=\frac{pixel_width}{|v_1-v_2|}$, $v_1$ and $v_2$ are the $y$-coordinates of the points in the image plane obtained by displacing the interest point along the line intersecting the interest surface and the vertical plane.
+The horizontal resolution is computed as $\text{horizontal_resolution}=\frac{\text{pixel_width}}{|u_1-u_2|}$. Similarly, $\text{vertical_resolution}=\frac{\text{pixel_width}}{|v_1-v_2|}$, $v_1$ and $v_2$ are the $y$-coordinates of the points in the image plane obtained by displacing the interest point along the line intersecting the interest surface and the vertical plane.
 For a point to be considered captured, the resolutions have to satisfy
+
 $$
 \text{horizontal_resolution} < \text{desired_mm_per_pixel},\\
 \text{vertical_resolution} < \text{desired_mm_per_pixel}.
