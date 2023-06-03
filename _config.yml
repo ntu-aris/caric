@@ -3,3 +3,12 @@ description: A Multi-UAV Benchmark for Aerial Robot Inspection Schemes
 show_downloads: false
 google_analytics:
 theme: jekyll-theme-hacker
+
+
+## => Markdown Enhancements
+##############################
+markdown: kramdown
+
+## Mathjax
+mathjax: true # false (default), true
+mathjax_autoNumber: true # false (default), true

@@ -5,19 +5,22 @@ layout: default
 
 # Contents
 
-* [Introduction](#introduction)
-* [Installation](#installation)
-  * [Install the dependencies](#install-the-dependencies)
-  * [Install the CARIC packages](#install-the-caric-packages)
-  * [Test the baseline inspection method](#test-the-baseline-cooperative-inspection-method)
-* [Benchmark](#benchmarking)
-  * [Example scenarios](#example-scenarios)
-  * [The image capture quality metric](#the-image-capture-quality-metric)
-  * [How the points are counted](#how-the-points-are-counted)
-* [Develop your CARI Scheme](#developing-your-cari-scheme)
-  * [Estimation data](#estimation-data)
-  * [UAV control interface](#uav-control-interface)
-  * [Communication between the drones](#communication-between-the-drones)
+- [Contents](#contents)
+- [Introduction](#introduction)
+- [Installation](#installation)
+  - [Install the dependencies](#install-the-dependencies)
+  - [Install the CARIC packages](#install-the-caric-packages)
+  - [Test the baseline cooperative inspection method](#test-the-baseline-cooperative-inspection-method)
+- [Benchmarking](#benchmarking)
+  - [Example scenarios](#example-scenarios)
+  - [The image capture quality metric](#the-image-capture-quality-metric)
+  - [How the points are counted](#how-the-points-are-counted)
+- [Developing your CARI scheme](#developing-your-cari-scheme)
+  - [Estimation data](#estimation-data)
+  - [UAV control interface](#uav-control-interface)
+    - [Camera Gimbal Control](#camera-gimbal-control)
+    - [Camera Trigger](#camera-trigger)
+  - [Communication between the drones](#communication-between-the-drones)
 
 
 # Introduction
