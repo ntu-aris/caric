@@ -144,19 +144,19 @@ For a point to be fully captured, it has to satisfy the following criteria:
 
 * Motion blur: motion blur is resulted from moving object during the camera exposure duration defined by the parameter `ExposureTime`. The motion blur metric, defined as the number of pixels that an interest point moves across during the exposure, is computed as: 
 
-$$
+$
 \text{horizontal\_blur} = \dfrac{|u_1-u_0|}{\text{pixel\_width}},\\
 u_0 = \text{focal\_length}*\dfrac{x_0}{z_0},\\
 u_1 = \text{focal\_length}*\dfrac{x_1}{z_1},\\
 [x_1,y_1,z_1]^\top = [x_0,y_0,z_0]^\top + \mathbf{v}*\text{exposure\_time}.
-$$
+$
 
 Here, $[x_0,y_0,z_0]^\top$ is the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ is the updated position considering the velocity of the interest point in the camera frame $\mathbf{v}$ obtained at the time of the capture. The vertical blur can be computed similarly by replacing $x_0$ and $x_1$ with $y_0$ and $y_1$ in the above computation of $u_0$ and $u_1$. For an interest point to be considered captured, the movement of the interest point has to be smaller than 1 pixel (so that the image is sharp), i.e.,
 
-$$
+$
 \text{horizontal\_blur} < 1,\\
 \text{vertical\_blur} < 1.\\
-$$
+$
 
 ## How the points are counted
 Only interest points that have been reported to GCS will be counted.
