@@ -14,6 +14,9 @@ layout: default
 - [Benchmarking](#benchmarking)
   - [Example scenarios](#example-scenarios)
   - [The image capture quality metric](#the-image-capture-quality-metric)
+    - [Line of sight and field of view](#line-of-sight-and-field-of-view)
+    - [Motion blur](#motion-blur)
+    - [Image resolution](#image-resolution)
   - [How the points are counted](#how-the-points-are-counted)
 - [Developing your CARI scheme](#developing-your-cari-scheme)
   - [Estimation data](#estimation-data)
@@ -141,7 +144,7 @@ The metric is based on capture quality of interest points on the object surface,
 The final judging criteria is the total number of interest points that have been fully captured and communitated back to the ground station.
 For a point to be fully captured, it has to satisfy the following criteria:
 
-### Line of sight and fielf of view 
+### Line of sight and field of view 
 The interest point has to fall in the field of view of the camera, and the camera has direct line of sight to the interest point (not obstructed by any other objects). The camera horizontal and vertical fields of view are defined by the parameters `HorizFOV` and `VertFOV` in the file `caric_ppcom_network.txt`. Note that the camera orientation can be controlled as described in the section [Camera Gimbal Control](#camera-gimbal-control).
 
 ### Motion blur
@@ -155,12 +158,11 @@ u_1 = \text{focal_length}*\dfrac{x_1}{z_1},\\
 $$
 
 Here, $[x_0,y_0,z_0]^\top$ is the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ is the updated position considering the velocity of the interest point in the camera frame $\mathbf{v}$ obtained at the time of the capture. The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame.
-<!-- <p align="center"> -->
+
 <div style="text-align:center">
   <img src="docs/motionblur1.png" alt="resolution1" width="40%"/>
   <figcaption>Illustration of horizontal resolution computation</figcaption>
 </div>
-<!-- </p> -->
 
 The vertical blur can be computed similarly by replacing $x_0$ and $x_1$ with $y_0$ and $y_1$ in the above computation of $u_0$ and $u_1$. For an interest point to be considered captured, the movement of the interest point has to be smaller than 1 pixel (so that the image is sharp), i.e.,
 
@@ -172,12 +174,10 @@ $$
 ### Image resolution
 The resolution of the image is expressed in mm/pixel, representing the size of the real-world object captured in one pixel of the image. To achieve a satisfactory resolution, the computed horizontal and vertical resolution have to be smaller than a desired mm/pixel value. Given the position of an interest point in the camera frame and its normal (perpendicular to its surface), the horizontal and vertical resolution can be obtained by displacing the interest point by $\pm 0.5$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $\left|u_1-u_2\right|$.
 
-<!-- <p align="center"> -->
 <div style="text-align:center">
   <img src="docs/resolution1.png" alt="resolution1" width="40%"/>
   <figcaption>Illustration of horizontal resolution computation</figcaption>
 </div>
-<!-- </p> -->
 
 The horizontal resolution is computed as $\text{horizontal_resolution}=\frac{\text{pixel_width}}{|u_1-u_2|}$. Similarly, $\text{vertical_resolution}=\frac{\text{pixel_width}}{|v_1-v_2|}$, $v_1$ and $v_2$ are the $y$-coordinates of the points in the image plane obtained by displacing the interest point along the line intersecting the interest surface and the vertical plane.
 For a point to be considered captured, the resolutions have to satisfy
