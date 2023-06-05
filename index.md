@@ -47,15 +47,13 @@ To accomplish this, novel cooperative strategies to coordinate the trajectories 
 The system is principally developed and tested on the following system configuration:
 
 * NVIDIA GPU-enabled computers (GTX 2080, 3070, 4080)
-* Ubuntu 20.04 / 16.04
+* Ubuntu 20.04 / 18.04
 * ROS Noetic / Melodic
 * Gazebo 11
 * Python 3.8
 
-The following instructions assume that CARIC is going to be installed on an Ubuntu 20.04 system with ROS Noetic. We will also provide remarks on installing CARIC on Ubuntu 16.04 with ROS Melodic.
-
 ## Install the dependencies
-
+### Ubuntu 20.04 / ROS Noetic
 First please run the following commands to install some neccessary dependencies:
 
 ```bash
@@ -76,14 +74,46 @@ sudo apt-get install python3-wstool python3-catkin-tools python3-empy \
 # Install gaze 11 (default for Ubuntu 20.04)
 sudo apt-get install ros-noetic-gazebo* ;
 ```
+Check the protobuf version as described in [Protobuf Version](#protobuf-version).
+### Ubuntu 18.04 / ROS Melodic
+First please run the following commands to install some neccessary dependencies:
+
+```bash
+# Update the system
+sudo apt-get update && sudo apt upgrade ;
+
+# Install some tools and dependencies
+sudo apt-get install python-wstool python-catkin-tools python-empy \
+                     protobuf-compiler libgoogle-glog-dev \
+                     ros-$ROS_DISTRO-control-toolbox \
+                     ros-$ROS_DISTRO-octomap-msgs \
+                     ros-$ROS_DISTRO-octomap-ros \
+                     ros-$ROS_DISTRO-mavros \
+                     ros-$ROS_DISTRO-mavros-msgs \
+                     ros-$ROS_DISTRO-rviz-visual-tools \
+                     ros-$ROS_DISTRO-gazebo-plugins;
+
+# Install gazebo 11 (defult in melodic is gazebo 9)
+sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+sudo apt update
+sudo apt-get install ros-melodic-gazebo11-ros-control \
+                     ros-melodic-gazebo11-ros \
+                     ros-melodic-gazebo11-msgs \
+                     ros-melodic-gazebo11-plugins \
+                     ros-melodic-gazebo11-ros-pkgs \
+                     ros-melodic-gazebo11-dev;
+```
 _NOTE_:
-* On Ubuntu 16.04, replace `python3` in the package names above with `python`.
-* On Ubuntu 16.04, user may need to remove the default Gazebo 9 and install Gazebo 11. Otherwise Gazebo may crash due to conflict between the GPU-based lidar simulator and the raytracing operations in our custom-built `gazebo_ppcom_plugin.cpp`.
-* Make sure protobuf version is 3.6.1 by running the following command:
+* On Ubuntu 18.04, Gazebo 11 is needed, otherwise Gazebo may crash due to conflict between the GPU-based lidar simulator and the raytracing operations in our custom-built `gazebo_ppcom_plugin.cpp`.
+
+Check the protobuf version as described in [Protobuf Version](#protobuf-version).
+### Protobuf Version
+* We have tested protobuf 3.0.0 and 3.6.1 with our packages. Protobuf version can be checked by running the following command:
 ```bash
 protoc --version
 ```
-If protoc version is other than 3.6.1, try to remove protoc, and then reinstall with `sudo apt install protobuf-compiler`.
+If protoc version needs to be updated, try to remove protoc, and then reinstall with `sudo apt install protobuf-compiler`.
 There can be multiple versions of the protobuf installed in the system. You can find the locations of the version used by the command `whereis protoc`.
 
 ## Install the CARIC packages
@@ -93,7 +123,6 @@ Once the dependencis have been installed, please create a new workspace for CARI
 # Create the workspace
 mkdir -p ~/ws_caric/src
 cd ~/ws_caric/src
-wstool init
 
 # Download the packages:
 
