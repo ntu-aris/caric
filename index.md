@@ -263,7 +263,7 @@ Here, the gimbal roll, pitch and yaw angles are defined as the euler angles (Z-Y
 The gimbal euler angle and angular rates are published through the topic `/[node_id]/gimbal` of type `geometry_msgs/TwistStamped`. The fields `twist.linear` indicates the euler angle while the fields `twist.angular` indicates the angular rates (a bit of deviation from the original meaning of the message type).
 
 ### Camera Trigger
-Two camera trigger modes are allowed. If the parameter `manual_trigger` is set to false, the robot will automatically trigger camera capture at a fixed time interval defined by the parameter `trigger_interval`. If the parameter `manual_trigger` is set to true, the user may send camera trigger command by publishing to a topic `/[node_id]/command/camera_trigger` of type `rotors_comm/BoolStamped`:
+Two camera trigger modes are allowed. If the parameter `manual_trigger` is set to false, the robot will automatically trigger camera capture at a fixed time interval defined by the parameter `TriggerInterval`. If the parameter `manual_trigger` is set to true, the user may send camera trigger command by publishing to a topic `/[node_id]/command/camera_trigger` of type `rotors_comm/BoolStamped`:
 
 ```cpp
 rotors_comm::BoolStamped msg;
@@ -271,7 +271,7 @@ msg.header.stamp = ros::Time::now();
 msg.data = true;
 trigger_pub.publish(msg);  //trigger_pub has to be defined as a ros::Publisher
 ```
-Note that in manual trigger mode, the time stamps of two consecutive trigger commands should still be separated by an interval larger than the parameter `trigger_interval`, otherwise, the second trigger command will be ignored. The benefit of using manual trigger is that the users may send the trigger command at the exact time that results in the best capture quality.
+Note that in manual trigger mode, the time stamps of two consecutive trigger commands should still be separated by an interval larger than the parameter `TriggerInterval`, otherwise, the second trigger command will be ignored. The benefit of using manual trigger is that the users may send the trigger command at the exact time that results in the best capture quality.
 
 ## Communication between the drones
 
