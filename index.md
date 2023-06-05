@@ -12,7 +12,7 @@ layout: default
   - [Install the CARIC packages](#install-the-caric-packages)
   - [Test the baseline cooperative inspection method](#test-the-baseline-cooperative-inspection-method)
 - [Benchmarking](#benchmarking)
-  - [Example scenarios](#example-scenarios)
+  - [Scenarios](#scenarios)
   - [The image capture quality metric](#the-image-capture-quality-metric)
     - [Line of sight and field of view](#line-of-sight-and-field-of-view)
     - [Motion blur](#motion-blur)
@@ -28,7 +28,7 @@ layout: default
 
 # Introduction
 
-CARIC (short for **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge) is a software stack based on Gazebo and [RotorS](https://github.com/ethz-asl/rotors_simulator). The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in typical real-world inspection missions. Second, based on this tool, different cooperative inspection schemes can be benchmarked based on typical inspection scenarios.
+CARIC (short for **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge) is a software stack based on [Gazebo](https://packages.ubuntu.com/source/jammy/gazebo), [RotorS](https://github.com/ethz-asl/rotors_simulator) and other open-source packages. The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in typical real-world inspection missions. Second, based on this tool, different cooperative inspection schemes can be benchmarked based on typical inspection scenarios.
 
 In a typical inspection mission, the main goal is to capture images on the surface of some structures with the best quality possible. However, exploration is also a secondary objective that needs to be addressed to identify the structure and its surface. Oftentimes, bounding box(es) can be set around the target of interest to narrow the area of exploration. Given the same basic information such as the bounding boxes, mission time, sensor specifications and UAV dynamic model, different cooperative control schemes can be compared with each other by some inspection metric.
 
@@ -116,7 +116,7 @@ git clone https://github.com/ntu-aris/tcc
 cd ~/ws_caric/
 catkin build
 ```
-The compilation may report errors due to missing depencies or some packages in CARIC are not yet registered to the ros package list. This can be resolved by installing the missing dependencies (via `sudo apt isntall <package>` or `sudo apt install ros-$ROS_DISTRO-<ros_package_name>)`, then/or try `catkin build` again as the compiled packages are added to dependency.
+The compilation may report errors due to missing depencies or some packages in CARIC are not yet registered to the ros package list. This can be resolved by installing the missing dependencies (via `sudo apt isntall <package>` or `sudo apt install ros-$ROS_DISTRO-<ros_package_name>)`), then/or try `catkin build` again as the compiled packages are added to dependency.
 
 ## Test the baseline cooperative inspection method
 
@@ -130,7 +130,7 @@ bash launch_all.sh
 
 # Benchmarking
 
-## Example scenarios
+## Scenarios
 Inspired by our previous projects, we include the following scenarios in the software stack:
 
 * Building inspection
