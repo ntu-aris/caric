@@ -12,15 +12,15 @@ layout: default
     - [3.1.2. Ubuntu 18.04 + ROS Melodic](#312-ubuntu-1804--ros-melodic)
     - [3.1.3. Protobuf version](#313-protobuf-version)
   - [3.2. Install the CARIC packages](#32-install-the-caric-packages)
-  - [3.3. Test the baseline cooperative inspection method](#33-test-the-baseline-cooperative-inspection-method)
-- [4. Benchmarking](#4-benchmarking)
+  - [3.3. Run the flight test](#33-run-the-flight-test)
+- [4. The benchmark's design](#4-the-benchmarks-design)
   - [4.1. The UAV fleet](#41-the-uav-fleet)
   - [4.2. Inspection scenarios](#42-inspection-scenarios)
   - [4.3. The image capture quality metric](#43-the-image-capture-quality-metric)
     - [4.3.1. LOS and FOV](#431-los-and-fov)
     - [4.3.2. Motion blur](#432-motion-blur)
     - [4.3.3. Image resolution](#433-image-resolution)
-  - [4.4. Evaluation method](#44-evaluation-method)
+  - [4.4. Evaluation](#44-evaluation)
 - [5. Developing your CARI scheme](#5-developing-your-cari-scheme)
   - [5.1. Ground rules](#51-ground-rules)
   - [5.2. Estimation data](#52-estimation-data)
@@ -149,9 +149,9 @@ catkin build
 ```
 The compilation may report errors due to missing depencies or some packages in CARIC are not yet registered to the ros package list. This can be resolved by installing the missing dependencies (via `sudo apt install <package>` or `sudo apt install ros-$ROS_DISTRO-<ros_package_name>)`), then/or try `catkin build` again as the compiled packages are added to dependency.
 
-##  3.3. Test the baseline cooperative inspection method
+##  3.3. Run the flight test
 
-We propose a baseline inspection method on top of our simulator in the software stack. Please run it with this command:
+To make sure the code compiles and runs smoothly, please launch the example flight test with some pre-defined fixed trajectories:
 
 ```bash
 source ~/ws_caric/devel/setup.bash
@@ -159,7 +159,9 @@ roscd caric_mission/scripts
 bash launch_mbs.sh
 ```
 
-# 4. Benchmarking
+You should see 5 UAVs take off, follow a fixed trajectory, and fall down when time is out.
+
+# 4. The benchmark's design
 
 ##  4.1. The UAV fleet
 A 5-UAV team is designed for the challenge, two of the _explorer_ class (nicknamed `jurong` and `raffles`), and three of the _photographer_ class (`changi`, `sentosa`, and `nanyang`), plus one GCS (Ground Control Station). Each unit has an intended role in the mission.
@@ -202,7 +204,7 @@ u_1 = \text{focal_length}*\dfrac{x_1}{z_1},\\
 [x_1,y_1,z_1]^\top = [x_0,y_0,z_0]^\top + \mathbf{v}*\text{exposure_time}.
 $$
 
-Here, $[x_0,y_0,z_0]^\top$ is the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ is the updated position considering the velocity of the interest point in the camera frame $\mathbf{v}$ obtained at the time of the capture. The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame.
+Here, $[x_0,y_0,z_0]^\top$ is the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ is the updated position considering the velocity of the interest point in the camera frame $\mathbf{v}$ obtained at the time of the capture (see our derivation for this velocity at the following [link](https://www.overleaf.com/read/ghjtbnqgvdfb)). The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame.
 
 <div style="text-align:center">
   <img src="docs/motionblur1.png" alt="resolution1" width="40%"/>
@@ -232,7 +234,7 @@ $$
 \text{vertical_resolution} < \text{desired_mm_per_pixel}.
 $$
 
-##  4.4. Evaluation method
+##  4.4. Evaluation
 
 Different CARI schemes can use different strategies to acheive the highest inspection score within a finite amount of time.
 The mission time starts from the moment any UAV takes off (when it's velocity exceeds 0.1m/s and it's altitude exceeds 0.1m). When the time elapses, all drones will shut down and no communication is possible.
