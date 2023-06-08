@@ -204,7 +204,7 @@ u_1 = \text{focal_length}*\dfrac{x_1}{z_1},\\
 [x_1,y_1,z_1]^\top = [x_0,y_0,z_0]^\top + \mathbf{v}*\text{exposure_time}.
 $$
 
-Here, $[x_0,y_0,z_0]^\top$ is the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ is the updated position considering the velocity of the interest point in the camera frame $\mathbf{v}$ obtained at the time of the capture (see our derivation for this velocity at the following [link](https://www.overleaf.com/read/ghjtbnqgvdfb)). The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame.
+Here, $[x_0,y_0,z_0]^\top$ is the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ is the updated position considering the velocity of the interest point in the camera frame $\mathbf{v}$ obtained at the time of the capture (see our derivation for this velocity at the following [link](docs/CARIC_motion_blur.pdf)). The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame.
 
 <div style="text-align:center">
   <img src="docs/motionblur1.png" alt="resolution1" width="40%"/>
