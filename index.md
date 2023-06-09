@@ -6,7 +6,7 @@ layout: default
 
 - [1. Table of contents](#1-table-of-contents)
 - [2. Introduction](#2-introduction)
-- [3. How to particate?](#3-how-to-particate)
+- [3. How to participate?](#3-how-to-participate)
   - [3.1. Procedure](#31-procedure)
   - [3.2. Important dates](#32-important-dates)
   - [3.3. Prize](#33-prize)
@@ -31,7 +31,7 @@ layout: default
   - [6.3. UAV control interface](#63-uav-control-interface)
     - [6.3.1. Camera gimbal control](#631-camera-gimbal-control)
     - [6.3.2. Camera trigger](#632-camera-trigger)
-  - [6.4. Simulated networked communication](#64-simulated-networked-communication)
+  - [6.4. Communication network](#64-communication-network)
 - [7. Organizers](#7-organizers)
 
 
@@ -49,30 +49,39 @@ To accomplish this, novel cooperative strategies to coordinate the trajectories 
   <figcaption>CARIC software package can simulate UAV dynamics, physical collisions, camera-FOV-based instance detection, and line-of-sight-only communications</figcaption>
 </div>
 
-# 3. How to particate?
+# 3. How to participate?
 
 ## 3.1. Procedure
 
-If you are interested please join the challenge. The procedure is as follows:
+We welcome all who are interested to join the challenge. The procedure is as follows:
 
-* Sign up for the challenge via the following [form](https://docs.google.com/forms/d/e/1FAIpQLSfpaBQUJmdi6etYXH5t0bj7R-TWuU_11-lUlEfKzcUrz9Cdyw/viewform).
-* Read through the description of CARIC software stacks in the the remaining of this website. Do notice the [rules](#61-ground-rules) on the CARI schemes.
+* Sign up via the following [form](https://docs.google.com/forms/d/e/1FAIpQLSfpaBQUJmdi6etYXH5t0bj7R-TWuU_11-lUlEfKzcUrz9Cdyw/viewform).
+
+* Read through the description of CARIC software stack in the remaining of this website. Do notice the [rules](#61-ground-rules) on the CARI schemes.
+
 * Send your code to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**. The implementation can be in python, C++ or docker executable.
-* The submitted method will be evaluated by the organizers with the [same scenarios included in the package](#52-inspection-scenarios), however the following parameters will be different:
-  * The unit's starting positions.
+
+* The submitted method will be evaluated with the [same scenarios included in the package](#52-inspection-scenarios), however the following parameters will be altered:
+  * The units' starting positions.
   * The bounding box descriptions.
+  * The interest point locations.
   * The mission time.
-* The methods will be ranked based on the total score obtained in all three environmnents.
-* Results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. 
+
+* The methods will be ranked based on the total score obtained in all three scenarios.
+
+* Results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. Winner will be invited to present their method at the Workshop.
 
 ## 3.2. Important dates
+
 * Last day to sign up **17 November 2023**.
+
 * Last day to update your code **24 November 2023**.
-* Workshop **15 December 2023**.
+
+* Workshop date **15 December 2023**.
 
 ## 3.3. Prize
 
-The winner will receive a material or monetary prize of 68 SGD (a lucky number) and a certificate. If you are interested to be sponsor of the challenge, please contact us via the provided [emails](#7-organizers).
+The winner will receive a material or monetary prize of 68 SGD (a lucky number) and a certificate. If you are interested in being a sponsor of the challenge, please the [contacts](#7-organizers) below.
 
 # 4. Installation
 
@@ -196,7 +205,7 @@ You should see 5 UAVs take off, follow a fixed trajectory, and fall down when ti
 ##  5.1. The UAV fleet
 A 5-UAV team is designed for the challenge, two of the _explorer_ class (nicknamed `jurong` and `raffles`), and three of the _photographer_ class (`changi`, `sentosa`, and `nanyang`), plus one GCS (Ground Control Station). Each unit has an intended role in the mission.
 <div style="text-align:center">
-  <img src="docs/fleet.jpeg" alt="fleet" width="40%"/>
+  <img src="docs/fleet.jpeg" alt="fleet" width="50%"/>
   <figcaption>An illustration of one GCS, one explorer, and two photographers in Gazbo environment.</figcaption>
 </div>
 
@@ -211,9 +220,24 @@ The following scenarios are included in the challenge:
 
 * Building inspection: The environment features a 60m tall building model that consists of three main vertical towers with a single void deck connecting the tops. The full 5-UAV fleet is deployed in this environment.
 
+  <div style="text-align:center">
+    <img src="docs/mbs.png" alt="resolution1" width="50%"/>
+    <figcaption>The buiding inspection scenario</figcaption>
+  </div>
+
 * Aircraft inspection: The environment features an airplane placed at the entrance of a hangar. The interest points are only located on the airplane. One explorer and two photographers are deployed in this environment. The airplane model is about 20m tall and 70m long.
   
+  <div style="text-align:center">
+    <img src="docs/hangar.png" alt="resolution1" width="50%"/>
+    <figcaption>The aircraft inspection scenario</figcaption>
+  </div>
+
 * Crane inspection: The environment consists of two cranes that are 60 and 80 meters tall, typical in construction sites, plus one 50m tall gantry crane, typical of seaport environments. The full 5-UAV fleet is deployed in this environment.
+
+  <div style="text-align:center">
+    <img src="docs/crane.png" alt="resolution1" width="50%"/>
+    <figcaption>The crane inspection scenario</figcaption>
+  </div>
 
 ##  5.3. The image capture quality metric
 The metric is based on capture quality of interest points on the object surface.
@@ -237,8 +261,8 @@ $$
 Here, $[x_0,y_0,z_0]^\top$ is the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ is the updated position considering the velocity of the interest point in the camera frame $\mathbf{v}$ obtained at the time of the capture (see our derivation for this velocity at the following [link](docs/CARIC_motion_blur.pdf)). The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame.
 
 <div style="text-align:center">
-  <img src="docs/motionblur1.png" alt="resolution1" width="40%"/>
-  <figcaption>Figure 2. Illustration of horizontal resolution computation</figcaption>
+  <img src="docs/motionblur1.png" alt="resolution1" width="50%"/>
+  <figcaption> Illustration of horizontal resolution computation</figcaption>
 </div>
 
 The vertical blur can be computed similarly by replacing $x_0$ and $x_1$ with $y_0$ and $y_1$ in the above computation of $u_0$ and $u_1$. For an interest point to be considered captured, the movement of the interest point has to be smaller than 1 pixel (so that the image is sharp), i.e.,
@@ -252,8 +276,8 @@ $$
 The resolution of the image is expressed in mm/pixel, representing the size of the real-world object captured in one pixel of the image. To achieve a satisfactory resolution, the computed horizontal and vertical resolution have to be smaller than a desired mm/pixel value. Given the position of an interest point in the camera frame and its normal (perpendicular to its surface), the horizontal and vertical resolution can be obtained by displacing the interest point by $\pm 0.5$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $\left|u_1-u_2\right|$.
 
 <div style="text-align:center">
-  <img src="docs/resolution1.png" alt="resolution1" width="40%"/>
-  <figcaption>Figure 3. Illustration of horizontal resolution computation</figcaption>
+  <img src="docs/resolution1.png" alt="resolution1" width="50%"/>
+  <figcaption> Illustration of horizontal resolution computation</figcaption>
 </div>
 
 The horizontal resolution is computed as $\text{horizontal_resolution}=\frac{\text{pixel_width}}{|u_1-u_2|}$. Similarly, $\text{vertical_resolution}=\frac{\text{pixel_width}}{|v_1-v_2|}$, $v_1$ and $v_2$ are the $y$-coordinates of the points in the image plane obtained by displacing the interest point along the line intersecting the interest surface and the vertical plane.
@@ -348,29 +372,29 @@ There are multiple ways you can control the robots:
 `Velocity/acceleration-based control`: when setting target positions to zeros and setting non-zero velocities or accelerations, the robot will try to move with the desired velocity/acceleration. The actual velocity/acceleration may not follow the desired states exactly due to the realistic low level controller. Hence, the users are suggested to take into account the state feedback when generating the control inputs.
 
 ###  6.3.1. Camera gimbal control
-The camera is assummed to be installed on a camera stabilizer (gimbal) located at [`CamPosX`, `CamPosY`, `CamPosZ`] in the body frame of the drone. To be realistic, we allow the users to control the gimbal pitch and yaw angle while keeping the gimbal roll at zero. The gimbal control interface is the topic `/<unit_id>/command/gimbal` of type `geometry_msgs/Twist`. An example is shown below:
+
+Confusion can easily arise when handling rotation. It is recommended that users go through our [technical note](docs/CARIC_motion_blur.pdf) for an overview of the underlying technical conventions.
+
+The camera is assummed to be installed on a camera stabilizer (gimbal) located at [`CamPosX`, `CamPosY`, `CamPosZ`] in the UAV's body frame. The stabilizer will neutralize the pitch and roll motion of the body, and user can control two extra DOFs relative to the stabilizer frame. We shall call these DOFs *gimbal yaw* and *gimbal pitch* (different from the body frame's yaw and pitch angle). The gimbal control interface is the topic `/<unit_id>/command/gimbal` of type `geometry_msgs/Twist`. An example is shown below:
 ```cpp
   geometry_msgs::Twist gimbal_msg;
-  gimbal_msg.linear.x = -1.0; //setting linear.x to -1.0 enables velocity control mode.
-  gimbal_msg.linear.y = 0.0;  //if linear.x set to 1.0, linear,y and linear.z are the 
-  gimbal_msg.linear.z = 0.0;  //target pitch and yaw angle, respectively.
-  gimbal_msg.angular.x = 0.0; 
+  gimbal_msg.linear.x  = -1.0;  //setting linear.x to -1.0 enables velocity control mode.
+  gimbal_msg.linear.y  =  0.0;  //if linear.x set to 1.0, linear,y and linear.z are the 
+  gimbal_msg.linear.z  =  0.0;  //target pitch and yaw angle, respectively.
+  gimbal_msg.angular.x =  0.0; 
   gimbal_msg.angular.y = target_pitch_rate; //in velocity control mode, this is the target pitch velocity
-  gimbal_msg.angular.z = target_yaw_rate; //in velocity control mode, this is the target yaw velocity
+  gimbal_msg.angular.z = target_yaw_rate;   //in velocity control mode, this is the target yaw velocity
   gimbal_cmd_pub_.publish(gimbal_msg);
 ```
-As explained in the comments in the sample code, the interface allows angle-based or rate-based control. When `gimbal_msg.linear.x` is set to 1.0, the fields `gimbal_msg.linear.y` and `gimbal_msg.linear.z` indicates the command pitch and yaw angle, respectively. The pitch and yaw angles are controlled independently: given a target pitch/yaw angle, the gimbal will move with the maximum pitch/yaw rate defined by the parameter `GimbalRateMax` (in degree/s) until reaching the target. In velocity control mode, the gimbal pitch/yaw rates can be set to any value in the range [`-GimbalRateMax`,`+GimbalRateMax`]. The gimbal pitch and yaw only operate in the ranges [`-GimbalPitchMax`,`+GimbalPitchMax`] and [`-GimbalYawMax`,`+GimbalYawMax`], respectively.
+As explained in the comments in the sample code, the interface is catered for both angle-based or rate-based control. When `gimbal_msg.linear.x` is set to 1.0, the fields `gimbal_msg.linear.y` and `gimbal_msg.linear.z` indicate the target pitch and yaw angle, respectively. The pitch and yaw angles are controlled independently: given a target pitch/yaw angle, the gimbal will move with the maximum pitch/yaw rate defined by the parameter `GimbalRateMax` (in degree/s) until reaching the target. In velocity control mode, the gimbal pitch/yaw rates can be set to any value in the range [`-GimbalRateMax`,`+GimbalRateMax`]. The gimbal pitch and yaw only operate in the ranges [`-GimbalPitchMax`,`+GimbalPitchMax`] and [`-GimbalYawMax`,`+GimbalYawMax`], respectively.
 
-Here, the gimbal roll, pitch and yaw angles are defined as the euler angles ([in Z-Y-X intrinsic rotation sequence](https://en.wikipedia.org/wiki/Euler_angles#Conventions_by_intrinsic_rotations)) describing the gimbal orientation with respect to a virtual frame, whose X-axis is always parallel to the X-axis of the drone body frame, and X-Y plane is always parallel to the X-Y plane in the world frame (due to roll being stabilized). If we define the camera frame with its X-axis perpendicular to the image plane, and Z-axis pointing upward in the image plane, then, the euler angle of the camera with respect to the world frame can be obtained as
-```cpp
-  camera_Yaw_in_world_frame = drone_yaw_in_world_frame + gimbal_yaw;
-  camera_Pitch_in_world_frame = gimbal_pitch;
-  camera_roll_in_world_frame = 0.0;
-```
+Note that the terms "yaw", "pitch", "roll" angles follow the ([in Z-Y-X intrinsic rotation sequence](https://en.wikipedia.org/wiki/Euler_angles#Conventions_by_intrinsic_rotations)) convention.
+Also, we define the camera frame with its X-axis perpendicular to the image plane, and Z-axis pointing upward in the image plane.
 
-The gimbal euler angle and angular rates are published through the topic `/<unit_id>/gimbal` of type `geometry_msgs/TwistStamped`. The fields `twist.linear` indicates the euler angle while the fields `twist.angular` indicates the angular rates (a bit of deviation from the original meaning of the message type).
+The camera states relative to the stabilizer coordinate frame are published through the topic `/<unit_id>/gimbal` of type `geometry_msgs/TwistStamped`. The fields `twist.linear` indicates the euler angle while the fields `twist.angular` indicates the angular rates (a bit of deviation from the original meaning of the message type).
 
 ###  6.3.2. Camera trigger
+
 Two camera trigger modes are allowed. If the parameter `manual_trigger` is set to false, the robot will automatically trigger camera capture at a fixed time interval defined by the parameter `TriggerInterval`. If the parameter `manual_trigger` is set to true, the user may send camera trigger command by publishing to a topic `/<unit_id>/command/camera_trigger` of type `rotors_comm/BoolStamped`:
 
 ```cpp
@@ -381,11 +405,11 @@ trigger_pub.publish(msg);  //trigger_pub has to be defined as a ros::Publisher
 ```
 Note that in manual trigger mode, the time stamps of two consecutive trigger commands should still be separated by an interval larger than the parameter `TriggerInterval`, otherwise, the second trigger command will be ignored. The benefit of using manual trigger is that the users may send the trigger command at the exact time that results in the best capture quality.
 
-##  6.4. Simulated networked communication
+##  6.4. Communication network
 
-Each robot is given a unique ID in a so-called ppcom network, for e.g. gcs, firefly1, firely2. These IDs can be specified in the [description file](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt).
+Each robot is given a unique ID in a so-called ppcom network, for e.g. gcs, jurong, changi. These IDs can be specified in the [description file](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt).
 
-In real-world conditions, communications between the nodes can be interrupted by obstacles that block the LOS between them. To subject a topic to this effect, users can do the following:
+In real-world conditions, communications between the units can be interrupted by obstacles that block the LOS between them. To subject a topic to this effect, users can do the following:
 * Launch the node `ppcom_router` under `caric_mission`:
 ```bash
 rosrun caric_mission ppcom_router.py # This can also be called in a launch file
@@ -418,10 +442,27 @@ print(f"Response {response}") # Error will be appended to the response.
 
 # 7. Organizers
 
-Thien-Minh Nguyen, thienminh.npn@ieee.org, thienminh.nguyen@ntu.edu.sg
+<table>
 
-Muqing Cao, mqcao@ntu.edu.sg
+<tr>
+<td> <img src="docs/tmn.png" alt="Drawing" style="width: 150px;"/> </td>
+<td> <img src="docs/cmq.jpg" alt="Drawing" style="width: 150px;"/>  </td>
+<td> <img src="docs/ysh.jpg" alt="Drawing" style="width: 150px;"/>  </td>
+<td> <img src="docs/xlh.jpg" alt="Drawing" style="width: 155px;"/> </td>
+</tr>
 
-Shenghai Yuan, shyuan@ntu.edu.sg
+<tr>
+<td> Thien-Minh Nguyen </td>
+<td> Muqing Cao        </td>
+<td> Shenghai Yuan     </td>
+<td> Lihua Xie         </td>
+</tr>
 
-Lihua Xie, elhxie@ntu.edu.sg
+<tr>
+<td> thienminh.npn@ieee.org </td>
+<td> mqcao@ntu.edu.org      </td>
+<td> shyuan@ntu.edu.sg      </td>
+<td> elhxie@ntu.edu.sg      </td>
+</tr>
+
+</table>
