@@ -6,28 +6,33 @@ layout: default
 
 - [1. Table of contents](#1-table-of-contents)
 - [2. Introduction](#2-introduction)
-- [3. Installation](#3-installation)
-  - [3.1. Install the dependencies](#31-install-the-dependencies)
-    - [3.1.1. Ubuntu 20.04 + ROS Noetic](#311-ubuntu-2004--ros-noetic)
-    - [3.1.2. Ubuntu 18.04 + ROS Melodic](#312-ubuntu-1804--ros-melodic)
-    - [3.1.3. Protobuf version](#313-protobuf-version)
-  - [3.2. Install the CARIC packages](#32-install-the-caric-packages)
-  - [3.3. Run the flight test](#33-run-the-flight-test)
-- [4. The benchmark's design](#4-the-benchmarks-design)
-  - [4.1. The UAV fleet](#41-the-uav-fleet)
-  - [4.2. Inspection scenarios](#42-inspection-scenarios)
-  - [4.3. The image capture quality metric](#43-the-image-capture-quality-metric)
-    - [4.3.1. LOS and FOV](#431-los-and-fov)
-    - [4.3.2. Motion blur](#432-motion-blur)
-    - [4.3.3. Image resolution](#433-image-resolution)
-  - [4.4. Evaluation](#44-evaluation)
-- [5. Developing your CARI scheme](#5-developing-your-cari-scheme)
-  - [5.1. Ground rules](#51-ground-rules)
-  - [5.2. Estimation data](#52-estimation-data)
-  - [5.3. UAV control interface](#53-uav-control-interface)
-    - [5.3.1. Camera gimbal control](#531-camera-gimbal-control)
-    - [5.3.2. Camera trigger](#532-camera-trigger)
-  - [5.4. Simulated networked communication](#54-simulated-networked-communication)
+- [3. How to particate?](#3-how-to-particate)
+  - [3.1. Procedure](#31-procedure)
+  - [3.2. Important dates](#32-important-dates)
+  - [3.3. Prize](#33-prize)
+- [4. Installation](#4-installation)
+  - [4.1. Install the dependencies](#41-install-the-dependencies)
+    - [4.1.1. Ubuntu 20.04 + ROS Noetic](#411-ubuntu-2004--ros-noetic)
+    - [4.1.2. Ubuntu 18.04 + ROS Melodic](#412-ubuntu-1804--ros-melodic)
+    - [4.1.3. Protobuf version](#413-protobuf-version)
+  - [4.2. Install the CARIC packages](#42-install-the-caric-packages)
+  - [4.3. Run the flight test](#43-run-the-flight-test)
+- [5. The benchmark's design](#5-the-benchmarks-design)
+  - [5.1. The UAV fleet](#51-the-uav-fleet)
+  - [5.2. Inspection scenarios](#52-inspection-scenarios)
+  - [5.3. The image capture quality metric](#53-the-image-capture-quality-metric)
+    - [5.3.1. LOS and FOV](#531-los-and-fov)
+    - [5.3.2. Motion blur](#532-motion-blur)
+    - [5.3.3. Image resolution](#533-image-resolution)
+  - [5.4. Evaluation](#54-evaluation)
+- [6. Developing your CARI scheme](#6-developing-your-cari-scheme)
+  - [6.1. Ground rules](#61-ground-rules)
+  - [6.2. Onboard perception data](#62-onboard-perception-data)
+  - [6.3. UAV control interface](#63-uav-control-interface)
+    - [6.3.1. Camera gimbal control](#631-camera-gimbal-control)
+    - [6.3.2. Camera trigger](#632-camera-trigger)
+  - [6.4. Simulated networked communication](#64-simulated-networked-communication)
+- [7. Organizers](#7-organizers)
 
 
 # 2. Introduction
@@ -40,11 +45,34 @@ The software is motivated by the belief that a multi-UAV system, especially a he
 To accomplish this, novel cooperative strategies to coordinate the trajectories of the UAVs in an optimal manner is a crucial component. Moreover, the optimization problem is subjected to other constraints such as communication loss, collision avoidance, and operation time. These constraints are closely reflected in CARIC (see the figure below).
 
 <div style="text-align:center">
-  <img src="docs/mbs_trimmed_spedup.gif" alt="facade_inspection" width="80%"/>
+  <img src="docs/mbs_trimmed_spedup.gif" alt="facade_inspection" width="100%"/>
   <figcaption>CARIC software package can simulate UAV dynamics, physical collisions, camera-FOV-based instance detection, and line-of-sight-only communications</figcaption>
 </div>
 
-# 3. Installation
+# 3. How to particate?
+
+## 3.1. Procedure
+The challenge results will be reported in the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. The procedure is as follows:
+
+* Sign up for the challenge via the following [form](https://docs.google.com/forms/d/e/1FAIpQLSfpaBQUJmdi6etYXH5t0bj7R-TWuU_11-lUlEfKzcUrz9Cdyw/viewform).
+* Read through the description of CARIC software stacks in the the remaining of this website. Do notice the [rules](#61-ground-rules) on the CARI schems.
+* Send your code to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**. The implementation can be in python, C++ or docker executable.
+* The submitted method will be evaluated by the organizers with the [same scenarios included in the package](#52-inspection-scenarios), however the following parameters will be different:
+  * The unit's starting positions.
+  * The bounding box descriptions.
+  * The mission time.
+* The methods will be ranked based on the total score obtained in all three environmnents.
+
+## 3.2. Important dates
+* Last day to sign up **17 November 2023**.
+* Last day to update your code **24 November 2023**.
+* Workshop day **15 December 2023**.
+
+## 3.3. Prize
+
+The winner will receive a material or monetary prize of 68 SGD (a lucky number) and a certificate. If you are interested to be sponsor of the challenge, please contact us via the provided [emails](#7-organizers).
+
+# 4. Installation
 
 The system is principally developed and tested on the following system configuration:
 
@@ -54,8 +82,8 @@ The system is principally developed and tested on the following system configura
 * Gazebo 11
 * Python 3.8
 
-##  3.1. Install the dependencies
-###  3.1.1. Ubuntu 20.04 + ROS Noetic
+##  4.1. Install the dependencies
+###  4.1.1. Ubuntu 20.04 + ROS Noetic
 First please run the following commands to install some neccessary dependencies:
 
 ```bash
@@ -77,7 +105,7 @@ sudo apt-get install python3-wstool python3-catkin-tools python3-empy \
 sudo apt-get install ros-noetic-gazebo* ;
 ```
 Check the protobuf version as described in [Protobuf Version](#protobuf-version).
-###  3.1.2. Ubuntu 18.04 + ROS Melodic
+###  4.1.2. Ubuntu 18.04 + ROS Melodic
 First please run the following commands to install some neccessary dependencies:
 
 ```bash
@@ -110,7 +138,7 @@ _NOTE_:
 * On Ubuntu 18.04, Gazebo 11 is needed, otherwise Gazebo may crash due to conflict between the GPU-based lidar simulator and the raytracing operations in our custom-built `gazebo_ppcom_plugin.cpp`.
 
 Check the protobuf version as described in [Protobuf Version](#protobuf-version).
-###  3.1.3. Protobuf version
+###  4.1.3. Protobuf version
 * We have tested protobuf 3.0.0 and 3.6.1 with our packages. Protobuf version can be checked by running the following command:
 ```bash
 protoc --version
@@ -118,7 +146,7 @@ protoc --version
 If protoc version needs to be updated, try to remove protoc, and then reinstall with `sudo apt install protobuf-compiler`.
 There can be multiple versions of the protobuf installed in the system. You can find the locations of the version used by the command `whereis protoc`.
 
-##  3.2. Install the CARIC packages
+##  4.2. Install the CARIC packages
 Once the dependencis have been installed, please create a new workspace for CARIC, clone the necessary packages into it, and compile:
 
 ```bash
@@ -149,7 +177,7 @@ catkin build
 ```
 The compilation may report errors due to missing depencies or some packages in CARIC are not yet registered to the ros package list. This can be resolved by installing the missing dependencies (via `sudo apt install <package>` or `sudo apt install ros-$ROS_DISTRO-<ros_package_name>)`), then/or try `catkin build` again as the compiled packages are added to dependency.
 
-##  3.3. Run the flight test
+##  4.3. Run the flight test
 
 To make sure the code compiles and runs smoothly, please launch the example flight test with some pre-defined fixed trajectories:
 
@@ -161,9 +189,9 @@ bash launch_mbs.sh
 
 You should see 5 UAVs take off, follow a fixed trajectory, and fall down when time is out.
 
-# 4. The benchmark's design
+# 5. The benchmark's design
 
-##  4.1. The UAV fleet
+##  5.1. The UAV fleet
 A 5-UAV team is designed for the challenge, two of the _explorer_ class (nicknamed `jurong` and `raffles`), and three of the _photographer_ class (`changi`, `sentosa`, and `nanyang`), plus one GCS (Ground Control Station). Each unit has an intended role in the mission.
 <div style="text-align:center">
   <img src="docs/fleet.jpeg" alt="fleet" width="40%"/>
@@ -176,7 +204,7 @@ A 5-UAV team is designed for the challenge, two of the _explorer_ class (nicknam
 
 Note that the explorer is twice the size and weight of the photographer. Thanks to the bigger size, it can carry the lidar and quickly map the environment, at the cost of slower speed. In contrast, the photographers have higher speed, thus they can quickly cover the surfaces that have been mapped by the explorer to obtain images of higher score. The GCS's role is to compare the images taken by the drones. For each interest point, the GCS can select the image with the best quality to assign the score to it.
 
-##  4.2. Inspection scenarios
+##  5.2. Inspection scenarios
 The following scenarios are included in the challenge:
 
 * Building inspection: The environment features a 60m tall building model that consists of three main vertical towers with a single void deck connecting the tops. The full 5-UAV fleet is deployed in this environment.
@@ -185,16 +213,16 @@ The following scenarios are included in the challenge:
   
 * Crane inspection: The environment consists of two cranes that are 60 and 80 meters tall, typical in construction sites, plus one 50m tall gantry crane, typical of seaport environments. The full 5-UAV fleet is deployed in this environment.
 
-##  4.3. The image capture quality metric
+##  5.3. The image capture quality metric
 The metric is based on capture quality of interest points on the object surface.
 <!-- The final judging criteria is the total number of interest points that have been fully captured and communitated back to the ground station.
 For a point to be fully captured, it -->
 A capture has to satisfy the following criteria:
 
-###  4.3.1. LOS and FOV
+###  5.3.1. LOS and FOV
 The interest point has to fall in the field of view (FOV) of the camera, and the camera has direct line of sight (LOS) to the interest point (not obstructed by any other objects). The camera horizontal FOV and vertical FOV are defined by the parameters `HorzFOV` and `VertFOV` in the file [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). Note that the camera orientation can be controlled as described in the section [Camera gimbal control](#531-camera-gimbal-control).
 
-###  4.3.2. Motion blur
+###  5.3.2. Motion blur
 Motion blur is resulted from moving object during the camera exposure duration defined by the parameter `ExposureTime`. The motion blur metric, defined as the number of pixels that an interest point moves across during the exposure, is computed as: 
 
 $$
@@ -218,7 +246,7 @@ $$
 \text{vertical_blur} < 1.\\
 $$
 
-###  4.3.3. Image resolution
+###  5.3.3. Image resolution
 The resolution of the image is expressed in mm/pixel, representing the size of the real-world object captured in one pixel of the image. To achieve a satisfactory resolution, the computed horizontal and vertical resolution have to be smaller than a desired mm/pixel value. Given the position of an interest point in the camera frame and its normal (perpendicular to its surface), the horizontal and vertical resolution can be obtained by displacing the interest point by $\pm 0.5$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $\left|u_1-u_2\right|$.
 
 <div style="text-align:center">
@@ -234,30 +262,46 @@ $$
 \text{vertical_resolution} < \text{desired_mm_per_pixel}.
 $$
 
-##  4.4. Evaluation
+##  5.4. Evaluation
 
 Different CARI schemes can use different strategies to acheive the highest inspection score within a finite amount of time.
 The mission time starts from the moment any UAV takes off (when it's velocity exceeds 0.1m/s and it's altitude exceeds 0.1m). When the time elapses, all drones will shut down and no communication is possible.
 
 During the mission, the GCS will receive the information regarding the captured interest points from the UAVs when there is LOS. The captures are compared and the score will be tallied and published in real time under the `/gcs` namespaces. After each mission, a log file will be generated in the folder specified under the param `log_dir` in the launch file of `caric_mission` package.
 
-# 5. Developing your CARI scheme
+# 6. Developing your CARI scheme
 
-##  5.1. Ground rules
+##  6.1. Ground rules
 
 The following rules should be adhered to in developing a meaningful CARI scheme:
 
-* <u>Isolated namespaces</u>: The software processes should be isolated by the appropriate namespaces. Consider each namespace the local computer running on a unit. In the real world the processes on one computer should not be able to freely subscribe to a topic in another computer. Information exchange between the namespace is possible but should be subjected to the communication network's characteristics (see the next rule). Currently there are six namespaces used in CARIC: `/gcs`, `/jurong`, `/rafffles`, `/changi`, `/sentosa`, and `/nanyang`. Note that some topics may be published outside of these namespaces for monitoring and evaluating purposes, and should not be subscribed to by any user-defined node.
+* <u>Isolated namespaces</u>: The user-defined software processes should be isolated by the appropriate namespaces. Consider each namespace the local computer running on a unit. In the real world the processes on one computer should not be able to freely subscribe to a topic in another computer. Information exchange between namespaces is possible but should be subjected to the characteristics of the communication network's (see the next rule). Currently there are six namespaces used in CARIC: `/gcs`, `/jurong`, `/rafffles`, `/changi`, `/sentosa`, and `/nanyang`. Note that some topics may be published outside of these namespaces for monitoring and evaluating purposes, and should not be subscribed to by any user-defined node.
 
-* <u>Networked communication</u>: The communication between the namespaces should be regulated by the `ppcom_router` node, which simulates a peer-to-peer broadcast network, where messages can be sent directly from a node in one namespace to another node in another namespace **when there is LOS**. Please refer to Section [5.4. Simulated networked communication](#54-simulated-networked-communication) for the instructions on how to apply the `ppcom_router` node.
+* <u>Networked communication</u>: The communication between the namespaces should be regulated by the `ppcom_router` node, which simulates a peer-to-peer broadcast network. In this network messages can be sent directly from a node in one namespace to another node in another namespace **when there is LOS**. Please refer to Section [5.4. Simulated networked communication](#54-simulated-networked-communication) for the instructions on how to apply the `ppcom_router` node.
 
 * <u>No prior map</u>: Though the prior map of the structures and the locations of the interestpoints are available, they are only used for simulation. Users should develop CARI schemes that only rely on the onboard perception, and other information that are exchanged between the units via the `ppcom_router` network.
 
-##  5.2. Estimation data
+##  6.2. Onboard perception data
 
-CARIC is intended for investigating cooperative control schemes, hence perception proccesses such as sensor fusion, SLAM, map merging, etc... are assumed perfect (for now). Users can obtain the accurate odometry from `/<unit_id>/ground_truth/odometry` (inclusing pose, velocity and acceleration), and pointcloud from `/<unit_id>/cloud_inW` for control, mapping, and obstacle avoidance tasks (`<unit_id>` is a namespace in the UAV fleet, for e.g. `gcs` or `raffles`). Moreover, a unit can also receive the neigbours' odometry in `/<unit_id>/nbr_odom_cloud`, as well as the neigbours' latest lidar key frame `/<unit_id>/nbr_kf_cloud`. Note that these topics only have information when there is LOS to the neighours.
+CARIC is intended for investigating cooperative control schemes, hence perception proccesses such as sensor fusion, SLAM, map merging, etc... are assumed perfect (for now). To fullfill feedback control, mapping, and obstacle avoidance tasks... users can subscribe to the following topics:
 
-##  5.3. UAV control interface
+* `/<unit_id>/ground_truth/odometry`: the odometry describing the 1st and 2nd order states of the body frame, i.e. pose and velocity (both linear and angular).
+
+* `/<unit_id>/nbr_odom_cloud`: odometry data of all neighbours that are in LOS of `unit_id`. The message is in `sens_msgs/PointCloud2` format with the fields defined in the struct `PointOdom` in the header file `caric_mission/include/utility.h`.
+
+* `/<unit_id>/cloud_inW`: the pointcloud from the onboard lidar that has been transformed to the world frame. Only available on explorer type UAVs.
+
+* `/<unit_id>/slf_kf_cloud`: the keyframe pointcloud of `unit_id`. A new keyframe pointcloud is created when the UAV pose is at least 2m away or 10 degrees away from the closest five keyframes. This is only be available in the explorer type UAV.
+
+* `/<unit_id>/nbr_kf_cloud`: a pointcloud that merges the latest keyframe pointclouds of all neighbours in LOS of `unit_id`.
+
+* `/<unit_id>/detected_interest_points`: a `sensor_msgs/PointCloud` message that contains the position, normal vector, and order of detection of the interest points detected by the UAV during flight. The score of the point is contained in the `intensity` field.
+
+NOTE:
+
+* The `/gcs/detected_interest_points` topic is empty because it does not actively detect any point. However the topic `/gcs/score` contains all the points with the highest score among detections by the UAVs within LOS of the GCS.
+
+##  6.3. UAV control interface
 
 Whatever control strategy is developed, the control signal should be eventually converted to standard multi-rotor command. Specifically the UAVs are controlled using the standard ROS message `trajectory_msgs/MultiDOFJointTrajectory`. The controller subscribes to the command trajectory topic `/<unit_id>/command/trajectory`. Below are sample codes used to publish a trajectory command in `traj_gennav_node.cpp`, given 3d target states in the global(world) frame `target_pos`, `target_vel`, `target_acc` and a target yaw `target_yaw`:
 
@@ -301,7 +345,7 @@ There are multiple ways you can control the robots:
 
 `Velocity/acceleration-based control`: when setting target positions to zeros and setting non-zero velocities or accelerations, the robot will try to move with the desired velocity/acceleration. The actual velocity/acceleration may not follow the desired states exactly due to the realistic low level controller. Hence, the users are suggested to take into account the state feedback when generating the control inputs.
 
-###  5.3.1. Camera gimbal control
+###  6.3.1. Camera gimbal control
 The camera is assummed to be installed on a camera stabilizer (gimbal) located at [`CamPosX`, `CamPosY`, `CamPosZ`] in the body frame of the drone. To be realistic, we allow the users to control the gimbal pitch and yaw angle while keeping the gimbal roll at zero. The gimbal control interface is the topic `/<unit_id>/command/gimbal` of type `geometry_msgs/Twist`. An example is shown below:
 ```cpp
   geometry_msgs::Twist gimbal_msg;
@@ -324,7 +368,7 @@ Here, the gimbal roll, pitch and yaw angles are defined as the euler angles ([in
 
 The gimbal euler angle and angular rates are published through the topic `/<unit_id>/gimbal` of type `geometry_msgs/TwistStamped`. The fields `twist.linear` indicates the euler angle while the fields `twist.angular` indicates the angular rates (a bit of deviation from the original meaning of the message type).
 
-###  5.3.2. Camera trigger
+###  6.3.2. Camera trigger
 Two camera trigger modes are allowed. If the parameter `manual_trigger` is set to false, the robot will automatically trigger camera capture at a fixed time interval defined by the parameter `TriggerInterval`. If the parameter `manual_trigger` is set to true, the user may send camera trigger command by publishing to a topic `/<unit_id>/command/camera_trigger` of type `rotors_comm/BoolStamped`:
 
 ```cpp
@@ -335,7 +379,7 @@ trigger_pub.publish(msg);  //trigger_pub has to be defined as a ros::Publisher
 ```
 Note that in manual trigger mode, the time stamps of two consecutive trigger commands should still be separated by an interval larger than the parameter `TriggerInterval`, otherwise, the second trigger command will be ignored. The benefit of using manual trigger is that the users may send the trigger command at the exact time that results in the best capture quality.
 
-##  5.4. Simulated networked communication
+##  6.4. Simulated networked communication
 
 Each robot is given a unique ID in a so-called ppcom network, for e.g. gcs, firefly1, firely2. These IDs can be specified in the [description file](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt).
 
@@ -370,3 +414,12 @@ print(f"Response {response}") # Error will be appended to the response.
   <figcaption>Illustration of communication among ros nodes under different namespaces via the ppcom_router: In the first terminal we start the the simulation. Net the <b>ppcom_router</b> node is launch. Then <b>ppcom_firefly1_talker</b>, <b>ppcom_firefly2_talker</b>, <b>ppcom_firefly3_talker</b> are launched in different terminals. You can observe the messages sent and received by each node in the corresponding terminal. Notice how the messages are dropped when the corresponding entry in the LOS matrix turns to 0 (the <b>firefly1</b> --> <b>firefly3</b> LOS status is indicated by the entry at 2nd row, 4th column).</figcaption>
 </div>
 
+# 7. Organizers
+
+Thien-Minh Nguyen, thienminh.npn@ieee.org, thienminh.nguyen@ntu.edu.sg
+
+Muqing Cao, mqcao@ntu.edu.sg
+
+Shenghai Yuan, shyuan@ntu.edu.sg
+
+Lihua Xie, elhxie@ntu.edu.sg
