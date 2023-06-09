@@ -52,10 +52,11 @@ To accomplish this, novel cooperative strategies to coordinate the trajectories 
 # 3. How to particate?
 
 ## 3.1. Procedure
-The challenge results will be reported in the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. The procedure is as follows:
+
+The results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. The procedure is as follows:
 
 * Sign up for the challenge via the following [form](https://docs.google.com/forms/d/e/1FAIpQLSfpaBQUJmdi6etYXH5t0bj7R-TWuU_11-lUlEfKzcUrz9Cdyw/viewform).
-* Read through the description of CARIC software stacks in the the remaining of this website. Do notice the [rules](#61-ground-rules) on the CARI schems.
+* Read through the description of CARIC software stacks in the the remaining of this website. Do notice the [rules](#61-ground-rules) on the CARI schemes.
 * Send your code to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**. The implementation can be in python, C++ or docker executable.
 * The submitted method will be evaluated by the organizers with the [same scenarios included in the package](#52-inspection-scenarios), however the following parameters will be different:
   * The unit's starting positions.
