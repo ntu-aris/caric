@@ -53,7 +53,7 @@ To accomplish this, novel cooperative strategies to coordinate the trajectories 
 
 ## 3.1. Procedure
 
-The results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. The procedure is as follows:
+If you are interested please join the challenge. The procedure is as follows:
 
 * Sign up for the challenge via the following [form](https://docs.google.com/forms/d/e/1FAIpQLSfpaBQUJmdi6etYXH5t0bj7R-TWuU_11-lUlEfKzcUrz9Cdyw/viewform).
 * Read through the description of CARIC software stacks in the the remaining of this website. Do notice the [rules](#61-ground-rules) on the CARI schemes.
@@ -63,11 +63,12 @@ The results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned S
   * The bounding box descriptions.
   * The mission time.
 * The methods will be ranked based on the total score obtained in all three environmnents.
+* Results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. 
 
 ## 3.2. Important dates
 * Last day to sign up **17 November 2023**.
 * Last day to update your code **24 November 2023**.
-* Workshop day **15 December 2023**.
+* Workshop **15 December 2023**.
 
 ## 3.3. Prize
 
