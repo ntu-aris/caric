@@ -263,7 +263,7 @@ q_{i,n,k} = \begin{cases} \displaystyle
             \end{cases}
 $$
 
-where $q_\text{seen} \in \{0, 1\}$, $q_\text{blur} \in [0, 1]$, $q_\text{res} \in [0, 1]$ are the LOS-FOV, motion blur, and resolution metrics, which will be elaborated in the subsequent sections.
+where $q_\text{seen} \in \\{0, 1\\}$, $q_\text{blur} \in [0, 1]$, $q_\text{res} \in [0, 1]$ are the LOS-FOV, motion blur, and resolution metrics, which will be elaborated in the subsequent sections.
 The above equation also implies that an interest point is only detected when its score exceeds a threshold, which is chosen as 0.2 in this case.
 
 Then at the GCS, the following will be calculated:
