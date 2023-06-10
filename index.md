@@ -14,17 +14,18 @@ layout: default
   - [4.1. Install the dependencies](#41-install-the-dependencies)
     - [4.1.1. Ubuntu 20.04 + ROS Noetic](#411-ubuntu-2004--ros-noetic)
     - [4.1.2. Ubuntu 18.04 + ROS Melodic](#412-ubuntu-1804--ros-melodic)
-    - [4.1.3. Protobuf version](#413-protobuf-version)
+    - [4.1.3. Notes](#413-notes)
   - [4.2. Install the CARIC packages](#42-install-the-caric-packages)
   - [4.3. Run the flight test](#43-run-the-flight-test)
-- [5. The benchmark's design](#5-the-benchmarks-design)
+- [5. The benchmark design](#5-the-benchmark-design)
   - [5.1. The UAV fleet](#51-the-uav-fleet)
   - [5.2. Inspection scenarios](#52-inspection-scenarios)
-  - [5.3. The image capture quality metric](#53-the-image-capture-quality-metric)
-    - [5.3.1. LOS and FOV](#531-los-and-fov)
-    - [5.3.2. Motion blur](#532-motion-blur)
-    - [5.3.3. Image resolution](#533-image-resolution)
-  - [5.4. Evaluation](#54-evaluation)
+  - [5.3. The benchmark criteria](#53-the-benchmark-criteria)
+    - [5.3.1. The inspection mission](#531-the-inspection-mission)
+    - [5.3.2. The mission score](#532-the-mission-score)
+    - [5.3.3. LOS and FOV](#533-los-and-fov)
+    - [5.3.4. Motion blur](#534-motion-blur)
+    - [5.3.5. Image resolution](#535-image-resolution)
 - [6. Developing your CARI scheme](#6-developing-your-cari-scheme)
   - [6.1. Ground rules](#61-ground-rules)
   - [6.2. Onboard perception data](#62-onboard-perception-data)
@@ -37,12 +38,12 @@ layout: default
 
 # 2. Introduction
 
-CARIC (short for **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge) is a software stack based on [Gazebo](https://packages.ubuntu.com/source/jammy/gazebo), [RotorS](https://github.com/ethz-asl/rotors_simulator) and other open-source packages. The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in typical real-world inspection missions. Second, based on this tool, different cooperative inspection schemes can be benchmarked based on typical inspection scenarios.
+Inspection is a multi-billion business that is [projected to grow substaintially in the next decade](https://www.fortunebusinessinsights.com/inspection-repair-and-maintenance-market-102983), with integration of automation and AI being the driving force. Fundamentally, in a typical inspection mission, the main goal is to capture images on the surface of some structures with the best quality possible. However, exploration is also a secondary objective that needs to be addressed to identify the structure and its surface. Oftentimes, bounding box(es) can be set around the target of interest to narrow the area of exploration.
 
-In a typical inspection mission, the main goal is to capture images on the surface of some structures with the best quality possible. However, exploration is also a secondary objective that needs to be addressed to identify the structure and its surface. Oftentimes, bounding box(es) can be set around the target of interest to narrow the area of exploration. Given the same basic information such as the bounding boxes, mission time, sensor specifications and UAV dynamic model, different cooperative control schemes can be compared with each other by some inspection metric.
+Thanks to their unique mobility, aerial robots have become widely adopted in inspection business. We belieive that the next breakthrough in the inspection industry shall be acheived by Cooperative Aerial Robots Inspection (CARI) systems. Moreover, in the same spirit of economic specialization, we posit that heterogeneous CARI systems can acheive greater efficiency, quality and versatility compared to single-UAV or homogenous systems.
+Nevertheless, to accomplish this vision, novel cooperative strategies to optimally coordinate the trajectories of the UAVs remain an open research problem.
 
-The software is motivated by the belief that a multi-UAV system, especially a heterogenous one, can accomplish the task more efficiently, acheive better quality and shorten the possible disruption to other operations at the venue.
-To accomplish this, novel cooperative strategies to coordinate the trajectories of the UAVs in an optimal manner is a crucial component. Moreover, the optimization problem is subjected to other constraints such as communication loss, collision avoidance, and operation time. These constraints are closely reflected in CARIC (see the figure below).
+To faciliate this development, we introduce CARIC (short for **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge), a software stack based on [Gazebo](https://packages.ubuntu.com/source/jammy/gazebo), [RotorS](https://github.com/ethz-asl/rotors_simulator) and other open-source packages. The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in [typical real-world inspection missions](#52-inspection-scenarios). Second, based on this tool, different cooperative inspection schemes can be benchmarked based on a [common metric inspired by imaging quality](#53-the-benchmark-criteria). The software stack is made public to benefit the community and we welcome all interested parties to participate in [the open challenge at CDC 2023, Singapore](#3-how-to-participate).
 
 <div style="text-align:center">
   <img src="docs/mbs_trimmed_spedup.gif" alt="facade_inspection" width="100%"/>
@@ -53,21 +54,23 @@ To accomplish this, novel cooperative strategies to coordinate the trajectories 
 
 ## 3.1. Procedure
 
-We welcome all who are interested to join the challenge. The procedure is as follows:
+The procedure is as follows:
 
 * Sign up via the following [form](https://docs.google.com/forms/d/e/1FAIpQLSfpaBQUJmdi6etYXH5t0bj7R-TWuU_11-lUlEfKzcUrz9Cdyw/viewform).
 
-* Read through the description of CARIC software stack in the remaining of this website. Do notice the [rules](#61-ground-rules) on the CARI schemes.
+* Read through the description of CARIC software stack in the remaining of this website. 
 
-* Send your code to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**. The implementation can be in python, C++ or docker executable.
+* Participants develop their CARI schemes based on CARIC. Do notice the [ground rules](#61-ground-rules). The implementation can be in python, C++ or docker executable.
+
+* Send your code to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**.
 
 * The submitted method will be evaluated with the [same scenarios included in the package](#52-inspection-scenarios), however the following parameters will be altered:
   * The units' starting positions.
   * The bounding box descriptions.
-  * The interest point locations.
+  * The interest points.
   * The mission time.
 
-* The methods will be ranked based on the total score obtained in all three scenarios.
+* The methods will be ranked based on the <u>total score obtained in all three scenarios</u>.
 
 * Results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. Winner will be invited to present their method at the Workshop.
 
@@ -81,7 +84,7 @@ We welcome all who are interested to join the challenge. The procedure is as fol
 
 ## 3.3. Prize
 
-The winner will receive a material or monetary prize of 68 SGD (a lucky number) and a certificate. If you are interested in being a sponsor of the challenge, please the [contacts](#7-organizers) below.
+The winner will receive a material or monetary prize of 68 SGD (a lucky number) and a certificate. If you are interested in being a sponsor of the challenge, please contact any of the organizers [organizers](#7-organizers).
 
 # 4. Installation
 
@@ -95,7 +98,8 @@ The system is principally developed and tested on the following system configura
 
 ##  4.1. Install the dependencies
 ###  4.1.1. Ubuntu 20.04 + ROS Noetic
-First please run the following commands to install some neccessary dependencies:
+
+Please install the neccessary dependencies by the following commands:
 
 ```bash
 # Update the system
@@ -115,9 +119,12 @@ sudo apt-get install python3-wstool python3-catkin-tools python3-empy \
 # Install gazebo 11 (default for Ubuntu 20.04)
 sudo apt-get install ros-noetic-gazebo* ;
 ```
-Check the protobuf version as described in [Protobuf Version](#protobuf-version).
+
+Please check out the [notes](#413-notes) below if you encounter any problem.
+
 ###  4.1.2. Ubuntu 18.04 + ROS Melodic
-First please run the following commands to install some neccessary dependencies:
+
+Please install the neccessary dependencies by the following commands:
 
 ```bash
 # Update the system
@@ -145,17 +152,14 @@ sudo apt-get install ros-melodic-gazebo11-ros-control \
                      ros-melodic-gazebo11-ros-pkgs \
                      ros-melodic-gazebo11-dev;
 ```
-_NOTE_:
-* On Ubuntu 18.04, Gazebo 11 is needed, otherwise Gazebo may crash due to conflict between the GPU-based lidar simulator and the raytracing operations in our custom-built `gazebo_ppcom_plugin.cpp`.
 
-Check the protobuf version as described in [Protobuf Version](#protobuf-version).
-###  4.1.3. Protobuf version
-* We have tested protobuf 3.0.0 and 3.6.1 with our packages. Protobuf version can be checked by running the following command:
-```bash
-protoc --version
-```
-If protoc version needs to be updated, try to remove protoc, and then reinstall with `sudo apt install protobuf-compiler`.
-There can be multiple versions of the protobuf installed in the system. You can find the locations of the version used by the command `whereis protoc`.
+Please check out the [notes](#413-notes) below if you encounter any problem.
+
+### 4.1.3. Notes
+
+* On Ubuntu 18.04, Gazebo 11 is needed, otherwise Gazebo may crash due to conflict between the GPU-based lidar simulator and the raytracing operations in our custom-built `gazebo_ppcom_plugin.cpp`.
+ 
+* Protobuf version: We have tested protobuf 3.0.0 and 3.6.1 with our packages. Protobuf version can be checked by the command `protoc --version`. If protoc version needs to be updated, try to remove protoc, and then reinstall with `sudo apt install protobuf-compiler`. There can be multiple versions of the protobuf installed in the system. You can find the locations of the version used by the command `whereis protoc`.
 
 ##  4.2. Install the CARIC packages
 Once the dependencis have been installed, please create a new workspace for CARIC, clone the necessary packages into it, and compile:
@@ -179,18 +183,18 @@ git clone https://github.com/ntu-aris/velodyne_simulator
 # Converting the trajectory setpoint to rotor speeds
 git clone https://github.com/ntu-aris/tcc
 
-# To generate an trajectory based on fixed setpoints. Only used for demo, to be replaced by your controller
+# To generate an trajectory based on fixed setpoints. Only used for demo, to be replaced by user's inspection algorithms
 git clone https://github.com/ntu-aris/traj_gennav
 
 # Build the workspace
 cd ~/ws_caric/
 catkin build
 ```
-The compilation may report errors due to missing depencies or some packages in CARIC are not yet registered to the ros package list. This can be resolved by installing the missing dependencies (via `sudo apt install <package>` or `sudo apt install ros-$ROS_DISTRO-<ros_package_name>)`), then/or try `catkin build` again as the compiled packages are added to dependency.
+The compilation may report errors due to missing depencies or some packages in CARIC are not yet registered to the ros package list. This can be resolved by installing the missing dependencies (via `sudo apt install <package>` or `sudo apt install ros-$ROS_DISTRO-<ros_package_name>)`). Please try `catkin build` again a few times to let all the compiled packages be added to dependency list.
 
 ##  4.3. Run the flight test
 
-To make sure the code compiles and runs smoothly, please launch the example flight test with some pre-defined fixed trajectories:
+To make sure the code compiles and runs smoothly, please launch the example flight test with some pre-defined fixed trajectories as follows:
 
 ```bash
 source ~/ws_caric/devel/setup.bash
@@ -200,7 +204,7 @@ bash launch_mbs.sh
 
 You should see 5 UAVs take off, follow a fixed trajectory, and fall down when time is out.
 
-# 5. The benchmark's design
+# 5. The benchmark design
 
 ##  5.1. The UAV fleet
 A 5-UAV team is designed for the challenge, two of the _explorer_ class (nicknamed `jurong` and `raffles`), and three of the _photographer_ class (`changi`, `sentosa`, and `nanyang`), plus one GCS (Ground Control Station). Each unit has an intended role in the mission.
@@ -211,7 +215,7 @@ A 5-UAV team is designed for the challenge, two of the _explorer_ class (nicknam
 
 * The explorer drone carries a rotating lidar apparatus and a gimballed camera.
 * The photographer is smaller and only carries gimballed camera.
-* The GCS is where the images will be sent back and processed by the drones.
+* The GCS is where the images will be sent back and used to update the final score.
 
 Note that the explorer is twice the size and weight of the photographer. Thanks to the bigger size, it can carry the lidar and quickly map the environment, at the cost of slower speed. In contrast, the photographers have higher speed, thus they can quickly cover the surfaces that have been mapped by the explorer to obtain images of higher score. The GCS's role is to compare the images taken by the drones. For each interest point, the GCS can select the image with the best quality to assign the score to it.
 
@@ -239,61 +243,99 @@ The following scenarios are included in the challenge:
     <figcaption>The crane inspection scenario</figcaption>
   </div>
 
-##  5.3. The image capture quality metric
-The metric is based on capture quality of interest points on the object surface.
-<!-- The final judging criteria is the total number of interest points that have been fully captured and communitated back to the ground station.
-For a point to be fully captured, it -->
-A capture has to satisfy the following criteria:
+##  5.3. The benchmark criteria
 
-###  5.3.1. LOS and FOV
-The interest point has to fall in the field of view (FOV) of the camera, and the camera has direct line of sight (LOS) to the interest point (not obstructed by any other objects). The camera horizontal FOV and vertical FOV are defined by the parameters `HorzFOV` and `VertFOV` in the file [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). Note that the camera orientation can be controlled as described in the section [Camera gimbal control](#531-camera-gimbal-control).
+###  5.3.1. The inspection mission
 
-###  5.3.2. Motion blur
-Motion blur is resulted from moving object during the camera exposure duration defined by the parameter `ExposureTime`. The motion blur metric, defined as the number of pixels that an interest point moves across during the exposure, is computed as: 
+Different CARI schemes can use different strategies to acheive the highest inspection score within a finite amount of time.
+The mission time starts from the moment any UAV takes off (when it's velocity exceeds 0.1m/s and it's altitude exceeds 0.1m). When the time elapses, all drones will shut down and no communication is possible.
+
+During the mission, the GCS will receive the information regarding the captured interest points from the UAVs when there is LOS. The captures are compared and the score will be tallied and published in real time under the `/gcs` namespaces. After each mission, a log file will be generated in the folder specified under the param `log_dir` in the launch file of `caric_mission` package.
+
+### 5.3.2. The mission score
+
+Let us denote the set of the interest point as $I$, and the set of UAVs as $N$. At each simulation update step $k$, we denote $q_{i,n,k}$ as the score of the interest point $i$ captured by UAV $n$. Specifically $q_{i,n,k}$ is calculated as follows:
 
 $$
-\text{horizontal_blur} = \dfrac{|u_1-u_0|}{\text{pixel_width}},\\
-u_0 = \text{focal_length}*\dfrac{x_0}{z_0},\\
-u_1 = \text{focal_length}*\dfrac{x_1}{z_1},\\
-[x_1,y_1,z_1]^\top = [x_0,y_0,z_0]^\top + \mathbf{v}*\text{exposure_time}.
+q_{i,n,k} = \begin{cases} \displaystyle
+              0, & \text{if } k = 0 \text{ or } q_\text{seen} \cdot q_\text{blur} \cdot q_\text{res} < 0.2,\\
+              q_\text{seen} \cdot q_\text{blur} \cdot q_\text{res}, & \text{otherwise.}
+            \end{cases}
 $$
 
-Here, $[x_0,y_0,z_0]^\top$ is the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ is the updated position considering the velocity of the interest point in the camera frame $\mathbf{v}$ obtained at the time of the capture (see our derivation for this velocity at the following [link](docs/CARIC_motion_blur.pdf)). The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame.
+where $q_\text{seen} \in \{0, 1\}$, $q_\text{blur} \in [0, 1]$, $q_\text{res} \in [0, 1]$ are the LOS-FOV, motion blur, and resolution metrics, which will be elaborated in the subsequent sections.
+The above equation also implies that an interest point is only detected when its score exceeds a threshold, which is chosen as 0.2 in this case.
+
+Then at the GCS, the following will be calculated:
+
+$$
+q_{i, \text{gcs}, k} =  \max ( \max_{n \in \mathcal{N}_\text{gcs}} q_{i, n, k},\ q_{i, \text{gcs}, k-1}),\\
+$$
+
+where $\mathcal{N_\text{gcs}}$ is the set of UAVs that have LOS to the GCS. This reflects the process that the GCS will receive the images captured by the drones and select the one with the highest score and keep that information in the memory. Moreover, the stored data will also be compared against the future captures.
+
+The score of the mission up to time $k$ is computed as:
+
+$$
+Q_k = \sum_{i \in I} q_{i, \text{gcs}, k}
+$$
+
+Hence, the <u>overall score of the mission will be $Q_k$ at the end of the mission</u>.
+
+Below we will explain the processes used to determine the terms $q_\text{seen}$, $q_\text{blur}$, $q_\text{res}$ in the calculation of $q_{i,n,k}$.
+
+###  5.3.3. LOS and FOV
+
+The term $q_\text{seen}$ is a binary-valued metric value that is used to indicate whether the interest point falls in the field of view (FOV) of the camera, and the camera has direct line of sight (LOS) to the interest point (not obstructed by any other objects). The camera horizontal FOV and vertical FOV are defined by the parameters `HorzFOV` and `VertFOV` in the file [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). Note that the camera orientation can be controlled as described in the section [Camera gimbal control](#531-camera-gimbal-control).
+
+###  5.3.4. Motion blur
+
+The motion blur metric $q_\text{blur}$ is based on the motion of the interest point during the camera exposure duration defined by the parameter `ExposureTime`, denoted as $\tau$. It is defined as the number of pixels that an interest point moves across during the exposure, i.e.:
+
+$$
+\displaystyle
+q_\text{blur} = \min\left(\dfrac{c}{\max\left(|u_1-u_0|, |v_1-v_0|\right)}, 1.0\right),
+$$
+
+where $\|u_1-u_0\|$, $\|v_1-v_0\|$ are the horizontal and vertical pixel movements that are computed by:
+
+$$
+u_0 = f\cdot\dfrac{x_0}{z_0},\ 
+u_1 = f\cdot\dfrac{x_1}{z_1},\ 
+v_0 = f\cdot\dfrac{y_0}{z_0},\ 
+v_1 = f\cdot\dfrac{z_1}{z_1},\\
+$$
+
+$$
+[x_1,y_1,z_1]^\top = [x_0,y_0,z_0]^\top + \mathbf{v}\cdot\tau.
+$$
+
+Here, $f$ is the *focal length* and $c$ is the *pixel width*, $[x_0,y_0,z_0]^\top$ is the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ is the updated position considering the velocity of the interest point in the camera frame at the time of capture, denoted as $\mathbf{v}$ (see our derivation for this velocity at the following [link](docs/CARIC_motion_blur.pdf)). The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame, where the vertical motion blur can be interpreted similarly.
 
 <div style="text-align:center">
   <img src="docs/motionblur1.png" alt="resolution1" width="50%"/>
   <figcaption> Illustration of horizontal resolution computation</figcaption>
 </div>
 
-The vertical blur can be computed similarly by replacing $x_0$ and $x_1$ with $y_0$ and $y_1$ in the above computation of $u_0$ and $u_1$. For an interest point to be considered captured, the movement of the interest point has to be smaller than 1 pixel (so that the image is sharp), i.e.,
+Note that for an sufficiently sharp capture, it only requires that the movement of the interest point is smaller than 1 pixel. Therefore we cap the value of $q_\text{blur}$ at 1.0. Otherwise if the UAV stays static during the capture, $q_\text{blur}$ could be $\infty$.
 
-$$
-\text{horizontal_blur} < 1,\\
-\text{vertical_blur} < 1.\\
-$$
+###  5.3.5. Image resolution
 
-###  5.3.3. Image resolution
-The resolution of the image is expressed in mm/pixel, representing the size of the real-world object captured in one pixel of the image. To achieve a satisfactory resolution, the computed horizontal and vertical resolution have to be smaller than a desired mm/pixel value. Given the position of an interest point in the camera frame and its normal (perpendicular to its surface), the horizontal and vertical resolution can be obtained by displacing the interest point by $\pm 0.5$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $\left|u_1-u_2\right|$.
+The resolution of the image is expressed in milimeter-per-pixel (mmpp), representing the size of the real-world object captured in one image pixel. To achieve a satisfactory resolution, the computed horizontal and vertical resolutions should be smaller than a desired mmpp value. Given the position of an interest point in the camera frame and its normal (perpendicular to its surface), the horizontal and vertical resolution can be obtained by displacing the interest point by $\pm 0.5$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $\|u_1-u_2\|$.
 
 <div style="text-align:center">
   <img src="docs/resolution1.png" alt="resolution1" width="50%"/>
   <figcaption> Illustration of horizontal resolution computation</figcaption>
 </div>
 
-The horizontal resolution is computed as $\text{horizontal_resolution}=\frac{\text{pixel_width}}{|u_1-u_2|}$. Similarly, $\text{vertical_resolution}=\frac{\text{pixel_width}}{|v_1-v_2|}$, $v_1$ and $v_2$ are the $y$-coordinates of the points in the image plane obtained by displacing the interest point along the line intersecting the interest surface and the vertical plane.
-For a point to be considered captured, the resolutions have to satisfy
+The horizontal and vertical resolutions are computed as $r_\text{horz} = \frac{c}{\|u_2 - u_1\|}$ and $r_\text{vert}=\frac{c}{\|v_2 - v_1\|}$, where $v_1$ and $v_2$ are the $y$-coordinates of the points in the image plane obtained by displacing the interest point along the line intersecting the interest surface and the vertical plane.
+
+The resolution metric of the point is therefore calculated as:
 
 $$
-\text{horizontal_resolution} < \text{desired_mm_per_pixel},\\
-\text{vertical_resolution} < \text{desired_mm_per_pixel}.
+\displaystyle
+q_\text{res} = \min\left(\dfrac{r}{\max\left(r_\text{horz}, r_\text{vert}\right)}, 1.0\right).
 $$
-
-##  5.4. Evaluation
-
-Different CARI schemes can use different strategies to acheive the highest inspection score within a finite amount of time.
-The mission time starts from the moment any UAV takes off (when it's velocity exceeds 0.1m/s and it's altitude exceeds 0.1m). When the time elapses, all drones will shut down and no communication is possible.
-
-During the mission, the GCS will receive the information regarding the captured interest points from the UAVs when there is LOS. The captures are compared and the score will be tallied and published in real time under the `/gcs` namespaces. After each mission, a log file will be generated in the folder specified under the param `log_dir` in the launch file of `caric_mission` package.
 
 # 6. Developing your CARI scheme
 
@@ -303,9 +345,9 @@ The following rules should be adhered to in developing a meaningful CARI scheme:
 
 * <u>Isolated namespaces</u>: The user-defined software processes should be isolated by the appropriate namespaces. Consider each namespace the local computer running on a unit. In the real world the processes on one computer should not be able to freely subscribe to a topic in another computer. Information exchange between namespaces is possible but should be subjected to the characteristics of the communication network's (see the next rule). Currently there are six namespaces used in CARIC: `/gcs`, `/jurong`, `/rafffles`, `/changi`, `/sentosa`, and `/nanyang`. Note that some topics may be published outside of these namespaces for monitoring and evaluating purposes, and should not be subscribed to by any user-defined node.
 
-* <u>Networked communication</u>: The communication between the namespaces should be regulated by the `ppcom_router` node, which simulates a peer-to-peer broadcast network. In this network messages can be sent directly from a node in one namespace to another node in another namespace **when there is LOS**. Please refer to Section [5.4. Simulated networked communication](#54-simulated-networked-communication) for the instructions on how to apply the `ppcom_router` node.
+* <u>Networked communication</u>: The communication between the namespaces should be regulated by the `ppcom_router` node, which simulates a peer-to-peer broadcast network. In this network messages can be sent directly from a node in one namespace to another node in another namespace **when there is LOS**. Please refer to the details of the [communication network](#64-communication-network) for the instructions on how to apply the `ppcom_router` node.
 
-* <u>No prior map</u>: Though the prior map of the structures and the locations of the interestpoints are available, they are only used for simulation. Users should develop CARI schemes that only rely on the onboard perception, and other information that are exchanged between the units via the `ppcom_router` network.
+* <u>No prior map</u>: Though the prior map of the structures and the locations of the interest points are available, they are only used for simulation. Users should develop CARI schemes that only rely on the onboard perception, and other information that are exchanged between the units via the `ppcom_router` network.
 
 ##  6.2. Onboard perception data
 
@@ -460,7 +502,7 @@ print(f"Response {response}") # Error will be appended to the response.
 
 <tr>
 <td> thienminh.npn@ieee.org </td>
-<td> mqcao@ntu.edu.org      </td>
+<td> mqcao@ntu.edu.s g      </td>
 <td> shyuan@ntu.edu.sg      </td>
 <td> elhxie@ntu.edu.sg      </td>
 </tr>
