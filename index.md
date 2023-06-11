@@ -1,5 +1,11 @@
 ---
-layout: default
+#
+# By default, content added below the "---" mark will appear in the home page
+# between the top bar and the list of recent posts.
+# To change the home page layout, edit the _layouts/home.html file.
+# See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+#
+layout: home
 ---
 
 # 1. Table of contents
@@ -21,7 +27,7 @@ layout: default
   - [5.1. The UAV fleet](#51-the-uav-fleet)
   - [5.2. Inspection scenarios](#52-inspection-scenarios)
   - [5.3. The benchmark criteria](#53-the-benchmark-criteria)
-    - [5.3.1. The inspection mission](#531-the-inspection-mission)
+    - [5.3.1. Inspection mission overview](#531-inspection-mission-overview)
     - [5.3.2. The mission score](#532-the-mission-score)
     - [5.3.3. LOS and FOV](#533-los-and-fov)
     - [5.3.4. Motion blur](#534-motion-blur)
@@ -57,30 +63,21 @@ To faciliate this development, we introduce CARIC (short for **C**ooperative **A
 The procedure is as follows:
 
 * Sign up via the following [form](https://docs.google.com/forms/d/e/1FAIpQLSfpaBQUJmdi6etYXH5t0bj7R-TWuU_11-lUlEfKzcUrz9Cdyw/viewform).
-
 * Read through the description of CARIC software stack in the remaining of this website. 
-
 * Participants develop their CARI schemes based on CARIC. Do notice the [ground rules](#61-ground-rules). The implementation can be in python, C++ or docker executable.
-
 * Send your code to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**.
-
 * The submitted method will be evaluated with the [same scenarios included in the package](#52-inspection-scenarios), however the following parameters will be altered:
-  
   * The units' starting positions.
   * The bounding box descriptions.
   * The interest points.
   * The mission time.
-
 * The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three [scenarios](#52-inspection-scenarios)**.
-
 * Results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. Winner will be invited to present their method at the Workshop.
 
 ## 3.2. Important dates
 
 * Last day to sign up **17 November 2023**.
-
 * Last day to update your code **24 November 2023**.
-
 * Workshop date **15 December 2023**.
 
 ## 3.3. Prize
@@ -159,7 +156,6 @@ Please check out the [notes](#413-notes) below if you encounter any problem.
 ### 4.1.3. Notes
 
 * On Ubuntu 18.04, Gazebo 11 is needed, otherwise Gazebo may crash due to conflict between the GPU-based lidar simulator and the raytracing operations in our custom-built `gazebo_ppcom_plugin.cpp`.
- 
 * Protobuf version: We have tested protobuf 3.0.0 and 3.6.1 with our packages. Protobuf version can be checked by the command `protoc --version`. If protoc version needs to be updated, try removing protoc and then reinstall with `sudo apt install protobuf-compiler`. There can be multiple versions of protobuf installed in the system. You can find the locations of the version used by the command `whereis protoc`.
 
 ##  4.2. Install the CARIC packages
@@ -226,38 +222,37 @@ The following scenarios are included in the challenge:
 * Building inspection: The environment features a 60m tall building model that consists of three main vertical towers with a single void deck connecting the tops. The full 5-UAV fleet is deployed in this environment.
 
   <div style="text-align:center">
-    <img src="docs/mbs.png" alt="resolution1" width="50%"/>
+    <img src="docs/mbs.png" alt="resolution1" width="70%"/>
     <figcaption>The buiding inspection scenario</figcaption>
   </div>
 
 * Aircraft inspection: The environment features an airplane placed at the entrance of a hangar. The interest points are only located on the airplane. One explorer and two photographers are deployed in this environment. The airplane model is about 20m tall and 70m long.
   
   <div style="text-align:center">
-    <img src="docs/hangar.png" alt="resolution1" width="50%"/>
+    <img src="docs/hangar.png" alt="resolution1" width="70%"/>
     <figcaption>The aircraft inspection scenario</figcaption>
   </div>
 
 * Crane inspection: The environment consists of two cranes that are 60 and 80 meters tall, typical in construction sites, plus one 50m tall gantry crane, typical of seaport environments. The full 5-UAV fleet is deployed in this environment.
 
   <div style="text-align:center">
-    <img src="docs/crane.png" alt="resolution1" width="50%"/>
+    <img src="docs/crane.png" alt="resolution1" width="70%"/>
     <figcaption>The crane inspection scenario</figcaption>
   </div>
 
 ##  5.3. The benchmark criteria
 
-###  5.3.1. The inspection mission
+###  5.3.1. Inspection mission overview
 
-Different CARI schemes can use different strategies to acheive the highest inspection score within a finite amount of time.
-The mission time starts from the moment any UAV takes off (when it's velocity exceeds 0.1m/s and it's altitude exceeds 0.1m). When the time elapses, all drones will shut down and no communication is possible.
+The mission time starts from the moment any UAV takes off (when it's velocity exceeds 0.1m/s and it's altitude exceeds 0.1m). When the time elapses, all drones will shut down and no communication is possible. User can design any CARI scheme with any strategy that follow the [ground rules](#61-ground-rules) to acheive the highest inspection score within the finite mission time.
 
 During the mission, the GCS will receive the information regarding the captured interest points from the UAVs when there is LOS. The captures are compared and the score will be tallied and published in real time under the `/gcs/score` topic. After each mission, a log file will be generated in the folder specified under the param `log_dir` in the launch file of `caric_mission` package.
 
-In practice operators in the field can limit the area to be inspected within an area chosen subjectively. Thus, in each mission a sequence of bounding boxes are given to help limit the exploration effort. The interest points will only be found inside the bounding box. The vertices of the bounding boxes are published under the topic `/gcs/bounding_box_vertices`, which is of type `sensor_msgs/PointCloud`. In this message each bounding box consists of 8 vertices. User can subscribe to this topic or get the description of the bounding box directly from the `bounding_box_description.yaml` files in the `caric_mission` package. Note that the bounding box will be changed in the evaluation.
+In practice operators in the field can limit the area to be inspected within an area chosen subjectively. Thus, in each mission a sequence of bounding boxes are given to help limit the exploration effort. The interest points will only be found inside the bounding box. Details on the bounding boxes can be found in the later section on [onboard perception data](#62-onboard-perception-data).
 
 ### 5.3.2. The mission score
 
-Let us denote the set of the interest point as $I$, and the set of UAVs as $N$. At each simulation update step $k$, we denote $q_{i,n,k}$ as the score of the interest point $i$ captured by UAV $n$. Specifically $q_{i,n,k}$ is calculated as follows:
+Let us denote the set of the interest point as $$I$$, and the set of UAVs as $$N$$. At each simulation update step $$k$$, we denote $$q_{i,n,k}$$ as the score of the interest point $$i$$ captured by UAV $$n$$. Specifically $$q_{i,n,k}$$ is calculated as follows:
 
 $$
 q_{i,n,k} = \begin{cases} \displaystyle
@@ -266,7 +261,7 @@ q_{i,n,k} = \begin{cases} \displaystyle
             \end{cases}
 $$
 
-where $q_\text{seen} \in \\{0, 1\\}$, $q_\text{blur} \in [0, 1]$, $q_\text{res} \in [0, 1]$ are the LOS-FOV, motion blur, and resolution metrics, which are elaborated in the subsequent sections.
+where $$q_\text{seen} \in \{0, 1\}$$, $$q_\text{blur} \in [0, 1]$$, $$q_\text{res} \in [0, 1]$$ are the LOS-FOV, motion blur, and resolution metrics, which are elaborated in the subsequent sections.
 The above equation also implies that an interest point is only detected when its score exceeds a threshold, which is chosen as 0.2 in this case.
 
 At the GCS, the following will be calculated:
@@ -275,32 +270,32 @@ $$
 q_{i, \text{gcs}, k} =  \max \left[ \max_{n \in \mathcal{N}_\text{gcs}} (q_{i, n, k}),\ q_{i, \text{gcs}, k-1} \right],\\
 $$
 
-where $\mathcal{N_\text{gcs}}$ is the set of UAVs that have LOS to the GCS. This reflects the process that the GCS receives the images captured by the drones and selects the one with the highest score and keep that information in the memory. Moreover, the stored data will also be compared against the future captures.
+where $$\mathcal{N_\text{gcs}}$$ is the set of UAVs that have LOS to the GCS. This reflects the process that the GCS receives the images captured by the drones and selects the one with the highest score and keep that information in the memory. Moreover, the stored data will also be compared against the future captures.
 
-The score of the mission up to time $k$ is computed as:
+The score of the mission up to time $$k$$ is computed as follows:
 
 $$
-Q_k = \sum_{i \in I} q_{i, \text{gcs}, k}
+Q_k = \sum_{i \in I} q_{i, \text{gcs}, k}.
 $$
 
-Hence, the <u>overall score of the mission will be $Q_k$ at the end of the mission</u>.
+Hence, $$Q_k$$ at the end of the mission will be <u> the mission score</u>.
 
-Below we will explain the processes used to determine the terms $q_\text{seen}$, $q_\text{blur}$, $q_\text{res}$ in the calculation of $q_{i,n,k}$.
+Below we will explain the processes used to determine the terms $$q_\text{seen}$$, $$q_\text{blur}$$, $$q_\text{res}$$ in the calculation of $$q_{i,n,k}$$.
 
 ###  5.3.3. LOS and FOV
 
-The term $q_\text{seen}$ is a binary-valued metric value that is 1.0 when the interest point falls in the field of view (FOV) of the camera, and the camera has direct line of sight (LOS) to the interest point (not obstructed by any other objects), and 0.0 otherwise. The camera horizontal FOV and vertical FOV are defined by the parameters `HorzFOV` and `VertFOV` in the file [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). Note that the camera orientation can be controlled as described in the section [Camera gimbal control](#631-camera-gimbal-control).
+The term $$q_\text{seen}$$ is a binary-valued metric value that is 1.0 when the interest point falls in the field of view (FOV) of the camera, and the camera has direct line of sight (LOS) to the interest point (not obstructed by any other objects), and 0.0 otherwise. The camera horizontal FOV and vertical FOV are defined by the parameters `HorzFOV` and `VertFOV` in the file [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). Note that the camera orientation can be controlled as described in the section [Camera gimbal control](#631-camera-gimbal-control).
 
 ###  5.3.4. Motion blur
 
-The motion blur metric $q_\text{blur}$ is based on the motion of the interest point during the camera exposure duration $\tau$. This value is declared in the parameter `ExposureTime` in [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). It can be interpreted as the number of pixels that an interest point moves across during the exposure time, i.e.:
+The motion blur metric $$q_\text{blur}$$ is based on the motion of the interest point during the camera exposure duration $$\tau$$. This value is declared in the parameter `ExposureTime` in [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). It can be interpreted as the number of pixels that an interest point moves across during the exposure time, i.e.:
 
 $$
 \displaystyle
 q_\text{blur} = \min\left(\dfrac{c}{\max\left(|u_1-u_0|, |v_1-v_0|\right)}, 1.0\right),
 $$
 
-where $c$ is the *pixel width* and $\|u_1-u_0\|$, $\|v_1-v_0\|$ are the horizontal and vertical movements on the image plane that are computed by:
+where $$c$$ is the *pixel width* and $$\|u_1-u_0\|$$, $$\|v_1-v_0\|$$ are the horizontal and vertical movements on the image plane that are computed by:
 
 $$
 u_0 = f\cdot\dfrac{x_0}{z_0},\ 
@@ -313,25 +308,25 @@ $$
 [x_1,y_1,z_1]^\top = [x_0,y_0,z_0]^\top + \mathbf{v}\cdot\tau,
 $$
 
-with $f$ being the *focal length*, $[x_0,y_0,z_0]^\top$ the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ the updated position considering the velocity of the interest point in the camera frame at the time of capture, denoted as $\mathbf{v}$ (see our derivation for this velocity at the following [link](docs/CARIC_motion_blur.pdf)). The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame, where the vertical motion blur can be interpreted similarly.
+with $$f$$ being the *focal length*, $$[x_0,y_0,z_0]^\top$$ the position of the interest point at the time of capture, and $$[x_1,y_1,z_1]^\top$$ the updated position considering the velocity of the interest point in the camera frame at the time of capture, denoted as $$\mathbf{v}$$ (see our derivation for this velocity at the following [link](docs/CARIC_motion_blur.pdf)). The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame, where the vertical motion blur can be interpreted similarly.
 
 <div style="text-align:center">
   <img src="docs/motionblur1.png" alt="resolution1" width="50%"/>
   <figcaption> Illustration of horizontal resolution computation</figcaption>
 </div>
 
-Note that for an sufficiently sharp capture, it only requires that the movement of the interest point is smaller than 1 pixel. Therefore we cap the value of $q_\text{blur}$ at 1.0. Otherwise if the UAV stays static during the capture, $q_\text{blur}$ could be $\infty$.
+Note that for an sufficiently sharp capture, it only requires that the movement of the interest point is smaller than 1 pixel. Therefore we cap the value of $$q_\text{blur}$$ at 1.0. Otherwise if the UAV stays static during the capture, $$q_\text{blur}$$ could be $$\infty$$.
 
 ###  5.3.5. Image resolution
 
-The resolution of the image is expressed in milimeter-per-pixel (mmpp), representing the size of the real-world object captured in one image pixel. To achieve a satisfactory resolution, the computed horizontal and vertical resolutions should be smaller than a desired mmpp value. Given the position of an interest point in the camera frame and its surface normal, the horizontal and vertical resolution can be obtained by displacing the interest point by $\pm 0.5$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $\|u_1-u_2\|$.
+The resolution of the image is expressed in milimeter-per-pixel (mmpp), representing the size of the real-world object captured in one image pixel. To achieve a satisfactory resolution, the computed horizontal and vertical resolutions should be smaller than a desired mmpp value. Given the position of an interest point in the camera frame and its surface normal, the horizontal and vertical resolution can be obtained by displacing the interest point by $$\pm 0.5$$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $$\|u_1-u_2\|$$.
 
 <div style="text-align:center">
   <img src="docs/resolution1.png" alt="resolution1" width="50%"/>
   <figcaption> Illustration of horizontal resolution computation</figcaption>
 </div>
 
-The horizontal and vertical resolutions are computed as $r_\text{horz} = \frac{c}{\|u_2 - u_1\|}$ and $r_\text{vert}=\frac{c}{\|v_2 - v_1\|}$, where $v_1$ and $v_2$ are the $y$-coordinates of the points in the image plane obtained by displacing the interest point along the line intersecting the interest surface and the vertical plane.
+The horizontal and vertical resolutions are computed as $$r_\text{horz} = \frac{c}{\|u_2 - u_1\|}$$ and $$r_\text{vert}=\frac{c}{\|v_2 - v_1\|}$$, where $$v_1$$ and $$v_2$$ are the $$y$-coordinates of the points in the image plane obtained by displacing the interest point along the line intersecting the interest surface and the vertical plane.
 
 The resolution metric of the point is therefore calculated as:
 
@@ -339,7 +334,8 @@ $$
 \displaystyle
 q_\text{res} = \min\left(\dfrac{r_\text{des}}{\max\left(r_\text{horz}, r_\text{vert}\right)}, 1.0\right),
 $$
-where $r_\text{des}$ is the desired resolution in mmpp.
+
+where $$r_\text{des}$$ is the desired resolution in mmpp.
 
 # 6. Developing your CARI scheme
 
@@ -372,7 +368,8 @@ CARIC is intended for investigating cooperative control schemes, hence perceptio
 NOTE:
 
 * The `/gcs/detected_interest_points` topic is empty because it does not actively detect any point. However the topic `/gcs/score` contains all the points with the highest score among detections by the UAVs within LOS of the GCS.
-* In the GCS, operator may be able to specify some bounding boxes to limit the exploration space. In each mission the vertices of the bounding boxes are also published under the topic `/gcs/bounding_box_vertices`.
+* In the GCS, operator may be able to specify some bounding boxes to limit the exploration space. In each mission the vertices of the bounding boxes are published under the topic `/gcs/bounding_box_vertices`, which is of type `sensor_msgs/PointCloud`. Each bounding box consists of 8 vertices. User can subscribe to this topic or get the description of the bounding box directly from the `bounding_box_description.yaml` files in the `caric_mission` package. Note that the bounding box will be changed in the evaluation.
+
 
 ##  6.3. UAV control interface
 
