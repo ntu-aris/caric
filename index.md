@@ -489,24 +489,26 @@ print(f"Response {response}") # Error will be appended to the response.
 <table>
 
 <tr>
-<td> <img src="docs/tmn.png" alt="Drawing" style="width: 150px;"/> </td>
-<td> <img src="docs/cmq.jpg" alt="Drawing" style="width: 150px;"/>  </td>
-<td> <img src="docs/ysh.jpg" alt="Drawing" style="width: 150px;"/>  </td>
-<td> <img src="docs/xlh.jpg" alt="Drawing" style="width: 155px;"/> </td>
-</tr>
-
+<td> <img src="docs/tmn.png" alt="Drawing" style="width: 100px;"/> </td>
+<td> <img src="docs/cmq.jpg" alt="Drawing" style="width: 100px;"/>  </td>
+<td> <img src="docs/ysh.jpg" alt="Drawing" style="width: 100px;"/>  </td>
+<td> <img src="docs/xlh.jpg" alt="Drawing" style="width: 100px;"/> </td>
+<td> <img src="docs/xlh.jpg" alt="Drawing" style="width: 110px;"/> </td>
 <tr>
+
 <td> Thien-Minh Nguyen </td>
 <td> Muqing Cao        </td>
 <td> Shenghai Yuan     </td>
 <td> Lihua Xie         </td>
+<td> Benmei Chen       </td>
 </tr>
 
 <tr>
 <td> thienminh.npn@ieee.org </td>
-<td> mqcao@ntu.edu.sg      </td>
+<td> mqcao@ntu.edu.sg       </td>
 <td> shyuan@ntu.edu.sg      </td>
-<td> elhxie@ntu.edu.sg      </td>
+  <td> elhxie@ntu.edu.sg      </td>
+  <td> bmchen@ieee.org </td>
 </tr>
 
 </table>
