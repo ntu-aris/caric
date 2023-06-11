@@ -493,7 +493,7 @@ print(f"Response {response}") # Error will be appended to the response.
 <td> <img src="docs/cmq.jpg" alt="Drawing" style="width: 100px;"/>  </td>
 <td> <img src="docs/ysh.jpg" alt="Drawing" style="width: 100px;"/>  </td>
 <td> <img src="docs/xlh.jpg" alt="Drawing" style="width: 100px;"/> </td>
-<td> <img src="docs/xlh.jpg" alt="Drawing" style="width: 110px;"/> </td>
+<td> <img src="docs/D18DC15B-59D3-4F94-B53D-1612C03FFE6E.jpeg" alt="Drawing" style="width: 100px;"/> </td>
 <tr>
 
 <td> Thien-Minh Nguyen </td>
@@ -507,8 +507,8 @@ print(f"Response {response}") # Error will be appended to the response.
 <td> thienminh.npn@ieee.org </td>
 <td> mqcao@ntu.edu.sg       </td>
 <td> shyuan@ntu.edu.sg      </td>
-  <td> elhxie@ntu.edu.sg      </td>
-  <td> bmchen@ieee.org </td>
+<td> elhxie@ntu.edu.sg      </td>
+<td> bmchen@ieee.org        </td>
 </tr>
 
 </table>
