@@ -334,8 +334,9 @@ The resolution metric of the point is therefore calculated as:
 
 $$
 \displaystyle
-q_\text{res} = \min\left(\dfrac{r}{\max\left(r_\text{horz}, r_\text{vert}\right)}, 1.0\right).
+q_\text{res} = \min\left(\dfrac{r_\text{des}}{\max\left(r_\text{horz}, r_\text{vert}\right)}, 1.0\right),
 $$
+where $r_\text{des}$ is the desired resolution in mmpp.
 
 # 6. Developing your CARI scheme
 
@@ -502,7 +503,7 @@ print(f"Response {response}") # Error will be appended to the response.
 
 <tr>
 <td> thienminh.npn@ieee.org </td>
-<td> mqcao@ntu.edu.s g      </td>
+<td> mqcao@ntu.edu.sg      </td>
 <td> shyuan@ntu.edu.sg      </td>
 <td> elhxie@ntu.edu.sg      </td>
 </tr>
