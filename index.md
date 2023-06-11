@@ -38,12 +38,12 @@ layout: default
 
 # 2. Introduction
 
-Inspection is a multi-billion business that is [projected to grow substaintially in the next decade](https://www.fortunebusinessinsights.com/inspection-repair-and-maintenance-market-102983), with integration of automation and AI being the driving force. Fundamentally, in a typical inspection mission, the main goal is to capture images on the surface of some structures with the best quality possible. However, exploration is also a secondary objective that needs to be addressed to identify the structure and its surface. Oftentimes, bounding box(es) can be set around the target of interest to narrow the area of exploration.
+Inspection, repair and maintenance is a multi-billion business that is [projected to grow substaintially in the next decade](https://www.fortunebusinessinsights.com/inspection-repair-and-maintenance-market-102983), with integration of automation and AI being the driving force. At its core, the primary goal in an inspection mission is to capture images on the surface of some structures at the best possible quality. However, exploration is also a secondary objective that needs to be addressed to identify the structure and its surface. Oftentimes, bounding box(es) can be set around the target of interest to narrow the area of exploration.
 
-Thanks to their unique mobility, aerial robots have become widely adopted in inspection business. We belieive that the next breakthrough in the inspection industry shall be acheived by Cooperative Aerial Robots Inspection (CARI) systems. Moreover, in the same spirit of economic specialization, we posit that heterogeneous CARI systems can acheive greater efficiency, quality and versatility compared to single-UAV or homogenous systems.
+Thanks to their unique mobility, aerial robots have become widely adopted for inspection task. We beleive that the next breakthrough in this industry shall be delivered by Cooperative Aerial Robots Inspection (CARI) systems. Moreover, in the same spirit of economic specialization, we posit that heterogeneous CARI systems can acheive greater efficiency, quality and versatility compared to single-UAV or homogenous systems.
 Nevertheless, to accomplish this vision, novel cooperative strategies to optimally coordinate the trajectories of the UAVs remain an open research problem.
 
-To faciliate this development, we introduce CARIC (short for **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge), a software stack based on [Gazebo](https://packages.ubuntu.com/source/jammy/gazebo), [RotorS](https://github.com/ethz-asl/rotors_simulator) and other open-source packages. The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in [typical real-world inspection missions](#52-inspection-scenarios). Second, based on this tool, different cooperative inspection schemes can be benchmarked based on a [common metric inspired by imaging quality](#53-the-benchmark-criteria). The software stack is made public to benefit the community and we welcome all interested parties to participate in [the open challenge at CDC 2023, Singapore](#3-how-to-participate).
+To faciliate this development, we introduce CARIC (short for **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge), a software stack based on [Gazebo](https://packages.ubuntu.com/source/jammy/gazebo), [RotorS](https://github.com/ethz-asl/rotors_simulator) and other open-source packages. The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in [typical real-world inspection missions](#52-inspection-scenarios). Second, based on this tool, different cooperative inspection schemes can be benchmarked based on a [common metric](#53-the-benchmark-criteria). The software stack is made public to benefit the community and we would like to welcome all who are interested to participate in [the open challenge at CDC 2023, Singapore](#3-how-to-participate).
 
 <div style="text-align:center">
   <img src="docs/mbs_trimmed_spedup.gif" alt="facade_inspection" width="100%"/>
@@ -65,6 +65,7 @@ The procedure is as follows:
 * Send your code to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**.
 
 * The submitted method will be evaluated with the [same scenarios included in the package](#52-inspection-scenarios), however the following parameters will be altered:
+  
   * The units' starting positions.
   * The bounding box descriptions.
   * The interest points.
@@ -252,6 +253,8 @@ The mission time starts from the moment any UAV takes off (when it's velocity ex
 
 During the mission, the GCS will receive the information regarding the captured interest points from the UAVs when there is LOS. The captures are compared and the score will be tallied and published in real time under the `/gcs/score` topic. After each mission, a log file will be generated in the folder specified under the param `log_dir` in the launch file of `caric_mission` package.
 
+In practice operators in the field can limit the area to be inspected within an area chosen subjectively. Thus, in each mission a sequence of bounding boxes are given to help limit the exploration effort. The interest points will only be found inside the bounding box. The vertices of the bounding boxes are published under the topic `/gcs/bounding_box_vertices`, which is of type `sensor_msgs/PointCloud`. In this message each bounding box consists of 8 vertices. User can subscribe to this topic or get the description of the bounding box directly from the `bounding_box_description.yaml` files in the `caric_mission` package. Note that the bounding box will be changed in the evaluation.
+
 ### 5.3.2. The mission score
 
 Let us denote the set of the interest point as $I$, and the set of UAVs as $N$. At each simulation update step $k$, we denote $q_{i,n,k}$ as the score of the interest point $i$ captured by UAV $n$. Specifically $q_{i,n,k}$ is calculated as follows:
@@ -290,7 +293,7 @@ The term $q_\text{seen}$ is a binary-valued metric value that is 1.0 when the in
 
 ###  5.3.4. Motion blur
 
-The motion blur metric $q_\text{blur}$ is based on the motion of the interest point during the camera exposure duration $\tau$ defined by the parameter `ExposureTime` in [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). It can be interpreted as the number of pixels that an interest point moves across during the exposure time, i.e.:
+The motion blur metric $q_\text{blur}$ is based on the motion of the interest point during the camera exposure duration $\tau$. This value is declared in the parameter `ExposureTime` in [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). It can be interpreted as the number of pixels that an interest point moves across during the exposure time, i.e.:
 
 $$
 \displaystyle
@@ -343,7 +346,7 @@ $$
 
 The following rules should be adhered to in developing a meaningful CARI scheme:
 
-* <u>Isolated namespaces</u>: The user-defined software processes should be isolated by the appropriate namespaces. Consider each namespace the local computer running on a unit. In the real world the processes on one computer should not be able to freely subscribe to a topic in another computer. Information exchange between namespaces is possible but should be subjected to the characteristics of the communication network's (see the next rule). Currently there are six namespaces used in CARIC: `/gcs`, `/jurong`, `/rafffles`, `/changi`, `/sentosa`, and `/nanyang`. Note that some topics may be published outside of these namespaces for monitoring and evaluating purposes, and should not be subscribed to by any user-defined node.
+* <u>Isolated namespaces</u>: The user-defined software processes should be isolated by the appropriate namespaces. Consider each namespace the local computer running on a unit. In the real world the processes on one computer should not be able to freely subscribe to a topic in another computer. Information exchange between namespaces is possible but should be subjected to the characteristics of the communication network (see the next rule). Currently there are six namespaces used in CARIC: `/gcs`, `/jurong`, `/rafffles`, `/changi`, `/sentosa`, and `/nanyang`. Note that some topics may be published outside of these namespaces for monitoring and evaluating purposes, and should not be subscribed to by any user-defined node.
 
 * <u>Networked communication</u>: The communication between the namespaces should be regulated by the `ppcom_router` node, which simulates a peer-to-peer broadcast network. In this network messages can be sent directly from a node in one namespace to another node in another namespace **when there is LOS**. Please refer to the details of the [communication network](#64-communication-network) for the instructions on how to apply the `ppcom_router` node.
 
@@ -368,6 +371,7 @@ CARIC is intended for investigating cooperative control schemes, hence perceptio
 NOTE:
 
 * The `/gcs/detected_interest_points` topic is empty because it does not actively detect any point. However the topic `/gcs/score` contains all the points with the highest score among detections by the UAVs within LOS of the GCS.
+* In the GCS, operator may be able to specify some bounding boxes to limit the exploration space. In each mission the vertices of the bounding boxes are also published under the topic `/gcs/bounding_box_vertices`.
 
 ##  6.3. UAV control interface
 
