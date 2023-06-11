@@ -70,7 +70,7 @@ The procedure is as follows:
   * The interest points.
   * The mission time.
 
-* The methods will be ranked based on the <u>total score obtained in all three scenarios</u>.
+* The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three [scenarios](#52-inspection-scenarios)**.
 
 * Results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. Winner will be invited to present their method at the Workshop.
 
@@ -84,7 +84,7 @@ The procedure is as follows:
 
 ## 3.3. Prize
 
-The winner will receive a material or monetary prize of 68 SGD (a lucky number) and a certificate. If you are interested in being a sponsor of the challenge, please contact any of the organizers [organizers](#7-organizers).
+The winner will receive a material or monetary prize of 68 SGD (a lucky number) and a certificate. If you are interested in being a sponsor of the challenge, please contact any of the [organizers](#7-organizers).
 
 # 4. Installation
 
@@ -159,7 +159,7 @@ Please check out the [notes](#413-notes) below if you encounter any problem.
 
 * On Ubuntu 18.04, Gazebo 11 is needed, otherwise Gazebo may crash due to conflict between the GPU-based lidar simulator and the raytracing operations in our custom-built `gazebo_ppcom_plugin.cpp`.
  
-* Protobuf version: We have tested protobuf 3.0.0 and 3.6.1 with our packages. Protobuf version can be checked by the command `protoc --version`. If protoc version needs to be updated, try to remove protoc, and then reinstall with `sudo apt install protobuf-compiler`. There can be multiple versions of the protobuf installed in the system. You can find the locations of the version used by the command `whereis protoc`.
+* Protobuf version: We have tested protobuf 3.0.0 and 3.6.1 with our packages. Protobuf version can be checked by the command `protoc --version`. If protoc version needs to be updated, try removing protoc and then reinstall with `sudo apt install protobuf-compiler`. There can be multiple versions of protobuf installed in the system. You can find the locations of the version used by the command `whereis protoc`.
 
 ##  4.2. Install the CARIC packages
 Once the dependencis have been installed, please create a new workspace for CARIC, clone the necessary packages into it, and compile:
@@ -199,15 +199,15 @@ To make sure the code compiles and runs smoothly, please launch the example flig
 ```bash
 source ~/ws_caric/devel/setup.bash
 roscd caric_mission/scripts
-bash launch_mbs.sh
+bash launch_demo_paths.sh
 ```
 
-You should see 5 UAVs take off, follow a fixed trajectory, and fall down when time is out.
+You should see 5 UAVs take off, follow fixed trajectories, and fall down when time is out.
 
 # 5. The benchmark design
 
 ##  5.1. The UAV fleet
-A 5-UAV team is designed for the challenge, two of the _explorer_ class (nicknamed `jurong` and `raffles`), and three of the _photographer_ class (`changi`, `sentosa`, and `nanyang`), plus one GCS (Ground Control Station). Each unit has an intended role in the mission.
+A 5-UAV team is designed for the challenge, two of the _explorer_ class (nicknamed `jurong` and `raffles`), and three of the _photographer_ class (`changi`, `sentosa`, and `nanyang`), plus one *GCS (Ground Control Station)*. Each unit has an intended role in the mission.
 <div style="text-align:center">
   <img src="docs/fleet.jpeg" alt="fleet" width="50%"/>
   <figcaption>An illustration of one GCS, one explorer, and two photographers in Gazbo environment.</figcaption>
@@ -250,7 +250,7 @@ The following scenarios are included in the challenge:
 Different CARI schemes can use different strategies to acheive the highest inspection score within a finite amount of time.
 The mission time starts from the moment any UAV takes off (when it's velocity exceeds 0.1m/s and it's altitude exceeds 0.1m). When the time elapses, all drones will shut down and no communication is possible.
 
-During the mission, the GCS will receive the information regarding the captured interest points from the UAVs when there is LOS. The captures are compared and the score will be tallied and published in real time under the `/gcs` namespaces. After each mission, a log file will be generated in the folder specified under the param `log_dir` in the launch file of `caric_mission` package.
+During the mission, the GCS will receive the information regarding the captured interest points from the UAVs when there is LOS. The captures are compared and the score will be tallied and published in real time under the `/gcs/score` topic. After each mission, a log file will be generated in the folder specified under the param `log_dir` in the launch file of `caric_mission` package.
 
 ### 5.3.2. The mission score
 
@@ -258,21 +258,21 @@ Let us denote the set of the interest point as $I$, and the set of UAVs as $N$. 
 
 $$
 q_{i,n,k} = \begin{cases} \displaystyle
-              0, & \text{if } k = 0 \text{ or } q_\text{seen} \cdot q_\text{blur} \cdot q_\text{res} < 0.2,\\
+              0, & \text{if } (k = 0) \text{ or } (q_\text{seen} \cdot q_\text{blur} \cdot q_\text{res} < 0.2),\\
               q_\text{seen} \cdot q_\text{blur} \cdot q_\text{res}, & \text{otherwise.}
             \end{cases}
 $$
 
-where $q_\text{seen} \in \\{0, 1\\}$, $q_\text{blur} \in [0, 1]$, $q_\text{res} \in [0, 1]$ are the LOS-FOV, motion blur, and resolution metrics, which will be elaborated in the subsequent sections.
+where $q_\text{seen} \in \\{0, 1\\}$, $q_\text{blur} \in [0, 1]$, $q_\text{res} \in [0, 1]$ are the LOS-FOV, motion blur, and resolution metrics, which are elaborated in the subsequent sections.
 The above equation also implies that an interest point is only detected when its score exceeds a threshold, which is chosen as 0.2 in this case.
 
-Then at the GCS, the following will be calculated:
+At the GCS, the following will be calculated:
 
 $$
-q_{i, \text{gcs}, k} =  \max ( \max_{n \in \mathcal{N}_\text{gcs}} q_{i, n, k},\ q_{i, \text{gcs}, k-1}),\\
+q_{i, \text{gcs}, k} =  \max \left[ \max_{n \in \mathcal{N}_\text{gcs}} (q_{i, n, k}),\ q_{i, \text{gcs}, k-1} \right],\\
 $$
 
-where $\mathcal{N_\text{gcs}}$ is the set of UAVs that have LOS to the GCS. This reflects the process that the GCS will receive the images captured by the drones and select the one with the highest score and keep that information in the memory. Moreover, the stored data will also be compared against the future captures.
+where $\mathcal{N_\text{gcs}}$ is the set of UAVs that have LOS to the GCS. This reflects the process that the GCS receives the images captured by the drones and selects the one with the highest score and keep that information in the memory. Moreover, the stored data will also be compared against the future captures.
 
 The score of the mission up to time $k$ is computed as:
 
@@ -286,18 +286,18 @@ Below we will explain the processes used to determine the terms $q_\text{seen}$,
 
 ###  5.3.3. LOS and FOV
 
-The term $q_\text{seen}$ is a binary-valued metric value that is used to indicate whether the interest point falls in the field of view (FOV) of the camera, and the camera has direct line of sight (LOS) to the interest point (not obstructed by any other objects). The camera horizontal FOV and vertical FOV are defined by the parameters `HorzFOV` and `VertFOV` in the file [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). Note that the camera orientation can be controlled as described in the section [Camera gimbal control](#531-camera-gimbal-control).
+The term $q_\text{seen}$ is a binary-valued metric value that is 1.0 when the interest point falls in the field of view (FOV) of the camera, and the camera has direct line of sight (LOS) to the interest point (not obstructed by any other objects), and 0.0 otherwise. The camera horizontal FOV and vertical FOV are defined by the parameters `HorzFOV` and `VertFOV` in the file [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). Note that the camera orientation can be controlled as described in the section [Camera gimbal control](#631-camera-gimbal-control).
 
 ###  5.3.4. Motion blur
 
-The motion blur metric $q_\text{blur}$ is based on the motion of the interest point during the camera exposure duration defined by the parameter `ExposureTime`, denoted as $\tau$. It is defined as the number of pixels that an interest point moves across during the exposure, i.e.:
+The motion blur metric $q_\text{blur}$ is based on the motion of the interest point during the camera exposure duration $\tau$ defined by the parameter `ExposureTime` in [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). It can be interpreted as the number of pixels that an interest point moves across during the exposure time, i.e.:
 
 $$
 \displaystyle
 q_\text{blur} = \min\left(\dfrac{c}{\max\left(|u_1-u_0|, |v_1-v_0|\right)}, 1.0\right),
 $$
 
-where $\|u_1-u_0\|$, $\|v_1-v_0\|$ are the horizontal and vertical pixel movements that are computed by:
+where $c$ is the *pixel width* and $\|u_1-u_0\|$, $\|v_1-v_0\|$ are the horizontal and vertical movements on the image plane that are computed by:
 
 $$
 u_0 = f\cdot\dfrac{x_0}{z_0},\ 
@@ -307,10 +307,10 @@ v_1 = f\cdot\dfrac{z_1}{z_1},\\
 $$
 
 $$
-[x_1,y_1,z_1]^\top = [x_0,y_0,z_0]^\top + \mathbf{v}\cdot\tau.
+[x_1,y_1,z_1]^\top = [x_0,y_0,z_0]^\top + \mathbf{v}\cdot\tau,
 $$
 
-Here, $f$ is the *focal length* and $c$ is the *pixel width*, $[x_0,y_0,z_0]^\top$ is the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ is the updated position considering the velocity of the interest point in the camera frame at the time of capture, denoted as $\mathbf{v}$ (see our derivation for this velocity at the following [link](docs/CARIC_motion_blur.pdf)). The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame, where the vertical motion blur can be interpreted similarly.
+with $f$ being the *focal length*, $[x_0,y_0,z_0]^\top$ the position of the interest point at the time of capture, and $[x_1,y_1,z_1]^\top$ the updated position considering the velocity of the interest point in the camera frame at the time of capture, denoted as $\mathbf{v}$ (see our derivation for this velocity at the following [link](docs/CARIC_motion_blur.pdf)). The figure below illustrates the horizontal motion blur by showing the horizontal (X-Z) plane of the camera frame, where the vertical motion blur can be interpreted similarly.
 
 <div style="text-align:center">
   <img src="docs/motionblur1.png" alt="resolution1" width="50%"/>
@@ -321,7 +321,7 @@ Note that for an sufficiently sharp capture, it only requires that the movement 
 
 ###  5.3.5. Image resolution
 
-The resolution of the image is expressed in milimeter-per-pixel (mmpp), representing the size of the real-world object captured in one image pixel. To achieve a satisfactory resolution, the computed horizontal and vertical resolutions should be smaller than a desired mmpp value. Given the position of an interest point in the camera frame and its normal (perpendicular to its surface), the horizontal and vertical resolution can be obtained by displacing the interest point by $\pm 0.5$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $\|u_1-u_2\|$.
+The resolution of the image is expressed in milimeter-per-pixel (mmpp), representing the size of the real-world object captured in one image pixel. To achieve a satisfactory resolution, the computed horizontal and vertical resolutions should be smaller than a desired mmpp value. Given the position of an interest point in the camera frame and its surface normal, the horizontal and vertical resolution can be obtained by displacing the interest point by $\pm 0.5$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $\|u_1-u_2\|$.
 
 <div style="text-align:center">
   <img src="docs/resolution1.png" alt="resolution1" width="50%"/>
@@ -449,7 +449,7 @@ Note that in manual trigger mode, the time stamps of two consecutive trigger com
 
 ##  6.4. Communication network
 
-Each robot is given a unique ID in a so-called ppcom network, for e.g. gcs, jurong, changi. These IDs can be specified in the [description file](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt).
+Each robot is given a unique ID in a so-called ppcom network, for e.g. gcs, jurong, changi. These IDs are declared in the [description file](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt).
 
 In real-world conditions, communications between the units can be interrupted by obstacles that block the LOS between them. To subject a topic to this effect, users can do the following:
 * Launch the node `ppcom_router` under `caric_mission`:
