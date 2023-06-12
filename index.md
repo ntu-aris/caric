@@ -73,6 +73,7 @@ The procedure is as follows:
   * The mission time.
 * The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three [scenarios](#52-inspection-scenarios)**.
 * Results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. Winner will be invited to present their method at the Workshop.
+* If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues).
 
 ## 3.2. Important dates
 
@@ -326,7 +327,7 @@ The resolution of the image is expressed in milimeter-per-pixel (mmpp), represen
   <figcaption> Illustration of horizontal resolution computation</figcaption>
 </div>
 
-The horizontal and vertical resolutions are computed as $$r_\text{horz} = \frac{c}{\|u_2 - u_1\|}$$ and $$r_\text{vert}=\frac{c}{\|v_2 - v_1\|}$$, where $$v_1$$ and $$v_2$$ are the $$y$-coordinates of the points in the image plane obtained by displacing the interest point along the line intersecting the interest surface and the vertical plane.
+The horizontal and vertical resolutions are computed as $$r_\text{horz} = \frac{c}{\|u_2 - u_1\|}$$ and $$r_\text{vert}=\frac{c}{\|v_2 - v_1\|}$$, where $$v_1$$ and $$v_2$$ are the $$y$$-coordinates of the points in the image plane obtained by displacing the interest point along the line intersecting the interest surface and the vertical plane.
 
 The resolution metric of the point is therefore calculated as:
 
