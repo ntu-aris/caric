@@ -489,11 +489,11 @@ print(f"Response {response}") # Error will be appended to the response.
 <table>
 
 <tr>
-<td> <img src="docs/tmn.png"  alt="Drawing" style="width: 110px;"/> </td>
-<td> <img src="docs/cmq.jpg"  alt="Drawing" style="width: 110px;"/> </td>
-<td> <img src="docs/ysh.jpg"  alt="Drawing" style="width: 110px;"/> </td>
-<td> <img src="docs/xlh.jpg"  alt="Drawing" style="width: 115px;"/> </td>
-<td> <img src="docs/bmc.jpeg" alt="Drawing" style="width: 110px;"/> </td>
+<td> <img src="docs/tmn.png"  alt="Drawing" style="width: 130px;"/> </td>
+<td> <img src="docs/cmq.jpg"  alt="Drawing" style="width: 130px;"/> </td>
+<td> <img src="docs/ysh.jpg"  alt="Drawing" style="width: 130px;"/> </td>
+<td> <img src="docs/xlh.jpg"  alt="Drawing" style="width: 135px;"/> </td>
+<td> <img src="docs/bmc.jpeg" alt="Drawing" style="width: 130px;"/> </td>
 </tr>
 
 <tr>
