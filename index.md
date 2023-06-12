@@ -416,6 +416,7 @@ There are multiple ways you can control the robots:
 
 `Velocity/acceleration-based control`: when setting target positions to zeros and setting non-zero velocities or accelerations, the robot will try to move with the desired velocity/acceleration. The actual velocity/acceleration may not follow the desired states exactly due to the realistic low level controller. Hence, the users are suggested to take into account the state feedback when generating the control inputs.
 
+You may try controlling a drone and its camera gimbal manually using keyboard inputs, see [instructions](https://github.com/ntu-aris/caric_mission/wiki/Manual-control-using-keyboard).
 ###  6.3.1. Camera gimbal control
 
 Confusion can easily arise when handling rotation. It is recommended that users go through our [technical note](docs/CARIC_motion_blur.pdf) for an overview of the underlying technical conventions.
