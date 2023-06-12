@@ -82,7 +82,7 @@ The procedure is as follows:
 
 ## 3.3. Prize
 
-The winner will receive a material or monetary prize of 68 SGD (a lucky number) and a certificate. If you are interested in being a sponsor of the challenge, please contact any of the [organizers](#7-organizers).
+The winner will receive a material or monetary prize of SGD1000 and a certificate. If you are interested in being a sponsor of the challenge, please contact any of the [organizers](#7-organizers).
 
 # 4. Installation
 
