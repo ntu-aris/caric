@@ -489,13 +489,14 @@ print(f"Response {response}") # Error will be appended to the response.
 <table>
 
 <tr>
-<td> <img src="docs/tmn.png" alt="Drawing" style="width: 100px;"/> </td>
-<td> <img src="docs/cmq.jpg" alt="Drawing" style="width: 100px;"/>  </td>
-<td> <img src="docs/ysh.jpg" alt="Drawing" style="width: 100px;"/>  </td>
-<td> <img src="docs/xlh.jpg" alt="Drawing" style="width: 100px;"/> </td>
-<td> <img src="docs/D18DC15B-59D3-4F94-B53D-1612C03FFE6E.jpeg" alt="Drawing" style="width: 100px;"/> </td>
-<tr>
+<td> <img src="docs/tmn.png"  alt="Drawing" style="width: 110px;"/> </td>
+<td> <img src="docs/cmq.jpg"  alt="Drawing" style="width: 110px;"/> </td>
+<td> <img src="docs/ysh.jpg"  alt="Drawing" style="width: 110px;"/> </td>
+<td> <img src="docs/xlh.jpg"  alt="Drawing" style="width: 115px;"/> </td>
+<td> <img src="docs/bmc.jpeg" alt="Drawing" style="width: 110px;"/> </td>
+</tr>
 
+<tr>
 <td> Thien-Minh Nguyen </td>
 <td> Muqing Cao        </td>
 <td> Shenghai Yuan     </td>
@@ -508,7 +509,7 @@ print(f"Response {response}") # Error will be appended to the response.
 <td> mqcao@ntu.edu.sg       </td>
 <td> shyuan@ntu.edu.sg      </td>
 <td> elhxie@ntu.edu.sg      </td>
-<td> bmchen@ieee.org        </td>
+<td> bmchen@cuhk.edu.hk     </td>
 </tr>
 
 </table>
