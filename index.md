@@ -72,7 +72,7 @@ The procedure is as follows:
   * The interest points.
   * The mission time.
 * The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three [scenarios](#52-inspection-scenarios)**.
-* Results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. Winner will be invited to present their method at the Workshop.
+* Results will be announced and prize will be presented at [CDC 2023](https://cdc2023.ieeecss.org/).
 * If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues).
 
 ## 3.2. Important dates
