@@ -65,7 +65,7 @@ The procedure is as follows:
 * Sign up via the following [form](https://docs.google.com/forms/d/e/1FAIpQLSfpaBQUJmdi6etYXH5t0bj7R-TWuU_11-lUlEfKzcUrz9Cdyw/viewform).
 * Read through the description of CARIC software stack in the remaining of this website. 
 * Participants develop their CARI schemes based on CARIC. Do notice the [ground rules](#61-ground-rules). The implementation can be in python, C++ or docker executable.
-* Send your code to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**.
+* Send your code / executable to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**.
 * The submitted method will be evaluated with the [same scenarios included in the package](#52-inspection-scenarios), however the following parameters will be altered:
   * The units' starting positions.
   * The bounding box descriptions.
