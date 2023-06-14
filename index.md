@@ -72,7 +72,7 @@ The procedure is as follows:
   * The interest points.
   * The mission time.
 * The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three [scenarios](#52-inspection-scenarios)**.
-* Results will be announced at the CDC 2023 Workshop on *Autonomous Unmanned Systems Technologies and Applications*. Winner will be invited to present their method at the Workshop.
+* Results will be announced and prize will be presented at [CDC 2023](https://cdc2023.ieeecss.org/).
 * If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues).
 
 ## 3.2. Important dates
@@ -241,6 +241,7 @@ The following scenarios are included in the challenge:
     <figcaption>The crane inspection scenario</figcaption>
   </div>
 
+Note that for different inspection scenarios, different number of drones and camera settings are used. The setting for each scenario is indicated in the description file `caric_ppcom_network_NAME_OF_SCENARIO.txt` in the [folder](https://github.com/ntu-aris/rotors_simulator/tree/master/rotors_description/ppcom_network).
 ##  5.3. The benchmark criteria
 
 ###  5.3.1. Inspection mission overview
@@ -285,11 +286,11 @@ Below we will explain the processes used to determine the terms $$q_\text{seen}$
 
 ###  5.3.3. LOS and FOV
 
-The term $$q_\text{seen}$$ is a binary-valued metric value that is 1.0 when the interest point falls in the field of view (FOV) of the camera, and the camera has direct line of sight (LOS) to the interest point (not obstructed by any other objects), and 0.0 otherwise. The camera horizontal FOV and vertical FOV are defined by the parameters `HorzFOV` and `VertFOV` in the file [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). Note that the camera orientation can be controlled as described in the section [Camera gimbal control](#631-camera-gimbal-control).
+The term $$q_\text{seen}$$ is a binary-valued metric value that is 1.0 when the interest point falls in the field of view (FOV) of the camera, and the camera has direct line of sight (LOS) to the interest point (not obstructed by any other objects), and 0.0 otherwise. The camera horizontal FOV and vertical FOV are defined by the parameters `HorzFOV` and `VertFOV` in the [description files for the respective inspection scenarios](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network). Note that the camera orientation can be controlled as described in the section [Camera gimbal control](#631-camera-gimbal-control).
 
 ###  5.3.4. Motion blur
 
-The motion blur metric $$q_\text{blur}$$ is based on the motion of the interest point during the camera exposure duration $$\tau$$. This value is declared in the parameter `ExposureTime` in [caric_ppcom_network.txt](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt). It can be interpreted as the number of pixels that an interest point moves across during the exposure time, i.e.:
+The motion blur metric $$q_\text{blur}$$ is based on the motion of the interest point during the camera exposure duration $$\tau$$. This value is declared in the parameter `ExposureTime` in the [description files](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network). It can be interpreted as the number of pixels that an interest point moves across during the exposure time, i.e.:
 
 $$
 \displaystyle
@@ -418,6 +419,7 @@ There are multiple ways you can control the robots:
 
 `Velocity/acceleration-based control`: when setting target positions to zeros and setting non-zero velocities or accelerations, the robot will try to move with the desired velocity/acceleration. The actual velocity/acceleration may not follow the desired states exactly due to the realistic low level controller. Hence, the users are suggested to take into account the state feedback when generating the control inputs.
 
+You may try controlling a drone and its camera gimbal manually using keyboard inputs, see [instructions](https://github.com/ntu-aris/caric_mission/wiki/Manual-control-using-keyboard).
 ###  6.3.1. Camera gimbal control
 
 Confusion can easily arise when handling rotation. It is recommended that users go through our [technical note](docs/CARIC_motion_blur.pdf) for an overview of the underlying technical conventions.
