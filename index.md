@@ -246,11 +246,11 @@ Note that for different inspection scenarios, different number of drones and cam
 
 ###  5.3.1. Inspection mission overview
 
-The mission time starts from the moment any UAV takes off (when it's velocity exceeds 0.1m/s and it's altitude exceeds 0.1m). When the time elapses, all drones will shut down and no communication is possible. User can design any CARI scheme with any strategy that follow the [ground rules](#61-ground-rules) to acheive the highest inspection score within the finite mission time.
+The mission time starts from the moment any UAV takes off (when it's velocity exceeds 0.1m/s and it's altitude exceeds 0.1m). When the time elapses, all drones will shut down and no communication is possible. User can design any CARI strategy that follows the [ground rules](#61-ground-rules) to acheive the highest inspection score within the finite mission time.
 
 During the mission, the GCS will receive the information regarding the captured interest points from the UAVs when there is LOS. The captures are compared and the score will be tallied and published in real time under the `/gcs/score` topic. After each mission, a log file will be generated in the folder specified under the param `log_dir` in the launch file of `caric_mission` package.
 
-In practice operators in the field can limit the area to be inspected within an area chosen subjectively. Thus, in each mission a sequence of bounding boxes are given to help limit the exploration effort. The interest points will only be found inside the bounding box. Details on the bounding boxes can be found in the later section on [onboard perception data](#62-onboard-perception-data).
+In practice operators in the field can subjectively limit the area to be inspected within an area. Thus, in each mission a sequence of bounding boxes are given to help limit the exploration effort. The interest points will only be located inside these bounding boxes. Details on the bounding boxes can be found in the later section on [onboard perception data](#62-onboard-perception-data).
 
 ### 5.3.2. The mission score
 
@@ -280,7 +280,7 @@ $$
 Q_k = \sum_{i \in I} q_{i, \text{gcs}, k}.
 $$
 
-Hence, $$Q_k$$ at the end of the mission will be <u> the mission score</u>.
+Hence, **the mission score will be $$Q_k$$ at the end of the mission**.
 
 Below we will explain the processes used to determine the terms $$q_\text{seen}$$, $$q_\text{blur}$$, $$q_\text{res}$$ in the calculation of $$q_{i,n,k}$$.
 
