@@ -320,15 +320,17 @@ Note that for an sufficiently sharp capture, it only requires that the movement 
 
 ###  5.3.5. Image resolution
 
-The resolution of the image is expressed in milimeter-per-pixel (mmpp), representing the size of the real-world object captured in one image pixel. To achieve a satisfactory resolution, the computed horizontal and vertical resolutions should be smaller than a desired mmpp value. Given the position of an interest point in the camera frame and its surface normal, the horizontal and vertical resolution can be obtained by displacing the interest point by $$\pm 0.5$$ mm along the line intersecting the interest surface and the horizontal/vertical plane in the camera coordinate system, and then finding the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $$\|u_1-u_2\|$$.
+The resolution of the image is expressed in milimeter-per-pixel (mmpp), representing the size of the real-world object captured in one image pixel. To achieve a satisfactory resolution, the computed horizontal and vertical resolutions should be smaller than a desired mmpp value. We will explain our derivation of the mmpp metric below.
+
+In this part we will consider all coordinates in the camera frame. Given the coordinate of the interest point $$p_i$$ and its surface normal $$n$$, we can define the so-called interest plane $$\mathscr{P} \triangleq \{p \in \mathbb{R}^3 : n^\top (p - p_i) = 0\}$$. We also define the so-called horizontal plane $$\mathscr{U} \triangleq \{p \in \mathbb{R}^3 : [0, 1, 0]^\top (p - p_i) = 0\}$$ and vertical plane $$\mathscr{V} \triangleq \{p \in \mathbb{R}^3 : [1, 0, 0]^\top (p - p_i) = 0\}$$. Hence, we displace the interest point by $$\pm 0.5$$ mm along the intersection line $$\mathscr{P} \cap \mathscr{U}$$ and find the corresponding length of the object in the image. The image below illustrates this process, where the length of the object in the image is expressed as $$\|u_1-u_2\|$$.
 
 <div style="text-align:center">
   <img src="docs/resolution1.png" alt="resolution1" width="50%"/>
   <figcaption> Illustration of horizontal resolution computation</figcaption>
 </div>
 
-The horizontal and vertical resolutions are computed as $$r_\text{horz} = \frac{c}{\|u_2 - u_1\|}$$ and $$r_\text{vert}=\frac{c}{\|v_2 - v_1\|}$$, where $$v_1$$ and $$v_2$$ are the $$y$$-coordinates of the points in the image plane obtained by displacing the interest point along the line intersecting the interest surface and the vertical plane.
-
+We follow the same procedure for the line $$\mathscr{P} \cap \mathscr{V}$$ to obtain the object's length variation in the image $$r_\text{vert}=\frac{c}{\|v_2 - v_1\|}$$.
+The horizontal and vertical resolutions are then computed as $$r_\text{horz} = \frac{c}{\|u_2 - u_1\|}$$ and $$r_\text{vert}=\frac{c}{\|v_2 - v_1\|}$$.
 The resolution metric of the point is therefore calculated as:
 
 $$
