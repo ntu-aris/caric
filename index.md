@@ -12,8 +12,8 @@ layout: base
 
 - [1. Table of contents](#1-table-of-contents)
 - [2. Introduction](#2-introduction)
-- [3. How to participate?](#3-how-to-participate)
-  - [3.1. Procedure](#31-procedure)
+- [3. CARIC at CDC 2023](#3-caric-at-cdc-2023)
+  - [3.1. How to participate?](#31-how-to-participate)
   - [3.2. Important dates](#32-important-dates)
   - [3.3. Prize](#33-prize)
 - [4. Installation](#4-installation)
@@ -46,21 +46,21 @@ layout: base
 
 Inspection, repair and maintenance is a multi-billion business that is [projected to grow substaintially in the next decade](https://www.fortunebusinessinsights.com/inspection-repair-and-maintenance-market-102983), with integration of automation and AI being the driving force. At its core, the primary goal in an inspection mission is to capture images on the surface of some structures at the best possible quality. However, exploration is also a secondary objective that needs to be addressed to identify the structure and its surface. Oftentimes, bounding box(es) can be set around the target of interest to narrow the area of exploration.
 
-Thanks to their unique mobility, aerial robots have become widely adopted for inspection task. We beleive that the next breakthrough in this industry shall be delivered by Cooperative Aerial Robots Inspection (CARI) systems. Moreover, in the same spirit of economic specialization, we posit that heterogeneous CARI systems can acheive greater efficiency, quality and versatility compared to single-UAV or homogenous systems.
-Nevertheless, to accomplish this vision, novel cooperative strategies that can optimally coordinate the trajectories of the UAVs remain an open research problem.
+Thanks to their unique mobility, aerial robots have become widely adopted for inspection task. We believe that the next breakthrough in this industry shall be delivered by Cooperative Aerial Robots Inspection (CARI) systems. Moreover, in the same spirit of economic specialization, heterogeneous CARI systems has the potential to acheive greater efficiency, quality and versatility compared to single-UAV or homogenous systems.
+Nevertheless, to accomplish this vision, novel cooperative strategies that can optimally coordinate the operations of the robots remain an open research problem.
 
-To faciliate this development, we introduce CARIC (short for **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge), a software stack based on [Gazebo](https://packages.ubuntu.com/source/jammy/gazebo), [RotorS](https://github.com/ethz-asl/rotors_simulator) and other open-source packages. The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in [typical real-world inspection missions](#52-inspection-scenarios). Second, based on this tool, different cooperative inspection schemes can be benchmarked based on a [common metric](#53-the-benchmark-criteria). The software stack is made public to benefit the community and we would like to welcome all who are interested to participate in [the open challenge at CDC 2023, Singapore](#3-how-to-participate).
+To accelerate this development, we introduce the **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge Benchmark, a software stack based on [Gazebo](https://gazebosim.org/home), [RotorS](https://github.com/ethz-asl/rotors_simulator) and other open-source packages. The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in [typical real-world inspection missions](#52-inspection-scenarios). Second, based on this tool, different cooperative inspection schemes can be benchmarked based on a [common metric](#53-the-benchmark-criteria). The software stack is made public to benefit the community and we would like to welcome all who are interested to participate in [the challenge to be held at CDC 2023, Singapore](#3-how-to-participate).
 
 <div style="text-align:center">
   <img src="docs/mbs_trimmed_spedup.gif" alt="facade_inspection" width="100%"/>
   <figcaption>CARIC software package can simulate UAV dynamics, physical collisions, camera-FOV-based instance detection, and line-of-sight-only communications</figcaption>
 </div>
 
-# 3. How to participate?
+# 3. CARIC at CDC 2023
 
-## 3.1. Procedure
+## 3.1. How to participate?
 
-The procedure is as follows:
+The challenge's procedure is as follows:
 
 * Sign up via the following [form](https://docs.google.com/forms/d/e/1FAIpQLSfpaBQUJmdi6etYXH5t0bj7R-TWuU_11-lUlEfKzcUrz9Cdyw/viewform).
 * Read through the description of CARIC software stack in the remaining of this website. 
