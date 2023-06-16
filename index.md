@@ -46,10 +46,10 @@ layout: base
 
 Inspection, repair and maintenance is a multi-billion business that is [projected to grow substaintially in the next decade](https://www.fortunebusinessinsights.com/inspection-repair-and-maintenance-market-102983), with integration of automation and AI being the driving force. At its core, the primary goal in an inspection mission is to capture images on the surface of some structures at the best possible quality. However, exploration is also a secondary objective that needs to be addressed to identify the structure and its surface. Oftentimes, bounding box(es) can be set around the target of interest to narrow the area of exploration.
 
-Thanks to their unique mobility, aerial robots have become widely adopted for inspection task. We believe that the next breakthrough in this industry shall be delivered by Cooperative Aerial Robots Inspection (CARI) systems. Moreover, in the same spirit of economic specialization, heterogeneous CARI systems has the potential to acheive greater efficiency, quality and versatility compared to single-UAV or homogenous systems.
-Nevertheless, to accomplish this vision, novel cooperative strategies that can optimally coordinate the operations of the robots remain an open research problem.
+Thanks to their unique mobility, aerial robots have become widely adopted for inspection tasks. We believe that the next breakthrough in this industry shall be delivered by Cooperative Aerial Robots Inspection (CARI) systems. Moreover, in the same spirit of economic specialization, heterogeneous CARI systems has the potential to acheive greater efficiency, quality and versatility compared to single-UAV or homogenous systems.
+Nevertheless, to accomplish this vision, novel cooperative strategies that can optimally coordinate the operation of multiple robots remain an open research problem.
 
-To accelerate this development, we introduce the **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge Benchmark, a software stack based on [Gazebo](https://gazebosim.org/home), [RotorS](https://github.com/ethz-asl/rotors_simulator) and other open-source packages. The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in [typical real-world inspection missions](#52-inspection-scenarios). Second, based on this tool, different cooperative inspection schemes can be benchmarked based on a [common metric](#53-the-benchmark-criteria). The software stack is made public to benefit the community and we would like to welcome all who are interested to participate in [the challenge to be held at CDC 2023, Singapore](#3-how-to-participate).
+To accelerate this development, we introduce the **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge Benchmark, a software stack based on [Gazebo](https://gazebosim.org/home), [RotorS](https://github.com/ethz-asl/rotors_simulator/wiki) and other open-source packages. The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in [typical real-world inspection missions](#52-inspection-scenarios). Second, based on this tool, different cooperative inspection schemes can be benchmarked based on a [common metric](#53-the-benchmark-criteria). The software stack is made public to benefit the community and we would like to welcome all who are interested to participate in [the challenge to be held at CDC 2023, Singapore](#3-how-to-participate).
 
 <div style="text-align:center">
   <img src="docs/mbs_trimmed_spedup.gif" alt="facade_inspection" width="100%"/>
@@ -179,7 +179,7 @@ git clone https://github.com/ntu-aris/rotors_simulator
 git clone https://github.com/ntu-aris/velodyne_simulator
 
 # Converting the trajectory setpoint to rotor speeds
-git clone https://github.com/ntu-aris/tcc
+git clone https://github.com/ntu-aris/unicon
 
 # To generate an trajectory based on fixed setpoints. Only used for demo, to be replaced by user's inspection algorithms
 git clone https://github.com/ntu-aris/traj_gennav
