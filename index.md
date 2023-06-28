@@ -73,7 +73,7 @@ The challenge's procedure is as follows:
   * The mission time.
 * The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three [scenarios](#52-inspection-scenarios)**.
 * Results will be announced and prize will be presented at [CDC 2023](https://cdc2023.ieeecss.org/).
-* If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues).
+* If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues). You may also join our [Discord group](https://discord.gg/cYMtaEqkub) and chat with our developers!
 
 ## 3.2. Important dates
 
