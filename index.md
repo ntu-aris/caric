@@ -72,9 +72,8 @@ The challenge's procedure is as follows:
   * The interest points.
   * The mission time.
 * The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three [scenarios](#52-inspection-scenarios)**.
-* Please submit a 1-2 page write-up (title and abstract) to [CSS Paperplaza](https://css.paperplaza.net/conferences/scripts/start.pl). An accepted letter will be issued to the participants for registering and attending the conference.
-* Results will be announced and prize will be presented at [CDC 2023](https://cdc2023.ieeecss.org/). A poster session will arranged on the benchmark.
-* If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues).
+* Please submit a 1-2 page write-up (title and abstract) to [CSS Paperplaza](https://css.paperplaza.net/conferences/scripts/start.pl). Acceptance letter will be issued to the participants for registering and attending the conference.
+* If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues). You may also join our [Discord group](https://discord.gg/cYMtaEqkub) and chat with our developers!
 
 ## 3.2. Important dates
 
