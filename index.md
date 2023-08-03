@@ -72,7 +72,7 @@ The challenge's procedure is as follows:
   * The interest points.
   * The mission time.
 * The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three [scenarios](#52-inspection-scenarios)**.
-* (Optional) If you wish to attend CDC 2023 and present your method in person, please submit a 1-2 page write-up (title and abstract) to [CSS Paperplaza](https://css.paperplaza.net/conferences/scripts/start.pl) (under **Submit a contribution to CDC 2023 > Benchmark Challenge > Submit**). Acceptance letter will be issued to the participants for registering and attending the conference. The deadline for registration is **1st September 2023**.
+* (Optional) A poster session will be arranged for the benchmark. If you wish to attend CDC 2023 and present your method in person, please submit a 1-2 page write-up (title and abstract) to [CSS Paperplaza](https://css.paperplaza.net/conferences/scripts/start.pl) (under **Submit a contribution to CDC 2023 > Benchmark Challenge > Submit**). Acceptance letter will be issued to the participants for registering and attending the conference. The deadline for registration is **1st September 2023**.
 * If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues). You may also join our [Discord group](https://discord.gg/cYMtaEqkub) and chat with our developers!
 
 ## 3.2. Important dates
