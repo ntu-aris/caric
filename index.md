@@ -114,7 +114,8 @@ sudo apt-get install python3-wstool python3-catkin-tools python3-empy \
                      ros-$ROS_DISTRO-mavros \
                      ros-$ROS_DISTRO-mavros-msgs \
                      ros-$ROS_DISTRO-rviz-visual-tools \
-                     ros-$ROS_DISTRO-gazebo-plugins;
+                     ros-$ROS_DISTRO-gazebo-plugins \
+                     python-is-python3;
 
 # Install gazebo 11 (default for Ubuntu 20.04)
 sudo apt-get install ros-noetic-gazebo* ;
