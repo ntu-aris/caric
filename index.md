@@ -90,7 +90,7 @@ The winner will receive a material or monetary prize of SGD1000 and a certificat
 
 The system is principally developed and tested on the following system configuration:
 
-* NVIDIA GPU-enabled computers (GTX 2080, 3070, 4080)
+* NVIDIA GPU-enabled computers (GTX 2080, 3070, 4080) with Nvidia driver installed (driver is installed if entering `nvidia-smi` in a terminal shows output)
 * Ubuntu 20.04 / 18.04
 * ROS Noetic / Melodic
 * Gazebo 11
