@@ -39,7 +39,8 @@ layout: base
     - [6.3.1. Camera gimbal control](#631-camera-gimbal-control)
     - [6.3.2. Camera trigger](#632-camera-trigger)
   - [6.4. Communication network](#64-communication-network)
-- [7. Organizers](#7-organizers)
+- [7. Baseline Method](#7-baseline-method)
+- [8. Organizers](#8-organizers)
 
 
 # 2. Introduction
@@ -491,7 +492,11 @@ print(f"Response {response}") # Error will be appended to the response.
   <figcaption>Illustration of communication among ros nodes under different namespaces via the ppcom_router: In the first terminal we start the the simulation. Net the <b>ppcom_router</b> node is launch. Then <b>ppcom_firefly1_talker</b>, <b>ppcom_firefly2_talker</b>, <b>ppcom_firefly3_talker</b> are launched in different terminals. You can observe the messages sent and received by each node in the corresponding terminal. Notice how the messages are dropped when the corresponding entry in the LOS matrix turns to 0 (the <b>firefly1</b> --> <b>firefly3</b> LOS status is indicated by the entry at 2nd row, 4th column).</figcaption>
 </div>
 
-# 7. Organizers
+# 7. Baseline Method
+
+A baseline method is provided for participants as an example. The technical report for the baseline method can be found [here](docs/CDC_baseline_paper.pdf).
+
+# 8. Organizers
 
 <table>
 
