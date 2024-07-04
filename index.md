@@ -12,7 +12,7 @@ layout: base
 
 - [1. Table of contents](#1-table-of-contents)
 - [2. Introduction](#2-introduction)
-- [3. CARIC at CDC 2023](#3-caric-at-cdc-2023)
+- [3. CARIC at IROS 2024](#3-caric-at-iros-2024)
   - [3.1. How to participate?](#31-how-to-participate)
   - [3.2. Important dates](#32-important-dates)
   - [3.3. Prize](#33-prize)
@@ -57,7 +57,7 @@ To accelerate this development, we introduce the **C**ooperative **A**erial **R*
   <figcaption>CARIC software package can simulate UAV dynamics, physical collisions, camera-FOV-based instance detection, and line-of-sight-only communications</figcaption>
 </div>
 
-# 3. CARIC at CDC 2023
+# 3. CARIC at IROS 2024
 
 ## 3.1. How to participate?
 
@@ -67,21 +67,24 @@ The challenge's procedure is as follows:
 * Read through the description of CARIC software stack in the remaining of this website. 
 * Participants develop their CARI schemes based on CARIC. Do notice the [ground rules](#61-ground-rules). The implementation can be in python, C++ or docker executable.
 * Send your code / executable to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**.
-* The submitted method will be evaluated with the [same scenarios included in the package](#52-inspection-scenarios), however the following parameters will be altered:
-  * The units' starting positions.
-  * The bounding box descriptions.
-  * The interest points.
-  * The mission time.
-* The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three [scenarios](#52-inspection-scenarios)**.
-* (Optional) A poster session will be arranged for the benchmark. If you wish to attend CDC 2023 and present your method in person, please submit a 1-2 page write-up (title and abstract) to [CSS Paperplaza](https://css.paperplaza.net/conferences/scripts/start.pl) (under **Submit a contribution to CDC 2023 > Benchmark Challenge > Submit**). Acceptance letter will be issued to the participants for registering and attending the conference. The deadline for registration is **1st September 2023**.
+* The submitted method will be evaluated on three out of the following five scenarios:
+<div style="text-align:center">
+  <img src="docs/iros2024_scenarios.jpg" alt="resolution1" width="70%"/>
+  <figcaption>The five scenarios for CARIC 2024</figcaption>
+</div>
+
+<span style="color:red"> The scale and position of the building will not be the same as in the [released models](https://github.com/ntu-aris/caric_mission/tree/master/models). Only one big bounding box will be defined in the test scenarios.</span>
+
+* The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three chosen scenarios.
+<!-- * (Optional) A poster session will be arranged for the benchmark. If you wish to attend CDC 2023 and present your method in person, please submit a 1-2 page write-up (title and abstract) to [CSS Paperplaza](https://css.paperplaza.net/conferences/scripts/start.pl) (under **Submit a contribution to CDC 2023 > Benchmark Challenge > Submit**). Acceptance letter will be issued to the participants for registering and attending the conference. The deadline for registration is **1st September 2023**. -->
 * If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues). You may also join our [Discord group](https://discord.gg/cYMtaEqkub) and chat with our developers!
 
 ## 3.2. Important dates
-
-* Last day to register for conference attendance **1st September 2023**
-* Last day to sign up **17th November 2023**.
-* Last day to update your code **24th November 2023**.
-* Workshop date **15th December 2023**.
+(All dates and time are in GMT+7)
+* Last day to register for the challenge **24th September 2024**.
+* Last day to update your code **29th September 2024**.
+* Annoucement of results **4th October 2024**.
+* Workshop date **13th October 2024**.
 
 ## 3.3. Prize
 
@@ -221,7 +224,7 @@ A 5-UAV team is designed for the challenge, two of the _explorer_ class (nicknam
 Note that the explorer is twice the size and weight of the photographer. Thanks to the bigger size, it can carry the lidar and quickly map the environment, at the cost of slower speed. In contrast, the photographers have higher speed, thus they can quickly cover the surfaces that have been mapped by the explorer to obtain images of higher score. The GCS's role is to compare the images taken by the drones. For each interest point, the GCS can select the image with the best quality to assign the score to it.
 
 ##  5.2. Inspection scenarios
-The following scenarios are included in the challenge:
+The following scenarios are included in the challenge as examples:
 
 * Building inspection: The environment features a 60m tall building model that consists of three main vertical towers with a single void deck connecting the tops. The full 5-UAV fleet is deployed in this environment.
 
@@ -253,7 +256,12 @@ The mission time starts from the moment any UAV takes off (when it's velocity ex
 
 During the mission, the GCS will receive the information regarding the captured interest points from the UAVs when there is LOS. The captures are compared and the score will be tallied and published in real time under the `/gcs/score` topic. After each mission, a log file will be generated in the folder specified under the param `log_dir` in the launch file of `caric_mission` package.
 
-In practice operators in the field can subjectively limit the area to be inspected within an area. Thus, in each mission a sequence of bounding boxes are given to help limit the exploration effort. The interest points will only be located inside these bounding boxes. Details on the bounding boxes can be found in the later section on [onboard perception data](#62-onboard-perception-data).
+In practice operators in the field can subjectively limit the area to be inspected within an area. Thus, in each mission a sequence of bounding boxes are given to help limit the exploration effort. The interest points will only be located inside these bounding boxes. Details on the bounding boxes can be found in the later section on [onboard perception data](#62-onboard-perception-data). **In IROS 2024 iteration, we would only use ONE bounding box for each test scenario.**
+
+<div style="text-align:center">
+  <img src="docs/boundingboxyaml.jpg" alt="resolution1" width="25%"/>
+  <figcaption>Location of bounding box yaml in the package</figcaption>
+</div>
 
 ### 5.3.2. The mission score
 
@@ -494,7 +502,19 @@ print(f"Response {response}") # Error will be appended to the response.
 
 # 7. Baseline Method
 
-A baseline method is provided for participants as an example. The technical report for the baseline method can be found [here](docs/CDC_baseline_paper.pdf).
+A baseline method is provided for participants as an example. Please refer to our [ICCA paper](https://arxiv.org/pdf/2403.01225) for the technical details.
+The source code is available at [https://github.com/ntu-aris/caric_baseline](https://github.com/ntu-aris/caric_baseline). Please cite our work as follows:
+
+```
+@InProceedings{xu2024cost,
+  title         = {A Cost-Effective Cooperative Exploration and Inspection Strategy for Heterogeneous Aerial System},
+  author        = {Xu, Xinhang and Cao, Muqing and Yuan, Shenghai and Nguyen, Thien Hoang and Nguyen, Thien-Minh and Xie, Lihua},
+  booktitle     = {2024 18th IEEE International Conference on Control and Automation (ICCA)},
+  pages         = {},
+  year          = {2024},
+  organization  = {IEEE}
+}
+```
 
 # 8. Organizers
 
