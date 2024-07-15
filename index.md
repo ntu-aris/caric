@@ -6,6 +6,7 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 #
 layout: home
+title: IROS 2024 Cooperative Aerial Robots Inspection Challenge (IROS24-CARIC)
 ---
 
 # 1. Table of contents
