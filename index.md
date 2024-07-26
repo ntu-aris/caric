@@ -522,17 +522,19 @@ The source code is available at [https://github.com/ntu-aris/caric_baseline](htt
 <table>
 
 <tr>
-<td> <img src="docs/tmn.png"  alt="Drawing" style="width: 130px;"/> </td>
-<td> <img src="docs/cmq.jpg"  alt="Drawing" style="width: 130px;"/> </td>
-<td> <img src="docs/ysh.jpg"  alt="Drawing" style="width: 130px;"/> </td>
-<td> <img src="docs/xlh.jpg"  alt="Drawing" style="width: 135px;"/> </td>
-<td> <img src="docs/bmc.jpeg" alt="Drawing" style="width: 130px;"/> </td>
+<td> <img src="docs/tmn.png"  alt="Drawing" style="width: 120px;"/> </td>
+<td> <img src="docs/cmq.jpg"  alt="Drawing" style="width: 120px;"/> </td>
+<td> <img src="docs/ysh.jpg"  alt="Drawing" style="width: 120px;"/> </td>
+<td> <img src="docs/xxh.png"  alt="Drawing" style="width: 120px;"/> </td>
+<td> <img src="docs/xlh.jpg"  alt="Drawing" style="width: 125px;"/> </td>
+<td> <img src="docs/bmc.jpeg" alt="Drawing" style="width: 120px;"/> </td>
 </tr>
 
 <tr>
 <td> Thien-Minh Nguyen </td>
 <td> Muqing Cao        </td>
 <td> Shenghai Yuan     </td>
+<td> Xinhang Xu        </td>
 <td> Lihua Xie         </td>
 <td> Ben M. Chen       </td>
 </tr>
@@ -541,6 +543,7 @@ The source code is available at [https://github.com/ntu-aris/caric_baseline](htt
 <td> thienminh.npn@ieee.org </td>
 <td> mqcao@ntu.edu.sg       </td>
 <td> shyuan@ntu.edu.sg      </td>
+<td> xu0021ng@e.ntu.edu.sg  </td>
 <td> elhxie@ntu.edu.sg      </td>
 <td> bmchen@cuhk.edu.hk     </td>
 </tr>
