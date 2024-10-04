@@ -7,6 +7,7 @@
 #
 layout: home
 title: IROS 2024 Cooperative Aerial Robots Inspection Challenge (CARIC@IROS24)
+# permalink: /home/
 ---
 
 # 1. Table of contents
@@ -41,7 +42,8 @@ title: IROS 2024 Cooperative Aerial Robots Inspection Challenge (CARIC@IROS24)
     - [6.3.2. Camera trigger](#632-camera-trigger)
   - [6.4. Communication network](#64-communication-network)
 - [7. Baseline Method](#7-baseline-method)
-- [8. Organizers](#8-organizers)
+- [8. Leaderboard](#8-leaderboard)
+- [9. Organizers](#9-organizers)
 
 
 # 2. Introduction
@@ -517,7 +519,13 @@ The source code is available at [https://github.com/ntu-aris/caric_baseline](htt
 }
 ```
 
-# 8. Organizers
+# 8. Leaderboard
+
+[**CARIC @ CDC 2023**](leaderboard/#:~:text=CDC%202023%2C%20Singapore%3A)
+
+[**CARIC @ IROS 2024**](leaderboard/#:~:text=IROS%202024%2C%20Abu%20Dhabi)
+
+# 9. Organizers
 
 <table>
 
