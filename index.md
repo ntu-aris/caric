@@ -7,7 +7,7 @@
 #
 layout: home
 title: IROS 2024 Cooperative Aerial Robots Inspection Challenge (CARIC@IROS24)
-# permalink: /home/
+permalink: /
 ---
 
 # 1. Table of contents

@@ -47,7 +47,7 @@ Team **XMU MAC** Members:<br/>
     <th class="tg-k9d3">Rank</th>
     <th class="tg-k9d3">Team</th>
     <th class="tg-k9d3">Score</th>
-    <th class="tg-0lax" rowspan="6"> <img src="../docs/mbs_trimmed_spedup.gif" width="100%" alt="Team CyCLOPS at CDC 2023">  </th>
+    <th class="tg-0lax" rowspan="6"> <img src="../docs/mbs_trimmed_spedup.gif" width="100%" alt="Team CyCLOPS at CDC 2023"> </th>
   </tr>
   <tr>
     <th class="tg-kh82">1</th>
@@ -112,7 +112,7 @@ Team **CyCLOPS** Members: <br/>
     <td class="tg-k9d3"><span style="font-weight:bold;background-color:#F0F0F0">Rank</span></td>
     <td class="tg-k9d3"><span style="font-weight:bold;background-color:#F0F0F0">Team</span></td>
     <td class="tg-k9d3"><span style="font-weight:bold;background-color:#F0F0F0">Score</span></td>
-    <td class="tg-0lax" rowspan="7"> <img src="../cyclops_cdc2023.jpg" width="100%" alt="Team CyCLOPS at CDC 2023"> </td>
+    <td class="tg-0lax" rowspan="7"> <a href="https://www.kios.ucy.ac.cy/first-prize-for-kios-researchers-at-the-international-cooperative-aerial-robots-inspection-challenge/"> <img src="../cyclops_cdc2023.jpg" width="100%" alt="Team CyCLOPS at CDC 2023"> </a> </td>
   </tr>
   <tr>
     <td class="tg-kh82">1</td>
@@ -145,4 +145,4 @@ Team **CyCLOPS** Members: <br/>
     <td class="tg-smba">143.412</td>
   </tr></thead></table>
 
-  [Return to Home](/caric)
+  [Return to Home](/)
