@@ -15,14 +15,14 @@ permalink: /leaderboard/
 Congratulations to team **XMU MAC** for winning the CARIC at IROS 2024, Abu Dhabi!
 
 Team **XMU MAC** Members:<br/>
-1. Bangwei Zhao <br/>
-2. Can Tang <br/>
-3. Yiqun Wang <br/>
-4. Xianglin Chen <br/>
-5. Jiarui Guo <br/>
-6. Xiao Yu <br/>
-7. Rongrong Ji <br/>
-8. Liujuan Cao <br/>
+ 1. Bangwei Zhao <br/>
+ 2. Jiarui Guo<br/>
+ 3. Xianglin Chen<br/>
+ 4. Yiqun Wang<br/>
+ 5. Can Tang<br/>
+ 6. Liujuan Cao<br/>
+ 7. Rongrong Ji<br/>
+ 8. Xiao Yu<br/>
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
