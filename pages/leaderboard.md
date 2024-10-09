@@ -47,7 +47,7 @@ Team **XMU MAC** Members:<br/>
     <th class="tg-k9d3">Rank</th>
     <th class="tg-k9d3">Team</th>
     <th class="tg-k9d3">Score</th>
-    <th class="tg-0lax" rowspan="6"> <img src="../docs/mbs_trimmed_spedup.gif" width="100%" alt="Team CyCLOPS at CDC 2023"> </th>
+    <th class="tg-0lax" rowspan="6"> <img src="../xmumac.jpg" width="100%" alt="Team CyCLOPS at CDC 2023"> </th>
   </tr>
   <tr>
     <th class="tg-kh82">1</th>
