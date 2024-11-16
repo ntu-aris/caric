@@ -24,7 +24,8 @@ permalink: /
     - [4.1.2. Ubuntu 18.04 + ROS Melodic](#412-ubuntu-1804--ros-melodic)
     - [4.1.3. Notes](#413-notes)
   - [4.2. Install the CARIC packages](#42-install-the-caric-packages)
-  - [4.3. Run the flight test](#43-run-the-flight-test)
+  - [4.3 Docker Support](#43-docker-support)
+  - [4.4. Run the flight test](#44-run-the-flight-test)
 - [5. The benchmark design](#5-the-benchmark-design)
   - [5.1. The UAV fleet](#51-the-uav-fleet)
   - [5.2. Inspection scenarios](#52-inspection-scenarios)
@@ -199,7 +200,14 @@ catkin build
 ```
 The compilation may report errors due to missing depencies or some packages in CARIC are not yet registered to the ros package list. This can be resolved by installing the missing dependencies (via `sudo apt install <package>` or `sudo apt install ros-$ROS_DISTRO-<ros_package_name>)`). Please try `catkin build` again a few times to let all the compiled packages be added to dependency list.
 
-##  4.3. Run the flight test
+## 4.3 Docker Support
+As ros 1 has reached EOL, we have also set up a Docker environment based on Ubuntu 20.04. There is a quick command for you.
+
+```bash
+docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all --name test xuxinhang007/caric:v1
+```
+
+##  4.4. Run the flight test
 
 To make sure the code compiles and runs smoothly, please launch the example flight test with some pre-defined fixed trajectories as follows:
 
