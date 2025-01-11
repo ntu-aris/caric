@@ -6,7 +6,7 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 #
 layout: home
-title: IROS 2024 Cooperative Aerial Robots Inspection Challenge (CARIC@IROS24)
+title: Cooperative Aerial Robots Inspection Challenge
 permalink: /
 ---
 
@@ -14,10 +14,7 @@ permalink: /
 
 - [1. Table of contents](#1-table-of-contents)
 - [2. Introduction](#2-introduction)
-- [3. CARIC at IROS 2024](#3-caric-at-iros-2024)
-  - [3.1. How to participate?](#31-how-to-participate)
-  - [3.2. Important dates](#32-important-dates)
-  - [3.3. Prize](#33-prize)
+- [3. Submission and Evaluation](#3-submission-and-evaluation)
 - [4. Installation](#4-installation)
   - [4.1. Install the dependencies](#41-install-the-dependencies)
     - [4.1.1. Ubuntu 20.04 + ROS Noetic](#411-ubuntu-2004--ros-noetic)
@@ -61,9 +58,12 @@ To accelerate this development, we introduce the **C**ooperative **A**erial **R*
   <figcaption>CARIC software package can simulate UAV dynamics, physical collisions, camera-FOV-based instance detection, and line-of-sight-only communications</figcaption>
 </div>
 
-# 3. CARIC at IROS 2024
+# 3. Submission and Evaluation
 
-## 3.1. How to participate?
+CARIC was successfully run at CDC 2023 and IROS 2024.
+We look forward to bringing the challenge to another conference in the future.
+
+<!-- ## 3.1. How to participate?
 
 The challenge's procedure is as follows:
 
@@ -81,9 +81,9 @@ The challenge's procedure is as follows:
 
 * The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three chosen scenarios.
 <!-- * (Optional) A poster session will be arranged for the benchmark. If you wish to attend CDC 2023 and present your method in person, please submit a 1-2 page write-up (title and abstract) to [CSS Paperplaza](https://css.paperplaza.net/conferences/scripts/start.pl) (under **Submit a contribution to CDC 2023 > Benchmark Challenge > Submit**). Acceptance letter will be issued to the participants for registering and attending the conference. The deadline for registration is **1st September 2023**. -->
-* If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues). You may also join our [Discord group](https://discord.gg/cYMtaEqkub) and chat with our developers!
+If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues). You may also join our [Discord group](https://discord.gg/cYMtaEqkub) and chat with our developers!
 
-## 3.2. Important dates
+<!-- ## 3.2. Important dates
 (All dates and time are in GMT+7)
 * Last day to register for the challenge **24th September 2024**.
 * Last day to update your code **29th September 2024**.
@@ -92,7 +92,7 @@ The challenge's procedure is as follows:
 
 ## 3.3. Prize
 
-The winner will receive a material or monetary prize of SGD1000 and a certificate. If you are interested in being a sponsor of the challenge, please contact any of the [organizers](#7-organizers).
+The winner will receive a material or monetary prize of SGD1000 and a certificate. If you are interested in being a sponsor of the challenge, please contact any of the [organizers](#7-organizers). -->
 
 # 4. Installation
 
