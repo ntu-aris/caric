@@ -11,20 +11,15 @@ permalink: /
 ---
 
 # 1. Table of contents
-
 - [1. Table of contents](#1-table-of-contents)
 - [2. Introduction](#2-introduction)
 - [3. Submission and Evaluation](#3-submission-and-evaluation)
 - [4. Installation](#4-installation)
-  - [4.1. Install the dependencies](#41-install-the-dependencies)
-    - [4.1.1. Ubuntu 22.04 + ROS Humble (ROS2)](#411-ubuntu-2204--ros-humble-ros2)
-    - [4.1.2. Ubuntu 20.04 + ROS Noetic](#412-ubuntu-2004--ros-noetic)
-    - [4.1.3. Ubuntu 18.04 + ROS Melodic](#413-ubuntu-1804--ros-melodic)
-    - [4.1.4. Notes](#414-notes)
-  - [4.2. Install the CARIC packages](#42-install-the-caric-packages)
-  - [4.3 Docker Support](#43-docker-support)
-- [caric\_docker](#caric_docker)
-  - [4.4. Run the flight test](#44-run-the-flight-test)
+  - [4.1. Ubuntu 20.04 + ROS Noetic](#41-ubuntu-2004--ros-noetic)
+    - [4.1.1 Install the dependencies](#411-install-the-dependencies)
+    - [4.1.2. Install the CARIC packages](#412-install-the-caric-packages)
+    - [4.1.3 Run the flight test](#413-run-the-flight-test)
+  - [4.2. Ubuntu 22.04 + ROS Humble (ROS2)](#42-ubuntu-2204--ros-humble-ros2)
 - [5. The benchmark design](#5-the-benchmark-design)
   - [5.1. The UAV fleet](#51-the-uav-fleet)
   - [5.2. Inspection scenarios](#52-inspection-scenarios)
