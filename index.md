@@ -17,11 +17,13 @@ permalink: /
 - [3. Submission and Evaluation](#3-submission-and-evaluation)
 - [4. Installation](#4-installation)
   - [4.1. Install the dependencies](#41-install-the-dependencies)
-    - [4.1.1. Ubuntu 20.04 + ROS Noetic](#411-ubuntu-2004--ros-noetic)
-    - [4.1.2. Ubuntu 18.04 + ROS Melodic](#412-ubuntu-1804--ros-melodic)
-    - [4.1.3. Notes](#413-notes)
+    - [4.1.1. Ubuntu 22.04 + ROS Humble (ROS2)](#411-ubuntu-2204--ros-humble-ros2)
+    - [4.1.2. Ubuntu 20.04 + ROS Noetic](#412-ubuntu-2004--ros-noetic)
+    - [4.1.3. Ubuntu 18.04 + ROS Melodic](#413-ubuntu-1804--ros-melodic)
+    - [4.1.4. Notes](#414-notes)
   - [4.2. Install the CARIC packages](#42-install-the-caric-packages)
   - [4.3 Docker Support](#43-docker-support)
+- [caric\_docker](#caric_docker)
   - [4.4. Run the flight test](#44-run-the-flight-test)
 - [5. The benchmark design](#5-the-benchmark-design)
   - [5.1. The UAV fleet](#51-the-uav-fleet)
@@ -99,13 +101,14 @@ The winner will receive a material or monetary prize of SGD1000 and a certificat
 The system is principally developed and tested on the following system configuration:
 
 * NVIDIA GPU-enabled computers (GTX 2080, 3070, 4080) with Nvidia driver installed (driver is installed if entering `nvidia-smi` in a terminal shows output)
-* Ubuntu 20.04 / 18.04
-* ROS Noetic / Melodic
+* Ubuntu 22.04 (Docker-based) / 20.04 / ~~18.04~~
+* ROS Humble / Noetic / ~~Melodic~~
 * Gazebo 11
 * Python 3.8
 
-##  4.1. Install the dependencies
-###  4.1.1. Ubuntu 20.04 + ROS Noetic
+##  4.1. Ubuntu 20.04 + ROS Noetic
+
+###  4.1.1 Install the dependencies
 
 Please install the neccessary dependencies by the following commands:
 
@@ -131,45 +134,7 @@ sudo apt-get install ros-noetic-gazebo* ;
 
 Please check out the [notes](#413-notes) below if you encounter any problem.
 
-###  4.1.2. Ubuntu 18.04 + ROS Melodic
-
-Please install the neccessary dependencies by the following commands:
-
-```bash
-# Update the system
-sudo apt-get update && sudo apt upgrade ;
-
-# Install some tools and dependencies
-sudo apt-get install python-wstool python-catkin-tools python-empy \
-                     protobuf-compiler libgoogle-glog-dev \
-                     ros-$ROS_DISTRO-control-toolbox \
-                     ros-$ROS_DISTRO-octomap-msgs \
-                     ros-$ROS_DISTRO-octomap-ros \
-                     ros-$ROS_DISTRO-mavros \
-                     ros-$ROS_DISTRO-mavros-msgs \
-                     ros-$ROS_DISTRO-rviz-visual-tools \
-                     ros-$ROS_DISTRO-gazebo-plugins;
-
-# Install gazebo 11 (default in melodic is gazebo 9)
-sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
-sudo apt update
-sudo apt-get install ros-melodic-gazebo11-ros-control \
-                     ros-melodic-gazebo11-ros \
-                     ros-melodic-gazebo11-msgs \
-                     ros-melodic-gazebo11-plugins \
-                     ros-melodic-gazebo11-ros-pkgs \
-                     ros-melodic-gazebo11-dev;
-```
-
-Please check out the [notes](#413-notes) below if you encounter any problem.
-
-### 4.1.3. Notes
-
-* On Ubuntu 18.04, Gazebo 11 is needed, otherwise Gazebo may crash due to conflict between the GPU-based lidar simulator and the raytracing operations in our custom-built `gazebo_ppcom_plugin.cpp`.
-* Protobuf version: We have tested protobuf 3.0.0 and 3.6.1 with our packages. Protobuf version can be checked by the command `protoc --version`. If protoc version needs to be updated, try removing protoc and then reinstall with `sudo apt install protobuf-compiler`. There can be multiple versions of protobuf installed in the system. You can find the locations of the version used by the command `whereis protoc`.
-
-##  4.2. Install the CARIC packages
+###  4.1.2. Install the CARIC packages
 Once the dependencis have been installed, please create a new workspace for CARIC, clone the necessary packages into it, and compile:
 
 ```bash
@@ -200,14 +165,7 @@ catkin build
 ```
 The compilation may report errors due to missing depencies or some packages in CARIC are not yet registered to the ros package list. This can be resolved by installing the missing dependencies (via `sudo apt install <package>` or `sudo apt install ros-$ROS_DISTRO-<ros_package_name>)`). Please try `catkin build` again a few times to let all the compiled packages be added to dependency list.
 
-## 4.3 Docker Support
-As ros 1 has reached EOL, we have also set up a Docker environment based on Ubuntu 20.04. There is a quick command for you.
-
-```bash
-docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all --name test xuxinhang007/caric:v1
-```
-
-##  4.4. Run the flight test
+###  4.1.3 Run the flight test
 
 To make sure the code compiles and runs smoothly, please launch the example flight test with some pre-defined fixed trajectories as follows:
 
@@ -216,6 +174,58 @@ source ~/ws_caric/devel/setup.bash
 roscd caric_mission/scripts
 bash launch_demo_paths.sh
 ```
+
+##  4.2. Ubuntu 22.04 + ROS Humble (ROS2)
+
+As ROS 1 has reached EOL, we have also set up a Docker environment based on Ubuntu 20.04. Below is the instructions to set up the docker and expose the ROS1 topics to ROS2 environment 
+
+Make sure you have docker installed. See the [instruction](https://docs.docker.com/engine/install/ubuntu/).
+
+Clone this package and build docker:
+```bash
+git clone https://github.com/caomuqing/caric_docker
+cd caric_docker
+docker compose build
+```
+If the build succeeds, execute the following command to run the docker container and build the ros workspace:
+
+```bash
+docker compose up
+```
+After building the ros package, do not close the terminal; open a new terminal. Run the following command to enter the container:
+
+```bash
+xhost + #allowing allow docker access to screen
+docker exec -it ros_caric_container_1 bash # open a container terminal
+```
+To run the baseline method:
+```bash
+source devel/setup.bash
+roslaunch caric_baseline run.launch scenario:=hangar
+```
+
+Open a new terminal and go into the ros_bridge container
+```bash
+docker exec -it ros_caric_bridge bash
+rosparam load bridge.param #load the ros1-ros2 bridge parameter
+ros2 run ros1_bridge parameter_bridge #run ros1_bridge
+```
+
+Open a new terminal of ros_bridge container and run ros2 domain bridge:
+```bash
+docker exec -it ros_caric_bridge bash
+ros2 run domain_bridge domain_bridge domain_bridge.yaml
+```
+
+In the new docker ros_caric_drone (ROS_DOMAIN_ID=1), you should be able to get the ros2 topic of drone status:
+```bash
+docker exec -it ros_caric_drone bash
+ros2 topic echo /sentosa/gimbal
+```
+
+The file `domain_bridge.yaml` governs the topics to be transferred across domains in ROS2
+
+The file `bridge.param` governs the topics to be bridged from ROS1 to ROS2
 
 You should see 5 UAVs take off, follow fixed trajectories, and fall down when time is out.
 
