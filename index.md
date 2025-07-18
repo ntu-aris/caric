@@ -13,7 +13,8 @@ permalink: /
 # 1. Table of contents
 - [1. Table of contents](#1-table-of-contents)
 - [2. Introduction](#2-introduction)
-- [3. Submission and Evaluation](#3-submission-and-evaluation)
+- [3. CARIC @ IROS 2025](#3-caric--iros-2025)
+  - [3.1. How to participate?](#31-how-to-participate)
 - [4. Installation](#4-installation)
   - [4.1. Ubuntu 20.04 + ROS Noetic](#41-ubuntu-2004--ros-noetic)
     - [4.1.1 Install the dependencies](#411-install-the-dependencies)
@@ -55,41 +56,41 @@ To accelerate this development, we introduce the **C**ooperative **A**erial **R*
   <figcaption>CARIC software package can simulate UAV dynamics, physical collisions, camera-FOV-based instance detection, and line-of-sight-only communications</figcaption>
 </div>
 
-# 3. Submission and Evaluation
+# 3. CARIC @ IROS 2025
 
-CARIC was successfully run at CDC 2023 and IROS 2024.
-We look forward to bringing the challenge to another conference in the future.
+We are happy to announce that CARIC has returned at IROS 2025 in Hangzhou China together with the [PANLOGIN workshop]().
 
-<!-- ## 3.1. How to participate?
+## 3.1. How to participate?
 
 The challenge's procedure is as follows:
 
 * Sign up via the following [form](https://docs.google.com/forms/d/e/1FAIpQLSfpaBQUJmdi6etYXH5t0bj7R-TWuU_11-lUlEfKzcUrz9Cdyw/viewform).
-* Read through the description of CARIC software stack in the remaining of this website. 
+* Read through the description of CARIC software stack in the remaining of this website.
 * Participants develop their CARI schemes based on CARIC. Do notice the [ground rules](#61-ground-rules). The implementation can be in python, C++ or docker executable.
 * Send your code / executable to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**.
-* The submitted method will be evaluated on three out of the following five scenarios:
+* The submitted method will be evaluated on three undisclosed scenarios.
+
 <div style="text-align:center">
   <img src="docs/iros2024_scenarios.jpg" alt="resolution1" width="70%"/>
-  <figcaption>The five scenarios for CARIC 2024</figcaption>
+  <figcaption>The scenarios of CARIC in previuous years </figcaption>
 </div>
 
-<span style="color:red"> The scale and position of the building will not be the same as in the [released models](https://github.com/ntu-aris/caric_mission/tree/master/models). Only one big bounding box will be defined in the test scenarios.</span>
+<!-- <span style="color:red"> The scale and position of the building will not be the same as in the [released models](https://github.com/ntu-aris/caric_mission/tree/master/models). Only one big bounding box will be defined in the test scenarios.</span> -->
 
 * The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three chosen scenarios.
-<!-- * (Optional) A poster session will be arranged for the benchmark. If you wish to attend CDC 2023 and present your method in person, please submit a 1-2 page write-up (title and abstract) to [CSS Paperplaza](https://css.paperplaza.net/conferences/scripts/start.pl) (under **Submit a contribution to CDC 2023 > Benchmark Challenge > Submit**). Acceptance letter will be issued to the participants for registering and attending the conference. The deadline for registration is **1st September 2023**. -->
-If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues). You may also join our [Discord group](https://discord.gg/cYMtaEqkub) and chat with our developers!
+<!-- * (Optional) A poster session will be arranged for the benchmark. If you wish to attend CDC 2023 and present your method in person, please submit a 1-2 page write-up (title and abstract) to [CSS Paperplaza](https://css.paperplaza.net/conferences/scripts/start.pl) (under **Submit a contribution to CDC 2023 > Benchmark Challenge > Submit**). Acceptance letter will be issued to the participants for registering and attending the conference. The deadline for registration is **1st September 2023**.
+If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues). You may also join our [Discord group](https://discord.gg/cYMtaEqkub) and chat with our developers! -->
 
-<!-- ## 3.2. Important dates
-(All dates and time are in GMT+7)
-* Last day to register for the challenge **24th September 2024**.
-* Last day to update your code **29th September 2024**.
-* Annoucement of results **4th October 2024**.
-* Workshop date **13th October 2024**.
+## 3.2. Important dates
+(All dates and time are in GMT+8)
+* Last day to register for the challenge **30th September 2024**.
+* Last day to update your code **30th September 2024**.
+* Annoucement of results **10th October 2024**.
+* Workshop date **24th October 2024**.
 
 ## 3.3. Prize
 
-The winner will receive a material or monetary prize of SGD1000 and a certificate. If you are interested in being a sponsor of the challenge, please contact any of the [organizers](#7-organizers). -->
+The winner will receive a material or monetary prize of SGD1000 and a certificate. If you are interested in being a sponsor of the challenge, please contact any of the [organizers](#7-organizers).
 
 # 4. Installation
 
@@ -172,7 +173,7 @@ bash launch_demo_paths.sh
 
 ##  4.2. Ubuntu 22.04 + ROS Humble (ROS2)
 
-As ROS 1 has reached EOL, we have also set up a Docker environment based on Ubuntu 20.04. Below is the instructions to set up the docker and expose the ROS1 topics to ROS2 environment 
+As ROS 1 has reached EOL, we have also set up a Docker environment based on Ubuntu 20.04. Below is the instructions to set up the docker and expose the ROS1 topics to ROS2 environment
 
 Make sure you have docker installed. See the [instruction](https://docs.docker.com/engine/install/ubuntu/).
 
@@ -250,7 +251,7 @@ The following scenarios are included in the challenge as examples:
   </div>
 
 * Aircraft inspection: The environment features an airplane placed at the entrance of a hangar. The interest points are only located on the airplane. One explorer and two photographers are deployed in this environment. The airplane model is about 20m tall and 70m long.
-  
+
   <div style="text-align:center">
     <img src="docs/hangar.png" alt="resolution1" width="70%"/>
     <figcaption>The aircraft inspection scenario</figcaption>
@@ -327,9 +328,9 @@ $$
 where $$c$$ is the *pixel width* and $$\|u_1-u_0\|$$, $$\|v_1-v_0\|$$ are the horizontal and vertical movements on the image plane that are computed by:
 
 $$
-u_0 = f\cdot\dfrac{x_0}{z_0},\ 
-u_1 = f\cdot\dfrac{x_1}{z_1},\ 
-v_0 = f\cdot\dfrac{y_0}{z_0},\ 
+u_0 = f\cdot\dfrac{x_0}{z_0},\
+u_1 = f\cdot\dfrac{x_1}{z_1},\
+v_0 = f\cdot\dfrac{y_0}{z_0},\
 v_1 = f\cdot\dfrac{z_1}{z_1},\\
 $$
 
@@ -455,9 +456,9 @@ The camera is assummed to be installed on a camera stabilizer (gimbal) located a
 ```cpp
   geometry_msgs::Twist gimbal_msg;
   gimbal_msg.linear.x  = -1.0;  //setting linear.x to -1.0 enables velocity control mode.
-  gimbal_msg.linear.y  =  0.0;  //if linear.x set to 1.0, linear,y and linear.z are the 
+  gimbal_msg.linear.y  =  0.0;  //if linear.x set to 1.0, linear,y and linear.z are the
   gimbal_msg.linear.z  =  0.0;  //target pitch and yaw angle, respectively.
-  gimbal_msg.angular.x =  0.0; 
+  gimbal_msg.angular.x =  0.0;
   gimbal_msg.angular.y = target_pitch_rate; //in velocity control mode, this is the target pitch velocity
   gimbal_msg.angular.z = target_yaw_rate;   //in velocity control mode, this is the target yaw velocity
   gimbal_cmd_pub_.publish(gimbal_msg);
