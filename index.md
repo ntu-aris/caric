@@ -72,7 +72,7 @@ The challenge's procedure is as follows:
 
 <div style="text-align:center">
   <img src="docs/iros2024_scenarios.jpg" alt="resolution1" width="70%"/>
-  <figcaption>The scenarios of CARIC in previuous years </figcaption>
+  <figcaption>The scenarios of CARIC in previuous years (for illustrations only) </figcaption>
 </div>
 
 <!-- <span style="color:red"> The scale and position of the building will not be the same as in the [released models](https://github.com/ntu-aris/caric_mission/tree/master/models). Only one big bounding box will be defined in the test scenarios.</span> -->
