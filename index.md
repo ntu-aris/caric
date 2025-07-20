@@ -15,6 +15,8 @@ permalink: /
 - [2. Introduction](#2-introduction)
 - [3. CARIC @ IROS 2025](#3-caric--iros-2025)
   - [3.1. How to participate?](#31-how-to-participate)
+  - [3.2. Important dates](#32-important-dates)
+  - [3.3. Prize](#33-prize)
 - [4. Installation](#4-installation)
   - [4.1. Ubuntu 20.04 + ROS Noetic](#41-ubuntu-2004--ros-noetic)
     - [4.1.1 Install the dependencies](#411-install-the-dependencies)
@@ -83,14 +85,14 @@ If you have any technical inquiry, please raise an [issue on our github](https:/
 
 ## 3.2. Important dates
 (All dates and time are in GMT+8)
-* Last day to register for the challenge **30th September 2024**.
-* Last day to update your code **30th September 2024**.
-* Annoucement of results **10th October 2024**.
-* Workshop date **24th October 2024**.
+* Last day to register for the challenge **10th October 2025**.
+* Last day to update your code **10th October 2025**.
+* Results will be announced in the Workshop on **24th October 2025**.
 
 ## 3.3. Prize
 
-The winner will receive a material or monetary prize of SGD1000 and a certificate. If you are interested in being a sponsor of the challenge, please contact any of the [organizers](#7-organizers).
+The winner will receive a material or monetary prize of SGD 2000 and a certificate.
+<!-- If you are interested in being a sponsor of the challenge, please contact any of the [organizers](#7-organizers). -->
 
 # 4. Installation
 
