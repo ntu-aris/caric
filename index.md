@@ -6,69 +6,42 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 #
 layout: home
-title: Cooperative Aerial Robots Inspection Challenge
+title: Cooperative Aerial Robots Inspection Challenge (IROS 2025)
 permalink: /
 ---
 
-# 1. Table of contents
-- [1. Table of contents](#1-table-of-contents)
-- [2. Introduction](#2-introduction)
-- [3. CARIC @ IROS 2025](#3-caric--iros-2025)
-  - [3.1. How to participate?](#31-how-to-participate)
-  - [3.2. Important dates](#32-important-dates)
-  - [3.3. Prize](#33-prize)
-- [4. Installation](#4-installation)
-  - [4.1. Ubuntu 20.04 + ROS Noetic](#41-ubuntu-2004--ros-noetic)
-    - [4.1.1 Install the dependencies](#411-install-the-dependencies)
-    - [4.1.2. Install the CARIC packages](#412-install-the-caric-packages)
-    - [4.1.3 Run the flight test](#413-run-the-flight-test)
-  - [4.2. Ubuntu 22.04 + ROS Humble (ROS2)](#42-ubuntu-2204--ros-humble-ros2)
-- [5. The benchmark design](#5-the-benchmark-design)
-  - [5.1. The UAV fleet](#51-the-uav-fleet)
-  - [5.2. Inspection scenarios](#52-inspection-scenarios)
-  - [5.3. The benchmark criteria](#53-the-benchmark-criteria)
-    - [5.3.1. Inspection mission overview](#531-inspection-mission-overview)
-    - [5.3.2. The mission score](#532-the-mission-score)
-    - [5.3.3. LOS and FOV](#533-los-and-fov)
-    - [5.3.4. Motion blur](#534-motion-blur)
-    - [5.3.5. Image resolution](#535-image-resolution)
-- [6. Developing your CARI scheme](#6-developing-your-cari-scheme)
-  - [6.1. Ground rules](#61-ground-rules)
-  - [6.2. Onboard perception data](#62-onboard-perception-data)
-  - [6.3. UAV control interface](#63-uav-control-interface)
-    - [6.3.1. Camera gimbal control](#631-camera-gimbal-control)
-    - [6.3.2. Camera trigger](#632-camera-trigger)
-  - [6.4. Communication network](#64-communication-network)
-- [7. Baseline Method](#7-baseline-method)
-- [8. Leaderboard](#8-leaderboard)
-- [9. Organizers](#9-organizers)
+# 1. Introduction
 
-
-# 2. Introduction
+<!-- YouTube video embed -->
+<div style="text-align:center; margin: 2em 0;">
+  <iframe width="800" height="450" src="https://www.youtube.com/embed/8u5hj2oZ-VY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
 
 Inspection, repair and maintenance is a multi-billion business that is [projected to grow substaintially in the next decade](https://www.fortunebusinessinsights.com/inspection-repair-and-maintenance-market-102983), with integration of automation and AI being the driving force. At its core, the primary goal in an inspection mission is to capture images on the surface of some structures at the best possible quality. However, exploration is also a secondary objective that needs to be addressed to identify the structure and its surface. Oftentimes, bounding box(es) can be set around the target of interest to narrow the area of exploration.
 
 Thanks to their unique mobility, aerial robots have become widely adopted for inspection tasks. We believe that the next breakthrough in this industry shall be delivered by Cooperative Aerial Robots Inspection (CARI) systems. Moreover, in the same spirit of economic specialization, heterogeneous CARI systems has the potential to acheive greater efficiency, quality and versatility compared to single-UAV or homogenous systems.
 Nevertheless, to accomplish this vision, novel cooperative strategies that can optimally coordinate the operation of multiple robots remain an open research problem.
 
-To accelerate this development, we introduce the **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge Benchmark, a software stack based on [Gazebo](https://gazebosim.org/home), [RotorS](https://github.com/ethz-asl/rotors_simulator/wiki) and other open-source packages. The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in [typical real-world inspection missions](#52-inspection-scenarios). Second, based on this tool, different cooperative inspection schemes can be benchmarked based on a [common metric](#53-the-benchmark-criteria). The software stack is made public to benefit the community and we would like to welcome all who are interested to participate in [the challenge to be held at IROS 2024](#3-how-to-participate).
+To accelerate this development, we introduce the **C**ooperative **A**erial **R**obots **I**nspection **C**hallenge Benchmark, a software stack based on [Gazebo](https://gazebosim.org/home), [RotorS](https://github.com/ethz-asl/rotors_simulator/wiki) and other open-source packages. The objective of CARIC is twofold. First, it aims to faithfully simulate multi-UAV systems operating in [typical real-world inspection missions](#42-inspection-scenarios). Second, based on this tool, different cooperative inspection schemes can be benchmarked based on a [common metric](#43-the-benchmark-criteria). The software stack is made public to benefit the community and we would like to welcome all who are interested to participate in [the challenge to be held at IROS 2025](#21-how-to-participate).
 
 <div style="text-align:center">
   <img src="docs/mbs_trimmed_spedup.gif" alt="facade_inspection" width="100%"/>
   <figcaption>CARIC software package can simulate UAV dynamics, physical collisions, camera-FOV-based instance detection, and line-of-sight-only communications</figcaption>
 </div>
 
-# 3. CARIC @ IROS 2025
 
-We are happy to announce that CARIC has returned at IROS 2025 in Hangzhou China together with the [PANLOGIN workshop]().
 
-## 3.1. How to participate?
+# 2. CARIC @ IROS 2025
+
+We are happy to announce that CARIC has returned at IROS 2025 in Hangzhou China together with the [2nd Workshop on Multi-Robot Perception and Navigation for Logistics and Inspection](https://www.panlogin.com/).
+
+## 2.1. How to participate?
 
 The challenge's procedure is as follows:
 
 * Sign up via the following [form](https://docs.google.com/forms/d/e/1FAIpQLSfpaBQUJmdi6etYXH5t0bj7R-TWuU_11-lUlEfKzcUrz9Cdyw/viewform).
 * Read through the description of CARIC software stack in the remaining of this website.
-* Participants develop their CARI schemes based on CARIC. Do notice the [ground rules](#61-ground-rules). The implementation can be in python, C++ or docker executable.
+* Participants develop their CARI schemes based on CARIC. Do notice the [ground rules](#51-ground-rules). The implementation can be in python, C++ or docker executable.
 * Send your code / executable to Dr. Thien-Minh Nguyen via **thienminh.npn@ieee.org**.
 * The submitted method will be evaluated on three undisclosed scenarios.
 
@@ -79,22 +52,22 @@ The challenge's procedure is as follows:
 
 <!-- <span style="color:red"> The scale and position of the building will not be the same as in the [released models](https://github.com/ntu-aris/caric_mission/tree/master/models). Only one big bounding box will be defined in the test scenarios.</span> -->
 
-* The methods will be ranked based on the **total [mission scores](#532-the-mission-score) obtained in all three chosen scenarios.
+* The methods will be ranked based on the **total [mission scores](#432-the-mission-score) obtained in all three chosen scenarios.
 <!-- * (Optional) A poster session will be arranged for the benchmark. If you wish to attend CDC 2023 and present your method in person, please submit a 1-2 page write-up (title and abstract) to [CSS Paperplaza](https://css.paperplaza.net/conferences/scripts/start.pl) (under **Submit a contribution to CDC 2023 > Benchmark Challenge > Submit**). Acceptance letter will be issued to the participants for registering and attending the conference. The deadline for registration is **1st September 2023**.
 If you have any technical inquiry, please raise an [issue on our github](https://github.com/ntu-aris/caric/issues). You may also join our [Discord group](https://discord.gg/cYMtaEqkub) and chat with our developers! -->
 
-## 3.2. Important dates
+## 2.2. Important dates
 (All dates and time are in GMT+8)
 * Last day to register for the challenge **10th October 2025**.
 * Last day to update your code **10th October 2025**.
 * Results will be announced in the Workshop on **24th October 2025**.
 
-## 3.3. Prize
+## 2.3. Prize
 
 The winner will receive a material or monetary prize of SGD 2000 and a certificate.
 <!-- If you are interested in being a sponsor of the challenge, please contact any of the [organizers](#7-organizers). -->
 
-# 4. Installation
+# 3. Installation
 
 The system is principally developed and tested on the following system configuration:
 
@@ -104,9 +77,9 @@ The system is principally developed and tested on the following system configura
 * Gazebo 11
 * Python 3.8
 
-##  4.1. Ubuntu 20.04 + ROS Noetic
+## 3.1. Ubuntu 20.04 + ROS Noetic
 
-###  4.1.1 Install the dependencies
+### 3.1.1 Install the dependencies
 
 Please install the neccessary dependencies by the following commands:
 
@@ -130,9 +103,9 @@ sudo apt-get install python3-wstool python3-catkin-tools python3-empy \
 sudo apt-get install ros-noetic-gazebo* ;
 ```
 
-Please check out the [notes](#413-notes) below if you encounter any problem.
+Please check out the [notes](#313-notes) below if you encounter any problem.
 
-###  4.1.2. Install the CARIC packages
+### 3.1.2. Install the CARIC packages
 Once the dependencis have been installed, please create a new workspace for CARIC, clone the necessary packages into it, and compile:
 
 ```bash
@@ -163,7 +136,7 @@ catkin build
 ```
 The compilation may report errors due to missing depencies or some packages in CARIC are not yet registered to the ros package list. This can be resolved by installing the missing dependencies (via `sudo apt install <package>` or `sudo apt install ros-$ROS_DISTRO-<ros_package_name>)`). Please try `catkin build` again a few times to let all the compiled packages be added to dependency list.
 
-###  4.1.3 Run the flight test
+### 3.1.3 Run the flight test
 
 To make sure the code compiles and runs smoothly, please launch the example flight test with some pre-defined fixed trajectories as follows:
 
@@ -173,7 +146,7 @@ roscd caric_mission/scripts
 bash launch_demo_paths.sh
 ```
 
-##  4.2. Ubuntu 22.04 + ROS Humble (ROS2)
+## 3.2. Ubuntu 22.04 + ROS Humble (ROS2)
 
 As ROS 1 has reached EOL, we have also set up a Docker environment based on Ubuntu 20.04. Below is the instructions to set up the docker and expose the ROS1 topics to ROS2 environment
 
@@ -227,9 +200,9 @@ The file `bridge.param` governs the topics to be bridged from ROS1 to ROS2
 
 You should see 5 UAVs take off, follow fixed trajectories, and fall down when time is out.
 
-# 5. The benchmark design
+# 4. The benchmark design
 
-##  5.1. The UAV fleet
+## 4.1. The UAV fleet
 A 5-UAV team is designed for the challenge, two of the _explorer_ class (nicknamed `jurong` and `raffles`), and three of the _photographer_ class (`changi`, `sentosa`, and `nanyang`), plus one *GCS (Ground Control Station)*. Each unit has an intended role in the mission.
 <div style="text-align:center">
   <img src="docs/fleet.jpeg" alt="fleet" width="50%"/>
@@ -242,7 +215,7 @@ A 5-UAV team is designed for the challenge, two of the _explorer_ class (nicknam
 
 Note that the explorer is twice the size and weight of the photographer. Thanks to the bigger size, it can carry the lidar and quickly map the environment, at the cost of slower speed. In contrast, the photographers have higher speed, thus they can quickly cover the surfaces that have been mapped by the explorer to obtain images of higher score. The GCS's role is to compare the images taken by the drones. For each interest point, the GCS can select the image with the best quality to assign the score to it.
 
-##  5.2. Inspection scenarios
+## 4.2. Inspection scenarios
 The following scenarios are included in the challenge as examples:
 
 * Building inspection: The environment features a 60m tall building model that consists of three main vertical towers with a single void deck connecting the tops. The full 5-UAV fleet is deployed in this environment.
@@ -267,22 +240,22 @@ The following scenarios are included in the challenge as examples:
   </div>
 
 Note that for different inspection scenarios, different number of drones and camera settings are used. The setting for each scenario is indicated in the description file `caric_ppcom_network_NAME_OF_SCENARIO.txt` in the [folder](https://github.com/ntu-aris/rotors_simulator/tree/master/rotors_description/ppcom_network).
-##  5.3. The benchmark criteria
+## 4.3. The benchmark criteria
 
-###  5.3.1. Inspection mission overview
+### 4.3.1. Inspection mission overview
 
-The mission time starts from the moment any UAV takes off (when it's velocity exceeds 0.1m/s and it's altitude exceeds 0.1m). When the time elapses, all drones will shut down and no communication is possible. User can design any CARI strategy that follows the [ground rules](#61-ground-rules) to acheive the highest inspection score within the finite mission time.
+The mission time starts from the moment any UAV takes off (when it's velocity exceeds 0.1m/s and it's altitude exceeds 0.1m). When the time elapses, all drones will shut down and no communication is possible. User can design any CARI strategy that follows the [ground rules](#51-ground-rules) to acheive the highest inspection score within the finite mission time.
 
 During the mission, the GCS will receive the information regarding the captured interest points from the UAVs when there is LOS. The captures are compared and the score will be tallied and published in real time under the `/gcs/score` topic. After each mission, a log file will be generated in the folder specified under the param `log_dir` in the launch file of `caric_mission` package.
 
-In practice operators in the field can subjectively limit the area to be inspected within an area. Thus, in each mission a sequence of bounding boxes are given to help limit the exploration effort. The interest points will only be located inside these bounding boxes. Details on the bounding boxes can be found in the later section on [onboard perception data](#62-onboard-perception-data). **In IROS 2024 iteration, we would only use ONE bounding box for each test scenario.**
+In practice operators in the field can subjectively limit the area to be inspected within an area. Thus, in each mission a sequence of bounding boxes are given to help limit the exploration effort. The interest points will only be located inside these bounding boxes. Details on the bounding boxes can be found in the later section on [onboard perception data](#52-onboard-perception-data). **In IROS 2024 iteration, we would only use ONE bounding box for each test scenario.**
 
 <div style="text-align:center">
   <img src="docs/boundingboxyaml.jpg" alt="resolution1" width="25%"/>
   <figcaption>Location of bounding box yaml in the package</figcaption>
 </div>
 
-### 5.3.2. The mission score
+### 4.3.2. The mission score
 
 Let us denote the set of the interest point as $$I$$, and the set of UAVs as $$N$$. At each simulation update step $$k$$, we denote $$q_{i,n,k}$$ as the score of the interest point $$i$$ captured by UAV $$n$$. Specifically $$q_{i,n,k}$$ is calculated as follows:
 
@@ -314,11 +287,11 @@ Hence, **the mission score will be $$Q_k$$ at the end of the mission**.
 
 Below we will explain the processes used to determine the terms $$q_\text{seen}$$, $$q_\text{blur}$$, $$q_\text{res}$$ in the calculation of $$q_{i,n,k}$$.
 
-###  5.3.3. LOS and FOV
+### 4.3.3. LOS and FOV
 
-The term $$q_\text{seen}$$ is a binary-valued metric value that is 1.0 when the interest point falls in the field of view (FOV) of the camera, and the camera has direct line of sight (LOS) to the interest point (not obstructed by any other objects), and 0.0 otherwise. The camera horizontal FOV and vertical FOV are defined by the parameters `HorzFOV` and `VertFOV` in the [description files for the respective inspection scenarios](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network). Note that the camera orientation can be controlled as described in the section [Camera gimbal control](#631-camera-gimbal-control).
+The term $$q_\text{seen}$$ is a binary-valued metric value that is 1.0 when the interest point falls in the field of view (FOV) of the camera, and the camera has direct line of sight (LOS) to the interest point (not obstructed by any other objects), and 0.0 otherwise. The camera horizontal FOV and vertical FOV are defined by the parameters `HorzFOV` and `VertFOV` in the [description files for the respective inspection scenarios](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network). Note that the camera orientation can be controlled as described in the section [Camera gimbal control](#531-camera-gimbal-control).
 
-###  5.3.4. Motion blur
+### 4.3.4. Motion blur
 
 The motion blur metric $$q_\text{blur}$$ is based on the motion of the interest point during the camera exposure duration $$\tau$$. This value is declared in the parameter `ExposureTime` in the [description files](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network). It can be interpreted as the number of pixels that an interest point moves across during the exposure time, i.e.:
 
@@ -349,7 +322,7 @@ with $$f$$ being the *focal length*, $$[x_0,y_0,z_0]^\top$$ the position of the 
 
 Note that for an sufficiently sharp capture, it only requires that the movement of the interest point is smaller than 1 pixel. Therefore we cap the value of $$q_\text{blur}$$ at 1.0. Otherwise if the UAV stays static during the capture, $$q_\text{blur}$$ could be $$\infty$$.
 
-###  5.3.5. Image resolution
+### 4.3.5. Image resolution
 
 The resolution of the image is expressed in milimeter-per-pixel (mmpp), representing the size of the real-world object captured in one image pixel. To achieve a satisfactory resolution, the computed horizontal and vertical resolutions should be smaller than a desired mmpp value. We will explain our derivation of the mmpp metric below.
 
@@ -371,19 +344,19 @@ $$
 
 where $$r_\text{des}$$ is the desired resolution in mmpp.
 
-# 6. Developing your CARI scheme
+# 5. Developing your CARI scheme
 
-##  6.1. Ground rules
+## 5.1. Ground rules
 
 The following rules should be adhered to in developing a meaningful CARI scheme:
 
 * <u>Isolated namespaces</u>: The user-defined software processes should be isolated by the appropriate namespaces. Consider each namespace the local computer running on a unit. In the real world the processes on one computer should not be able to freely subscribe to a topic in another computer. Information exchange between namespaces is possible but should be subjected to the characteristics of the communication network (see the next rule). Currently there are six namespaces used in CARIC: `/gcs`, `/jurong`, `/rafffles`, `/changi`, `/sentosa`, and `/nanyang`. Note that some topics may be published outside of these namespaces for monitoring and evaluating purposes, and should not be subscribed to by any user-defined node.
 
-* <u>Networked communication</u>: The communication between the namespaces should be regulated by the `ppcom_router` node, which simulates a peer-to-peer broadcast network. In this network messages can be sent directly from a node in one namespace to another node in another namespace **when there is LOS**. Please refer to the details of the [communication network](#64-communication-network) for the instructions on how to apply the `ppcom_router` node.
+* <u>Networked communication</u>: The communication between the namespaces should be regulated by the `ppcom_router` node, which simulates a peer-to-peer broadcast network. In this network messages can be sent directly from a node in one namespace to another node in another namespace **when there is LOS**. Please refer to the details of the [communication network](#54-communication-network) for the instructions on how to apply the `ppcom_router` node.
 
 * <u>No prior map</u>: Though the prior map of the structures and the locations of the interest points are available, they are only used for simulation. Users should develop CARI schemes that only rely on the onboard perception, and other information that are exchanged between the units via the `ppcom_router` network.
 
-##  6.2. Onboard perception data
+## 5.2. Onboard perception data
 
 CARIC is intended for investigating cooperative control schemes, hence perception proccesses such as sensor fusion, SLAM, map merging, etc... are assumed perfect (for now). To fullfill feedback control, mapping, and obstacle avoidance tasks... users can subscribe to the following topics:
 
@@ -405,7 +378,7 @@ NOTE:
 * In the GCS, operator may be able to specify some bounding boxes to limit the exploration space. In each mission the vertices of the bounding boxes are published under the topic `/gcs/bounding_box_vertices`, which is of type `sensor_msgs/PointCloud`. Each bounding box consists of 8 vertices. User can subscribe to this topic or get the description of the bounding box directly from the `bounding_box_description.yaml` files in the `caric_mission` package. Note that the bounding box will be changed in the evaluation.
 
 
-##  6.3. UAV control interface
+## 5.3. UAV control interface
 
 Whatever control strategy is developed, the control signal should be eventually converted to standard multi-rotor command. Specifically the UAVs are controlled using the standard ROS message `trajectory_msgs/MultiDOFJointTrajectory`. The controller subscribes to the command trajectory topic `/<unit_id>/command/trajectory`. Below are sample codes used to publish a trajectory command in `traj_gennav_node.cpp`, given 3d target states in the global(world) frame `target_pos`, `target_vel`, `target_acc` and a target yaw `target_yaw`:
 
@@ -450,7 +423,7 @@ There are multiple ways you can control the robots:
 `Velocity/acceleration-based control`: when setting target positions to zeros and setting non-zero velocities or accelerations, the robot will try to move with the desired velocity/acceleration. The actual velocity/acceleration may not follow the desired states exactly due to the realistic low level controller. Hence, the users are suggested to take into account the state feedback when generating the control inputs.
 
 You may try controlling a drone and its camera gimbal manually using keyboard inputs, see [instructions](https://github.com/ntu-aris/caric_mission/wiki/Manual-control-using-keyboard).
-###  6.3.1. Camera gimbal control
+### 5.3.1. Camera gimbal control
 
 Confusion can easily arise when handling rotation. It is recommended that users go through our [technical note](docs/CARIC_motion_blur.pdf) for an overview of the underlying technical conventions.
 
@@ -472,7 +445,7 @@ Also, we define the camera frame with its X-axis perpendicular to the image plan
 
 The camera states relative to the stabilizer coordinate frame are published through the topic `/<unit_id>/gimbal` of type `geometry_msgs/TwistStamped`. The fields `twist.linear` indicates the euler angle while the fields `twist.angular` indicates the angular rates (a bit of deviation from the original meaning of the message type).
 
-###  6.3.2. Camera trigger
+### 5.3.2. Camera trigger
 
 Two camera trigger modes are allowed. If the parameter `manual_trigger` is set to false, the robot will automatically trigger camera capture at a fixed time interval defined by the parameter `TriggerInterval`. If the parameter `manual_trigger` is set to true, the user may send camera trigger command by publishing to a topic `/<unit_id>/command/camera_trigger` of type `rotors_comm/BoolStamped`:
 
@@ -484,7 +457,7 @@ trigger_pub.publish(msg);  //trigger_pub has to be defined as a ros::Publisher
 ```
 Note that in manual trigger mode, the time stamps of two consecutive trigger commands should still be separated by an interval larger than the parameter `TriggerInterval`, otherwise, the second trigger command will be ignored. The benefit of using manual trigger is that the users may send the trigger command at the exact time that results in the best capture quality.
 
-##  6.4. Communication network
+## 5.4. Communication network
 
 Each robot is given a unique ID in a so-called ppcom network, for e.g. gcs, jurong, changi. These IDs are declared in the [description file](https://github.com/ntu-aris/rotors_simulator/blob/master/rotors_description/ppcom_network/caric_ppcom_network.txt).
 
@@ -519,7 +492,7 @@ print(f"Response {response}") # Error will be appended to the response.
   <figcaption>Illustration of communication among ros nodes under different namespaces via the ppcom_router: In the first terminal we start the the simulation. Net the <b>ppcom_router</b> node is launch. Then <b>ppcom_firefly1_talker</b>, <b>ppcom_firefly2_talker</b>, <b>ppcom_firefly3_talker</b> are launched in different terminals. You can observe the messages sent and received by each node in the corresponding terminal. Notice how the messages are dropped when the corresponding entry in the LOS matrix turns to 0 (the <b>firefly1</b> --> <b>firefly3</b> LOS status is indicated by the entry at 2nd row, 4th column).</figcaption>
 </div>
 
-# 7. Baseline Method
+# 6. Baseline Method
 
 A baseline method is provided for participants as an example. Please refer to our [ICCA paper](https://arxiv.org/pdf/2403.01225) for the technical details.
 The source code is available at [https://github.com/ntu-aris/caric_baseline](https://github.com/ntu-aris/caric_baseline). Please cite our work as follows:
@@ -535,13 +508,13 @@ The source code is available at [https://github.com/ntu-aris/caric_baseline](htt
 }
 ```
 
-# 8. Leaderboard
+# 7. Leaderboard
 
 [**CARIC @ CDC 2023**](leaderboard/#:~:text=CDC%202023%2C%20Singapore%3A)
 
 [**CARIC @ IROS 2024**](leaderboard/#:~:text=IROS%202024%2C%20Abu%20Dhabi)
 
-# 9. Organizers
+# 8. Organizers
 
 <table>
 
@@ -565,7 +538,7 @@ The source code is available at [https://github.com/ntu-aris/caric_baseline](htt
 
 <tr>
 <td> thienminh.npn@ieee.org </td>
-<td> mqcao@ntu.edu.sg       </td>
+<td> caom0006@e.ntu.edu.sg       </td>
 <td> shyuan@ntu.edu.sg      </td>
 <td> xu0021ng@e.ntu.edu.sg  </td>
 <td> elhxie@ntu.edu.sg      </td>
@@ -573,3 +546,22 @@ The source code is available at [https://github.com/ntu-aris/caric_baseline](htt
 </tr>
 
 </table>
+
+# 9. Publication and Citation
+
+We have published the initial results and lessons learnt from the first edition of CARIC challenge at the IEEE Robotics and Automation Magazine (RA-M), you may read the [paper](https://ieeexplore.ieee.org/document/11079769) to learn more from the past participants.
+Please cite our work as follows:
+
+```
+@ARTICLE{cao2025cooperative,
+  author={Cao, Muqing and Nguyen, Thien-Minh and Yuan, Shenghai and Anastasiou, Andreas and Zacharia, Angelos and Papaioannou, Savvas and Kolios, Panayiotis and Panayiotou, Christos G. and Polycarpou, Marios M. and Xu, Xinhang and Zhang, Mingjie and Gao, Fei and Zhou, Boyu and Chen, Ben M. and Xie, Lihua},
+  journal={IEEE Robotics & Automation Magazine}, 
+  title={Cooperative Aerial Robot Inspection Challenge: A Benchmark for Heterogeneous Multi-Uncrewed-Aerial-Vehicle Planning and Lessons Learned}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={2-13},
+  keywords={Inspection;Autonomous aerial vehicles;Planning;Benchmark testing;Measurement;Cameras;Laser radar;Buildings;Resource management;Multi-robot systems},
+  doi={10.1109/MRA.2025.3584341}}
+
+```

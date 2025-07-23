@@ -5,3 +5,38 @@
 @import
   "minima/skins/{{ site.minima.skin | default: 'classic' }}",
   "minima/initialize";
+
+.home-layout {
+  display: flex;
+  align-items: flex-start;
+}
+.sidebar {
+  width: 340px;
+  margin-right: 2em;
+  position: sticky;
+  top: 2em;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fafafa;
+  border-right: 1px solid #eee;
+  padding: 1em;
+}
+.main-content {
+  flex: 1 1 0%;
+  min-width: 0;
+  max-width: 1000px;
+}
+.toc ul {
+  list-style: none;
+  padding-left: 0;
+}
+.toc li {
+  margin-bottom: 0.5em;
+}
+.toc a {
+  text-decoration: none;
+  color: #0366d6;
+}
+.toc a:hover {
+  text-decoration: underline;
+}

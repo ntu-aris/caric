@@ -2,60 +2,113 @@
 layout: base
 ---
 
-<div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
-
-  {{ content }}
-
-
-  {% if site.paginate %}
-    {% assign posts = paginator.posts %}
-  {% else %}
-    {% assign posts = site.posts %}
-  {% endif %}
-
-
-  {%- if posts.size > 0 -%}
-    {%- if page.list_title -%}
-      <h2 class="post-list-heading">{{ page.list_title }}</h2>
+<div class="home-layout">
+  <aside class="sidebar">
+    <nav class="toc">
+      <h2>Table of Contents</h2>
+      <ul>
+        <li><a href="#1-introduction">1. Introduction</a></li>
+        <li><a href="#2-caric--iros-2025">2. CARIC @ IROS 2025</a>
+          <ul>
+            <li><a href="#21-how-to-participate">2.1. How to participate?</a></li>
+            <li><a href="#22-important-dates">2.2. Important dates</a></li>
+            <li><a href="#23-prize">2.3. Prize</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-installation">3. Installation</a>
+          <ul>
+            <li><a href="#31-ubuntu-2004--ros-noetic">3.1. Ubuntu 20.04 + ROS Noetic</a>
+              <ul>
+                <li><a href="#311-install-the-dependencies">3.1.1 Install the dependencies</a></li>
+                <li><a href="#312-install-the-caric-packages">3.1.2 Install the CARIC packages</a></li>
+                <li><a href="#313-run-the-flight-test">3.1.3 Run the flight test</a></li>
+              </ul>
+            </li>
+            <li><a href="#32-ubuntu-2204--ros-humble-ros2">3.2. Ubuntu 22.04 + ROS Humble (ROS2)</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-the-benchmark-design">4. The benchmark design</a>
+          <ul>
+            <li><a href="#41-the-uav-fleet">4.1. The UAV fleet</a></li>
+            <li><a href="#42-inspection-scenarios">4.2. Inspection scenarios</a></li>
+            <li><a href="#43-the-benchmark-criteria">4.3. The benchmark criteria</a>
+              <ul>
+                <li><a href="#431-inspection-mission-overview">4.3.1 Inspection mission overview</a></li>
+                <li><a href="#432-the-mission-score">4.3.2 The mission score</a></li>
+                <li><a href="#433-los-and-fov">4.3.3 LOS and FOV</a></li>
+                <li><a href="#434-motion-blur">4.3.4 Motion blur</a></li>
+                <li><a href="#435-image-resolution">4.3.5 Image resolution</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#5-developing-your-cari-scheme">5. Developing your CARI scheme</a>
+          <ul>
+            <li><a href="#51-ground-rules">5.1. Ground rules</a></li>
+            <li><a href="#52-onboard-perception-data">5.2. Onboard perception data</a></li>
+            <li><a href="#53-uav-control-interface">5.3. UAV control interface</a>
+              <ul>
+                <li><a href="#531-camera-gimbal-control">5.3.1 Camera gimbal control</a></li>
+                <li><a href="#532-camera-trigger">5.3.2 Camera trigger</a></li>
+              </ul>
+            </li>
+            <li><a href="#54-communication-network">5.4. Communication network</a></li>
+          </ul>
+        </li>
+        <li><a href="#6-baseline-method">6. Baseline Method</a></li>
+        <li><a href="#7-leaderboard">7. Leaderboard</a></li>
+        <li><a href="#8-organizers">8. Organizers</a></li>
+        <li><a href="#9-publication-and-citation">9. Citation</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <main class="main-content">
+    {%- if page.title -%}
+      <h1 class="page-heading">{{ page.title }}</h1>
     {%- endif -%}
-    <ul class="post-list">
-      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      {%- for post in posts -%}
-      <li>
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
-      </li>
-      {%- endfor -%}
-    </ul>
-
+    {{ content }}
     {% if site.paginate %}
-      <div class="pager">
-        <ul class="pagination">
-        {%- if paginator.previous_page %}
-          <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-          <li><div class="current-page">{{ paginator.page }}</div></li>
-        {%- if paginator.next_page %}
-          <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-        </ul>
-      </div>
-    {%- endif %}
-
-  {%- endif -%}
-
+      {% assign posts = paginator.posts %}
+    {% else %}
+      {% assign posts = site.posts %}
+    {% endif %}
+    {%- if posts.size > 0 -%}
+      {%- if page.list_title -%}
+        <h2 class="post-list-heading">{{ page.list_title }}</h2>
+      {%- endif -%}
+      <ul class="post-list">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        {%- for post in posts -%}
+        <li>
+          <span class="post-meta">{{ post.date | date: date_format }}</span>
+          <h3>
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              {{ post.title | escape }}
+            </a>
+          </h3>
+          {%- if site.show_excerpts -%}
+            {{ post.excerpt }}
+          {%- endif -%}
+        </li>
+        {%- endfor -%}
+      </ul>
+      {% if site.paginate %}
+        <div class="pager">
+          <ul class="pagination">
+          {%- if paginator.previous_page %}
+            <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
+          {%- else %}
+            <li><div class="pager-edge">•</div></li>
+          {%- endif %}
+            <li><div class="current-page">{{ paginator.page }}</div></li>
+          {%- if paginator.next_page %}
+            <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
+          {%- else %}
+            <li><div class="pager-edge">•</div></li>
+          {%- endif %}
+          </ul>
+        </div>
+      {%- endif %}
+    {%- endif -%}
+  </main>
 </div>
