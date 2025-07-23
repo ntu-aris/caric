@@ -9,6 +9,8 @@
 .home-layout {
   display: flex;
   align-items: flex-start;
+  box-sizing: border-box;
+  min-width: 0;
 }
 .sidebar {
   width: 340px;
@@ -20,11 +22,13 @@
   background: #fafafa;
   border-right: 1px solid #eee;
   padding: 1em;
+  box-sizing: border-box;
 }
 .main-content {
   flex: 1 1 0%;
   min-width: 0;
   max-width: 1000px;
+  box-sizing: border-box;
 }
 .toc ul {
   list-style: none;
@@ -45,6 +49,7 @@
   .home-layout {
     flex-direction: column;
     align-items: stretch;
+    min-width: 0;
   }
   .sidebar {
     width: 100%;
@@ -57,5 +62,6 @@
   }
   .main-content {
     max-width: 100%;
+    min-width: 0;
   }
 }
