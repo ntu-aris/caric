@@ -40,3 +40,22 @@
 .toc a:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 800px) {
+  .home-layout {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sidebar {
+    width: 100%;
+    max-height: none;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+    margin-right: 0;
+    margin-bottom: 1em;
+  }
+  .main-content {
+    max-width: 100%;
+  }
+}
