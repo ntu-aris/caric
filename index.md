@@ -77,7 +77,7 @@ The system is principally developed and tested on the following system configura
 * Gazebo 11
 * Python 3.8
 
-## 3.1. Ubuntu 20.04 + ROS Noetic
+## 3.1. Ubuntu 20.04 + ROS Noetic (ROS1)
 
 ### 3.1.1 Install the dependencies
 
@@ -146,11 +146,14 @@ roscd caric_mission/scripts
 bash launch_demo_paths.sh
 ```
 
-## 3.2. Ubuntu 22.04 + ROS Humble (ROS2)
+## 3.2. Docker image
+If you use newer Ubuntu version and wish to develop in ROS1, we provide a docker image. Please refer to the instruction [here](https://github.com/caomuqing/caric_docker?tab=readme-ov-file#run-caric-in-a-ros1-docker-container-and-develop-in-ros1).
 
-As ROS 1 has reached EOL, we have also set up a Docker environment based on Ubuntu 20.04. Below is the instructions to set up the docker and expose the ROS1 topics to ROS2 environment
+## 3.3. Ubuntu 22.04 + ROS Humble (ROS2)
 
-Make sure you have docker installed. See the [instruction](https://docs.docker.com/engine/install/ubuntu/).
+As ROS 1 has reached EOL, we have also set up a Docker environment based on Ubuntu 20.04. Below is the instructions to set up the docker and expose the ROS1 topics to ROS2 environment. More detailed instructions please refer to the [github repository](https://github.com/caomuqing/caric_docker).
+
+Make sure you have docker installed. See the [instruction](https://docs.docker.com/engine/install/ubuntu/) for docker installation.
 
 Clone this package and build docker:
 ```bash
